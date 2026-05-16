@@ -166,7 +166,92 @@ def load_matches(year: int) -> list[dict]:
     return out
 
 
+# Defaults from PRD v1.6 §5.5.
+PARAMS = {
+    "c_elo": 300.0,
+    "c_fifa": 450.0,
+    "mu": 1.35,
+    "lambda_min": 0.05,
+    "blend_w": 0.7,
+    "e0": 1500.0,
+    "home_bonus_elo": 100.0,
+    "home_bonus_fifa": 150.0,
+}
+
+SCORE_GRID_MAX = 8   # inclusive => 9x9 grid; covers > 99.99% of mass.
+
+
+def _poisson_pmf(lmbda: float, max_goals: int) -> np.ndarray:
+    """Discrete Poisson PMF over [0, max_goals]. Drops residual mass."""
+    k = np.arange(max_goals + 1)
+    log_fact = np.cumsum(np.log(np.maximum(k, 1)))
+    log_fact[0] = 0.0
+    log_pmf = k * np.log(max(lmbda, 1e-12)) - lmbda - log_fact
+    return np.exp(log_pmf)
+
+
+def _outcome_probs(lam_a: float, lam_b: float) -> tuple[float, float, float]:
+    """Return (P(home_win), P(draw), P(away_win)) from two independent Poissons."""
+    pa = _poisson_pmf(lam_a, SCORE_GRID_MAX)
+    pb = _poisson_pmf(lam_b, SCORE_GRID_MAX)
+    grid = np.outer(pa, pb)
+    p_home = float(np.tril(grid, k=-1).sum())
+    p_draw = float(np.trace(grid))
+    p_away = float(np.triu(grid, k=1).sum())
+    s = p_home + p_draw + p_away
+    return p_home / s, p_draw / s, p_away / s
+
+
+def predict(
+    *,
+    elo_a: float, elo_b: float,
+    fifa_a: float, fifa_b: float,
+    f0: float,
+    a_is_host: bool, b_is_host: bool,
+    mode: str,
+    params: dict | None = None,
+) -> tuple[float, float, float]:
+    """Return (P(home), P(draw), P(away)) for team A (home) vs B under `mode`."""
+    p = params or PARAMS
+    host_diff = float(a_is_host) - float(b_is_host)   # +1, 0, or -1
+    mu = p["mu"]
+    lam_min = p["lambda_min"]
+
+    if mode == "elo":
+        H = p["home_bonus_elo"] * host_diff
+        D = (elo_a - elo_b) + H
+        c = p["c_elo"]
+    elif mode == "fifa":
+        H = p["home_bonus_fifa"] * host_diff
+        D = (fifa_a - fifa_b) + H
+        c = p["c_fifa"]
+    elif mode == "blend":
+        e0 = p["e0"]
+        w = p["blend_w"]
+        ra = w * elo_a + (1 - w) * (fifa_a * e0 / f0)
+        rb = w * elo_b + (1 - w) * (fifa_b * e0 / f0)
+        H = p["home_bonus_elo"] * host_diff   # blend lives in Elo space
+        D = (ra - rb) + H
+        c = p["c_elo"]
+    else:
+        raise ValueError(f"Unknown mode: {mode!r}")
+
+    lam_a = max(lam_min, mu + D / (2 * c))
+    lam_b = max(lam_min, mu - D / (2 * c))
+    return _outcome_probs(lam_a, lam_b)
+
+
 def main() -> None:
+    # --- Predictor invariants (Fix 6). These run on synthetic inputs, no data needed. ---
+    _p = predict(elo_a=2000, elo_b=1500, fifa_a=1500, fifa_b=1200,
+                 f0=1300.0, a_is_host=False, b_is_host=False, mode="elo")
+    assert abs(sum(_p) - 1.0) < 1e-9, f"Probs don't sum to 1: {_p}"
+    _q = predict(elo_a=1500, elo_b=2000, fifa_a=1200, fifa_b=1500,
+                 f0=1300.0, a_is_host=False, b_is_host=False, mode="elo")
+    assert abs(_p[0] - _q[2]) < 1e-9 and abs(_p[2] - _q[0]) < 1e-9, (
+        f"Predictor not symmetric: {_p} vs {_q}"
+    )
+
     elo_2018 = load_elo(WC2018[0])
     elo_2022 = load_elo(WC2022[0])
     fifa_2018_pts, _ = load_fifa(WC2018[0])
@@ -193,6 +278,20 @@ def main() -> None:
     assert final_2022["pen_winner_iso3"] == "ARG", (
         f"2022 final's pen_winner_iso3 should be ARG, got {final_2022['pen_winner_iso3']}"
     )
+
+    # --- Task 5 sanity print: ARG-FRA 2022 final prediction in all 3 modes. ---
+    f0_2022 = float(np.mean(list(fifa_2022_pts.values())))
+    print(f"\nF0 (mean FIFA points 2022 snapshot) = {f0_2022:.1f}")
+    a, b = "ARG", "FRA"
+    for mode in ("elo", "fifa", "blend"):
+        p = predict(
+            elo_a=elo_2022[a], elo_b=elo_2022[b],
+            fifa_a=fifa_2022_pts[a], fifa_b=fifa_2022_pts[b],
+            f0=f0_2022,
+            a_is_host=False, b_is_host=False,    # neutral venue (Qatar hosted)
+            mode=mode,
+        )
+        print(f"ARG-FRA 2022 final ({mode}): P(ARG)={p[0]:.3f} draw={p[1]:.3f} P(FRA)={p[2]:.3f}")
 
 
 if __name__ == "__main__":
