@@ -293,6 +293,55 @@ def predict_all_matches(
     return preds
 
 
+def calibration_buckets(preds: np.ndarray, outcomes: np.ndarray, n_buckets: int = 10):
+    """Decile-bucket all (prediction, outcome) pairs flattened across
+    home/draw/away. Returns (mean_predicted, mean_observed, bucket_sizes)
+    arrays of length n_buckets."""
+    p = preds.flatten()
+    y = outcomes.flatten()
+    edges = np.linspace(0.0, 1.0, n_buckets + 1)
+    mean_p = np.full(n_buckets, np.nan)
+    mean_y = np.full(n_buckets, np.nan)
+    sizes = np.zeros(n_buckets, dtype=int)
+    for i in range(n_buckets):
+        lo, hi = edges[i], edges[i + 1]
+        mask = (p >= lo) & (p < hi) if i < n_buckets - 1 else (p >= lo) & (p <= hi)
+        sizes[i] = int(mask.sum())
+        if sizes[i] > 0:
+            mean_p[i] = float(p[mask].mean())
+            mean_y[i] = float(y[mask].mean())
+    return mean_p, mean_y, sizes
+
+
+def write_calibration_plot(preds: np.ndarray, outcomes: np.ndarray, out_path: Path) -> dict:
+    mean_p, mean_y, sizes = calibration_buckets(preds, outcomes)
+    fig, ax = plt.subplots(figsize=(6, 6))
+    ax.plot([0, 1], [0, 1], "k--", alpha=0.4, label="perfect calibration")
+    valid = sizes > 0
+    ax.scatter(
+        mean_p[valid], mean_y[valid],
+        s=np.maximum(sizes[valid] * 4, 20),
+        c="C0", alpha=0.7, edgecolors="C0",
+        label="Elo 90-min (point size ∝ n)",
+    )
+    ax.set_xlabel("Mean predicted probability")
+    ax.set_ylabel("Observed frequency")
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.set_aspect("equal")
+    ax.set_title("Elo-mode 90-min calibration (deciles)")
+    ax.legend(loc="upper left")
+    fig.tight_layout()
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out_path, dpi=150)
+    plt.close(fig)
+    return {
+        "mean_predicted": [None if np.isnan(x) else float(x) for x in mean_p],
+        "mean_observed":  [None if np.isnan(x) else float(x) for x in mean_y],
+        "bucket_sizes":   [int(s) for s in sizes],
+    }
+
+
 def simulated_draw_rate(preds: np.ndarray) -> float:
     """Mean predicted draw probability (column index 1)."""
     return float(np.mean(preds[:, 1]))
@@ -422,6 +471,11 @@ def main() -> None:
         "delta_pp": {mode: (sim_per_mode[mode] - observed) * 100 for mode in sim_per_mode},
     }
 
+    # --- Task 8: Elo-mode 90-min calibration plot. ---
+    cal = write_calibration_plot(preds_all["elo"], y_90, RESULTS / "calibration.png")
+    results["calibration_elo_90min"] = cal
+    print(f"\nCalibration plot -> {RESULTS / 'calibration.png'}")
+
     print(json.dumps({
         "n_matches": results["n_matches"],
         "f0_by_year": results["params"]["f0_by_year"],
@@ -429,6 +483,7 @@ def main() -> None:
         "rps_post_et": results["rps_post_et"],
         "et_divergence": results["et_divergence"],
         "draw_rate": results["draw_rate"],
+        "calibration_elo_90min": results["calibration_elo_90min"],
     }, indent=2))
 
     # Stash for Tasks 8-10 (refactored away in Task 10 when we write brier.json).
