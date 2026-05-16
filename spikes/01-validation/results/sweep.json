@@ -1,0 +1,2318 @@
+{
+  "grid": [
+    {
+      "rps_90min": 0.21154292795179486,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1795415461725735,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 200,
+      "mu": 1.1
+    },
+    {
+      "rps_90min": 0.21124720625658294,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.19567886522580025,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 200,
+      "mu": 1.15
+    },
+    {
+      "rps_90min": 0.21102744471356327,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.17614936162649558,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 200,
+      "mu": 1.2
+    },
+    {
+      "rps_90min": 0.21085609533040253,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1737630573546049,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 200,
+      "mu": 1.25
+    },
+    {
+      "rps_90min": 0.2107259560006436,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.17145134728752193,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 200,
+      "mu": 1.3
+    },
+    {
+      "rps_90min": 0.21056573596340117,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.18957252990924878,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 200,
+      "mu": 1.35
+    },
+    {
+      "rps_90min": 0.2104042911274474,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.17048982953189556,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 200,
+      "mu": 1.4
+    },
+    {
+      "rps_90min": 0.21027342804407795,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.13806684871182284,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 200,
+      "mu": 1.45
+    },
+    {
+      "rps_90min": 0.21009362280433758,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.13965765106233063,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 200,
+      "mu": 1.5
+    },
+    {
+      "rps_90min": 0.209931874567987,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.13755112914096002,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 200,
+      "mu": 1.55
+    },
+    {
+      "rps_90min": 0.2097938604284154,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.13461759522105393,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 200,
+      "mu": 1.6
+    },
+    {
+      "rps_90min": 0.2106983380328386,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.18726902183316918,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 210,
+      "mu": 1.1
+    },
+    {
+      "rps_90min": 0.21049898994564975,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.16819165884636716,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 210,
+      "mu": 1.15
+    },
+    {
+      "rps_90min": 0.21035116069270254,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.13582950528987114,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 210,
+      "mu": 1.2
+    },
+    {
+      "rps_90min": 0.21024722560614267,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.13743449551247378,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 210,
+      "mu": 1.25
+    },
+    {
+      "rps_90min": 0.21008785045178396,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.13519605398453127,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 210,
+      "mu": 1.3
+    },
+    {
+      "rps_90min": 0.20994931248841203,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.10820775574581465,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 210,
+      "mu": 1.35
+    },
+    {
+      "rps_90min": 0.20982047801897685,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1147831701770725,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 210,
+      "mu": 1.4
+    },
+    {
+      "rps_90min": 0.2096506590429777,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.11034717174123951,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 210,
+      "mu": 1.45
+    },
+    {
+      "rps_90min": 0.20950845382231834,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1336622117181145,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 210,
+      "mu": 1.5
+    },
+    {
+      "rps_90min": 0.20939067719177634,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1461856055416521,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 210,
+      "mu": 1.55
+    },
+    {
+      "rps_90min": 0.20929457322197856,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1423423697676009,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 210,
+      "mu": 1.6
+    },
+    {
+      "rps_90min": 0.2101015311781167,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.10374378342176971,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 220,
+      "mu": 1.1
+    },
+    {
+      "rps_90min": 0.20996845381231177,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.07797558452580189,
+      "worst_decile_idx": 5,
+      "fully_passes": false,
+      "c_elo": 220,
+      "mu": 1.15
+    },
+    {
+      "rps_90min": 0.20988310588423237,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.10310564826003923,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 220,
+      "mu": 1.2
+    },
+    {
+      "rps_90min": 0.20972772449265986,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.11171168130954334,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 220,
+      "mu": 1.25
+    },
+    {
+      "rps_90min": 0.20960618746429874,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.11582137120959352,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 220,
+      "mu": 1.3
+    },
+    {
+      "rps_90min": 0.2094728729043477,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.12445398609488521,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 220,
+      "mu": 1.35
+    },
+    {
+      "rps_90min": 0.20931693857886538,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.13420336026042448,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 220,
+      "mu": 1.4
+    },
+    {
+      "rps_90min": 0.20919002042877843,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1652629491539474,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 220,
+      "mu": 1.45
+    },
+    {
+      "rps_90min": 0.20908857638466913,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.16231897071697265,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 220,
+      "mu": 1.5
+    },
+    {
+      "rps_90min": 0.20900956394159453,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.16576409893834254,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 220,
+      "mu": 1.55
+    },
+    {
+      "rps_90min": 0.2089503595228911,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1718744406494379,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 220,
+      "mu": 1.6
+    },
+    {
+      "rps_90min": 0.20969123174391238,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.100709967895806,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 230,
+      "mu": 1.1
+    },
+    {
+      "rps_90min": 0.2096161892560394,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.10998533404107491,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 230,
+      "mu": 1.15
+    },
+    {
+      "rps_90min": 0.2094681444327385,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.08568577307074533,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 230,
+      "mu": 1.2
+    },
+    {
+      "rps_90min": 0.20935735296701657,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.15451976575446846,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 230,
+      "mu": 1.25
+    },
+    {
+      "rps_90min": 0.20922241693305668,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.16240429200701256,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 230,
+      "mu": 1.3
+    },
+    {
+      "rps_90min": 0.2090755119633493,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.16620481683246213,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 230,
+      "mu": 1.35
+    },
+    {
+      "rps_90min": 0.20895953868853023,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.17248836035814352,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 230,
+      "mu": 1.4
+    },
+    {
+      "rps_90min": 0.20887050756068956,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.17791754431536666,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 230,
+      "mu": 1.45
+    },
+    {
+      "rps_90min": 0.2088050168838505,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1991530036308637,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 230,
+      "mu": 1.5
+    },
+    {
+      "rps_90min": 0.20876015442569595,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.16326026175430863,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 230,
+      "mu": 1.55
+    },
+    {
+      "rps_90min": 0.2087334173953191,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.15321119406867734,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 230,
+      "mu": 1.6
+    },
+    {
+      "rps_90min": 0.20943441526408862,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.15713195704495175,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 240,
+      "mu": 1.1
+    },
+    {
+      "rps_90min": 0.20929676882887666,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1650928874771358,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 240,
+      "mu": 1.15
+    },
+    {
+      "rps_90min": 0.20918989818350592,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.16912979612788137,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 240,
+      "mu": 1.2
+    },
+    {
+      "rps_90min": 0.20905654600489904,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1755063996627757,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 240,
+      "mu": 1.25
+    },
+    {
+      "rps_90min": 0.2089134922921288,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.18591283121260105,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 240,
+      "mu": 1.3
+    },
+    {
+      "rps_90min": 0.208803911543551,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.18048770919721674,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 240,
+      "mu": 1.35
+    },
+    {
+      "rps_90min": 0.208723252669332,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2305614680380714,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 240,
+      "mu": 1.4
+    },
+    {
+      "rps_90min": 0.2086676637603088,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.15675331796076453,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 240,
+      "mu": 1.45
+    },
+    {
+      "rps_90min": 0.20863387098890013,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.17739704908528084,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 240,
+      "mu": 1.5
+    },
+    {
+      "rps_90min": 0.20861908073515853,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.16358436849056435,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 240,
+      "mu": 1.55
+    },
+    {
+      "rps_90min": 0.20862090012582413,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.16681181567636028,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 240,
+      "mu": 1.6
+    },
+    {
+      "rps_90min": 0.20920556327337775,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.15278032397571717,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 250,
+      "mu": 1.1
+    },
+    {
+      "rps_90min": 0.2090949507125245,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.16109907395412404,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 250,
+      "mu": 1.15
+    },
+    {
+      "rps_90min": 0.20896632871236562,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.15147416363341504,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 250,
+      "mu": 1.2
+    },
+    {
+      "rps_90min": 0.208821450054209,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.18428052790288607,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 250,
+      "mu": 1.25
+    },
+    {
+      "rps_90min": 0.20871335386668793,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.17853636692499603,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 250,
+      "mu": 1.3
+    },
+    {
+      "rps_90min": 0.2086367833286471,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.22833892091590458,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 250,
+      "mu": 1.35
+    },
+    {
+      "rps_90min": 0.2085873217846826,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1796607401850189,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 250,
+      "mu": 1.4
+    },
+    {
+      "rps_90min": 0.2085612424605856,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.17003833548311498,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 250,
+      "mu": 1.45
+    },
+    {
+      "rps_90min": 0.20855538774470506,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.14121967839431293,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 250,
+      "mu": 1.5
+    },
+    {
+      "rps_90min": 0.2085670717797553,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.14448954721453866,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 250,
+      "mu": 1.55
+    },
+    {
+      "rps_90min": 0.2085940015120492,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.08442754179254353,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 250,
+      "mu": 1.6
+    },
+    {
+      "rps_90min": 0.20906728333547359,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1569494801821808,
+      "worst_decile_idx": 7,
+      "fully_passes": false,
+      "c_elo": 260,
+      "mu": 1.1
+    },
+    {
+      "rps_90min": 0.2089460835431413,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.16753102517413904,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 260,
+      "mu": 1.15
+    },
+    {
+      "rps_90min": 0.20879299323137634,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1832448373607195,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 260,
+      "mu": 1.2
+    },
+    {
+      "rps_90min": 0.2086809445628231,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.17715961275181982,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 260,
+      "mu": 1.25
+    },
+    {
+      "rps_90min": 0.2086037919525776,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1520141907780475,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 260,
+      "mu": 1.3
+    },
+    {
+      "rps_90min": 0.20855640927165747,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.17771383232135668,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 260,
+      "mu": 1.35
+    },
+    {
+      "rps_90min": 0.20853450189365638,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.11132867140602742,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 260,
+      "mu": 1.4
+    },
+    {
+      "rps_90min": 0.20853445661509387,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.10261628585519744,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 260,
+      "mu": 1.45
+    },
+    {
+      "rps_90min": 0.20855322127578785,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.12775042059995378,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 260,
+      "mu": 1.5
+    },
+    {
+      "rps_90min": 0.20858820776984466,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.11880191091048309,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 260,
+      "mu": 1.55
+    },
+    {
+      "rps_90min": 0.20863721355635167,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.12066719919913915,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 260,
+      "mu": 1.6
+    },
+    {
+      "rps_90min": 0.2089931673397551,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.16751626989386922,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 270,
+      "mu": 1.1
+    },
+    {
+      "rps_90min": 0.2088245070776934,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.18282533362912987,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 270,
+      "mu": 1.15
+    },
+    {
+      "rps_90min": 0.20870232946799167,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.23165158710294448,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 270,
+      "mu": 1.2
+    },
+    {
+      "rps_90min": 0.20861936681466928,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.150900686616266,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 270,
+      "mu": 1.25
+    },
+    {
+      "rps_90min": 0.2085695998282696,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.17629624338192984,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 270,
+      "mu": 1.3
+    },
+    {
+      "rps_90min": 0.2085480208485254,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1207459425469366,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 270,
+      "mu": 1.35
+    },
+    {
+      "rps_90min": 0.208550445869009,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1420359748347848,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 270,
+      "mu": 1.4
+    },
+    {
+      "rps_90min": 0.20857336463146686,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.15646660114183863,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 270,
+      "mu": 1.45
+    },
+    {
+      "rps_90min": 0.20861382054579397,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.15842781116050797,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 270,
+      "mu": 1.5
+    },
+    {
+      "rps_90min": 0.20866931407624295,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.16032797645793295,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 270,
+      "mu": 1.55
+    },
+    {
+      "rps_90min": 0.20873772466777993,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.19391566404507143,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 270,
+      "mu": 1.6
+    },
+    {
+      "rps_90min": 0.20891503885469337,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.18304509112728862,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 280,
+      "mu": 1.1
+    },
+    {
+      "rps_90min": 0.20877555733529132,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.23147265658785354,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 280,
+      "mu": 1.15
+    },
+    {
+      "rps_90min": 0.2086807910557957,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.15035751220915183,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 280,
+      "mu": 1.2
+    },
+    {
+      "rps_90min": 0.20862359339502362,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.17542116407551916,
+      "worst_decile_idx": 0,
+      "fully_passes": false,
+      "c_elo": 280,
+      "mu": 1.25
+    },
+    {
+      "rps_90min": 0.20859805939456533,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.19161590048296417,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 280,
+      "mu": 1.3
+    },
+    {
+      "rps_90min": 0.20859928866861574,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.18464244162644994,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 280,
+      "mu": 1.35
+    },
+    {
+      "rps_90min": 0.20862319739010599,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.18662679424596007,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 280,
+      "mu": 1.4
+    },
+    {
+      "rps_90min": 0.20866636852973497,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.18855085637256486,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 280,
+      "mu": 1.45
+    },
+    {
+      "rps_90min": 0.20872593203859924,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.19504730127919656,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 280,
+      "mu": 1.5
+    },
+    {
+      "rps_90min": 0.20879946856860243,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.19689621188784268,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 280,
+      "mu": 1.55
+    },
+    {
+      "rps_90min": 0.20888493177185702,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1986888546728156,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 280,
+      "mu": 1.6
+    },
+    {
+      "rps_90min": 0.2089010402532824,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.18382182579358575,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 290,
+      "mu": 1.1
+    },
+    {
+      "rps_90min": 0.20878745409396038,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.18590969466199725,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 290,
+      "mu": 1.15
+    },
+    {
+      "rps_90min": 0.2087169904083093,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.18794837082391902,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 290,
+      "mu": 1.2
+    },
+    {
+      "rps_90min": 0.20868261202142524,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.18993545036792403,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 290,
+      "mu": 1.25
+    },
+    {
+      "rps_90min": 0.2086785173839384,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.19639474892375253,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 290,
+      "mu": 1.3
+    },
+    {
+      "rps_90min": 0.2086999031714763,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.19832339032665547,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 290,
+      "mu": 1.35
+    },
+    {
+      "rps_90min": 0.20874277621654785,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.19148940685314153,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 290,
+      "mu": 1.4
+    },
+    {
+      "rps_90min": 0.20880380386493969,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1933320461417941,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 290,
+      "mu": 1.45
+    },
+    {
+      "rps_90min": 0.20888019438673144,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.19511999833926008,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 290,
+      "mu": 1.5
+    },
+    {
+      "rps_90min": 0.20896960099296308,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.20657275186881818,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 290,
+      "mu": 1.55
+    },
+    {
+      "rps_90min": 0.20907004446872504,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.21297786007431896,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 290,
+      "mu": 1.6
+    },
+    {
+      "rps_90min": 0.2089408715186314,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.18380371969834264,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 300,
+      "mu": 1.1
+    },
+    {
+      "rps_90min": 0.20885026233448706,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1907707642246792,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 300,
+      "mu": 1.15
+    },
+    {
+      "rps_90min": 0.2088013405767491,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.192711934592267,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 300,
+      "mu": 1.2
+    },
+    {
+      "rps_90min": 0.20878716792734905,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.20383772354137908,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 300,
+      "mu": 1.25
+    },
+    {
+      "rps_90min": 0.20880203630412236,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.20581121667464808,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 300,
+      "mu": 1.3
+    },
+    {
+      "rps_90min": 0.2088412301518257,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.20772921517081078,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 300,
+      "mu": 1.35
+    },
+    {
+      "rps_90min": 0.20890083830511796,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.20959206398940222,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 300,
+      "mu": 1.4
+    },
+    {
+      "rps_90min": 0.20897760443710167,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.20624029182834835,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 300,
+      "mu": 1.45
+    },
+    {
+      "rps_90min": 0.2090688076671922,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.19739390180990168,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 300,
+      "mu": 1.5
+    },
+    {
+      "rps_90min": 0.20917216683917825,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1873858126496667,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 300,
+      "mu": 1.55
+    },
+    {
+      "rps_90min": 0.2092857634518624,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.18340507373288595,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 300,
+      "mu": 1.6
+    },
+    {
+      "rps_90min": 0.20902581832746847,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.20676986325966185,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 310,
+      "mu": 1.1
+    },
+    {
+      "rps_90min": 0.2089555911784528,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.19804924574933536,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 310,
+      "mu": 1.15
+    },
+    {
+      "rps_90min": 0.2089257586952439,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.18820928891257427,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 310,
+      "mu": 1.2
+    },
+    {
+      "rps_90min": 0.20892947179437593,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.19628458020115325,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 310,
+      "mu": 1.25
+    },
+    {
+      "rps_90min": 0.20896110682986152,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1729149779185073,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 310,
+      "mu": 1.3
+    },
+    {
+      "rps_90min": 0.2090160275774693,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.17489168625003537,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 310,
+      "mu": 1.35
+    },
+    {
+      "rps_90min": 0.20909039701537893,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.18412396981461188,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 310,
+      "mu": 1.4
+    },
+    {
+      "rps_90min": 0.20918102784180104,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.23510244687457083,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 310,
+      "mu": 1.45
+    },
+    {
+      "rps_90min": 0.20928526325086974,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.24083271185306476,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 310,
+      "mu": 1.5
+    },
+    {
+      "rps_90min": 0.20940088144022298,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.23290105221491664,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 310,
+      "mu": 1.55
+    },
+    {
+      "rps_90min": 0.2095260188061573,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.21109721547610372,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 310,
+      "mu": 1.6
+    },
+    {
+      "rps_90min": 0.209148497682924,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.17340812800174943,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 320,
+      "mu": 1.1
+    },
+    {
+      "rps_90min": 0.2090963439065572,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.22706126798299076,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 320,
+      "mu": 1.15
+    },
+    {
+      "rps_90min": 0.2090834203257996,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.22908906316396793,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 320,
+      "mu": 1.2
+    },
+    {
+      "rps_90min": 0.20910295836180487,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.23549073313783198,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 320,
+      "mu": 1.25
+    },
+    {
+      "rps_90min": 0.20914941061282222,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.19991662395072674,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 320,
+      "mu": 1.3
+    },
+    {
+      "rps_90min": 0.20921821253344083,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.20922582954802493,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 320,
+      "mu": 1.35
+    },
+    {
+      "rps_90min": 0.20930559412079425,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.21132143644806622,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 320,
+      "mu": 1.4
+    },
+    {
+      "rps_90min": 0.20940843048030827,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.21335126247684322,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 320,
+      "mu": 1.45
+    },
+    {
+      "rps_90min": 0.20952412274338772,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2780325526411904,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 320,
+      "mu": 1.5
+    },
+    {
+      "rps_90min": 0.2096505027754933,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.279987995434654,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 320,
+      "mu": 1.55
+    },
+    {
+      "rps_90min": 0.20978575660571092,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2818823815306749,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 320,
+      "mu": 1.6
+    },
+    {
+      "rps_90min": 0.20930264609579366,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.19977244695291263,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 330,
+      "mu": 1.1
+    },
+    {
+      "rps_90min": 0.209266510257306,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.20896252065541543,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 330,
+      "mu": 1.15
+    },
+    {
+      "rps_90min": 0.20926855578840406,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2111607627932004,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 330,
+      "mu": 1.2
+    },
+    {
+      "rps_90min": 0.20930208670255604,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.27581001618466383,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 330,
+      "mu": 1.25
+    },
+    {
+      "rps_90min": 0.2093616244184475,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2779503059196773,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 330,
+      "mu": 1.3
+    },
+    {
+      "rps_90min": 0.20944266913603898,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2800263370572076,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 330,
+      "mu": 1.35
+    },
+    {
+      "rps_90min": 0.2095415114174961,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.28203917263855804,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 330,
+      "mu": 1.4
+    },
+    {
+      "rps_90min": 0.20965508278214803,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.28399030860650787,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 330,
+      "mu": 1.45
+    },
+    {
+      "rps_90min": 0.20978083674219955,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.285881566395905,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 330,
+      "mu": 1.5
+    },
+    {
+      "rps_90min": 0.20991665368495763,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.28771500676380946,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 330,
+      "mu": 1.55
+    },
+    {
+      "rps_90min": 0.21006076450946304,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2894928609055738,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 330,
+      "mu": 1.6
+    },
+    {
+      "rps_90min": 0.20948294304975767,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.27760575939956567,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 340,
+      "mu": 1.1
+    },
+    {
+      "rps_90min": 0.20946099367454296,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.27976094039147226,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 340,
+      "mu": 1.15
+    },
+    {
+      "rps_90min": 0.20947628109113603,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2818630480420863,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 340,
+      "mu": 1.2
+    },
+    {
+      "rps_90min": 0.2095221747387086,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2839100139055586,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 340,
+      "mu": 1.25
+    },
+    {
+      "rps_90min": 0.20959325813250645,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.285900800689566,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 340,
+      "mu": 1.3
+    },
+    {
+      "rps_90min": 0.209685089938787,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.28783518633327754,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 340,
+      "mu": 1.35
+    },
+    {
+      "rps_90min": 0.20979401544091442,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2897135886333163,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 340,
+      "mu": 1.4
+    },
+    {
+      "rps_90min": 0.20991701714653085,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2824062058176551,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 340,
+      "mu": 1.45
+    },
+    {
+      "rps_90min": 0.21005159591982359,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2736021854658277,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 340,
+      "mu": 1.5
+    },
+    {
+      "rps_90min": 0.210195676014042,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2754097372360983,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 340,
+      "mu": 1.55
+    },
+    {
+      "rps_90min": 0.21034752889038702,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.26485517959710514,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 340,
+      "mu": 1.6
+    },
+    {
+      "rps_90min": 0.2096848637002603,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2857592664864521,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 350,
+      "mu": 1.1
+    },
+    {
+      "rps_90min": 0.20967546742922163,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2783695442439278,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 350,
+      "mu": 1.15
+    },
+    {
+      "rps_90min": 0.2097024573701453,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.26949288451074904,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 350,
+      "mu": 1.2
+    },
+    {
+      "rps_90min": 0.20975926189890975,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.27150960904192656,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 350,
+      "mu": 1.25
+    },
+    {
+      "rps_90min": 0.20984052053903626,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.27347180076586874,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 350,
+      "mu": 1.3
+    },
+    {
+      "rps_90min": 0.20994184473783423,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2628823402609667,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 350,
+      "mu": 1.35
+    },
+    {
+      "rps_90min": 0.21005962920930368,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2647943036215591,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 350,
+      "mu": 1.4
+    },
+    {
+      "rps_90min": 0.21019090253830852,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.26664954331128166,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 350,
+      "mu": 1.45
+    },
+    {
+      "rps_90min": 0.21033320839005687,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.26844948585299877,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 350,
+      "mu": 1.5
+    },
+    {
+      "rps_90min": 0.21048451067134558,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2701958356236106,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 350,
+      "mu": 1.55
+    },
+    {
+      "rps_90min": 0.21064311750924378,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1837367396728884,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 350,
+      "mu": 1.6
+    },
+    {
+      "rps_90min": 0.209904555790382,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2604367765810317,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 360,
+      "mu": 1.1
+    },
+    {
+      "rps_90min": 0.2099062546005091,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2624706641541047,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 360,
+      "mu": 1.15
+    },
+    {
+      "rps_90min": 0.20994357383197068,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.26445850632075985,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 360,
+      "mu": 1.2
+    },
+    {
+      "rps_90min": 0.2100099949225004,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2663976178345768,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 360,
+      "mu": 1.25
+    },
+    {
+      "rps_90min": 0.21010020789135506,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.26828641027052824,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 360,
+      "mu": 1.3
+    },
+    {
+      "rps_90min": 0.2102098718192731,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2701241681206279,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 360,
+      "mu": 1.35
+    },
+    {
+      "rps_90min": 0.21033542606094963,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.27191086648408325,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 360,
+      "mu": 1.4
+    },
+    {
+      "rps_90min": 0.2104739408326537,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.18533839503167726,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 360,
+      "mu": 1.45
+    },
+    {
+      "rps_90min": 0.21062299848153623,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.18712787860025382,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 360,
+      "mu": 1.5
+    },
+    {
+      "rps_90min": 0.21078059875614155,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.18886426753121632,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 360,
+      "mu": 1.55
+    },
+    {
+      "rps_90min": 0.21094508292457048,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1905494354952607,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 360,
+      "mu": 1.6
+    },
+    {
+      "rps_90min": 0.2101387366360143,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.26802101792608946,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 370,
+      "mu": 1.1
+    },
+    {
+      "rps_90min": 0.2101502277854461,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2698970359943389,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 370,
+      "mu": 1.15
+    },
+    {
+      "rps_90min": 0.21019665008777683,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2717361210642383,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 370,
+      "mu": 1.2
+    },
+    {
+      "rps_90min": 0.21027153272333005,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.27353479623567223,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 370,
+      "mu": 1.25
+    },
+    {
+      "rps_90min": 0.210369611215179,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1867863716354482,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 370,
+      "mu": 1.3
+    },
+    {
+      "rps_90min": 0.2104865876157988,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.18861621782946159,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 370,
+      "mu": 1.35
+    },
+    {
+      "rps_90min": 0.21061894158291816,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.14372014740031525,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 370,
+      "mu": 1.4
+    },
+    {
+      "rps_90min": 0.21076378093853632,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.14555441589784124,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 370,
+      "mu": 1.45
+    },
+    {
+      "rps_90min": 0.2109187229824614,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1473343977602799,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 370,
+      "mu": 1.5
+    },
+    {
+      "rps_90min": 0.21108179985455122,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.14906172168078946,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 370,
+      "mu": 1.55
+    },
+    {
+      "rps_90min": 0.21125138277399597,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.24443557280395067,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 370,
+      "mu": 1.6
+    },
+    {
+      "rps_90min": 0.21038460675690257,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.27523445222789267,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 380,
+      "mu": 1.1
+    },
+    {
+      "rps_90min": 0.21040472513872163,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.14106954635214175,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 380,
+      "mu": 1.15
+    },
+    {
+      "rps_90min": 0.21045915450803665,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1430391136728335,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 380,
+      "mu": 1.2
+    },
+    {
+      "rps_90min": 0.21054146697046272,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1449609562683053,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 380,
+      "mu": 1.25
+    },
+    {
+      "rps_90min": 0.21064643903118596,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1468334054590711,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 380,
+      "mu": 1.3
+    },
+    {
+      "rps_90min": 0.21076981149145044,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.24213840544905607,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 380,
+      "mu": 1.35
+    },
+    {
+      "rps_90min": 0.21090810038254013,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.24397538239874217,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 380,
+      "mu": 1.4
+    },
+    {
+      "rps_90min": 0.21105844748553443,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.24575933915608894,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 380,
+      "mu": 1.45
+    },
+    {
+      "rps_90min": 0.2112185016751067,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.2474914127901663,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 380,
+      "mu": 1.5
+    },
+    {
+      "rps_90min": 0.21138632435770432,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.07313579116474733,
+      "worst_decile_idx": 5,
+      "fully_passes": false,
+      "c_elo": 380,
+      "mu": 1.55
+    },
+    {
+      "rps_90min": 0.2115603138153719,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.07342369348463651,
+      "worst_decile_idx": 5,
+      "fully_passes": false,
+      "c_elo": 380,
+      "mu": 1.6
+    },
+    {
+      "rps_90min": 0.21063977733016348,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.23941167624131965,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 390,
+      "mu": 1.1
+    },
+    {
+      "rps_90min": 0.21066747994773963,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.24136142851286957,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 390,
+      "mu": 1.15
+    },
+    {
+      "rps_90min": 0.21072893583240468,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.24326997314408905,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 390,
+      "mu": 1.2
+    },
+    {
+      "rps_90min": 0.21081775565091515,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.24513420940090191,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 390,
+      "mu": 1.25
+    },
+    {
+      "rps_90min": 0.21092875279323844,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.11377276772944744,
+      "worst_decile_idx": 5,
+      "fully_passes": false,
+      "c_elo": 390,
+      "mu": 1.3
+    },
+    {
+      "rps_90min": 0.21105770298225426,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.11391277980392556,
+      "worst_decile_idx": 5,
+      "fully_passes": false,
+      "c_elo": 390,
+      "mu": 1.35
+    },
+    {
+      "rps_90min": 0.2112011550614856,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1140876203079303,
+      "worst_decile_idx": 5,
+      "fully_passes": false,
+      "c_elo": 390,
+      "mu": 1.4
+    },
+    {
+      "rps_90min": 0.2113562814661837,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.11429101635596206,
+      "worst_decile_idx": 5,
+      "fully_passes": false,
+      "c_elo": 390,
+      "mu": 1.45
+    },
+    {
+      "rps_90min": 0.2115207595848965,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1145177705737549,
+      "worst_decile_idx": 5,
+      "fully_passes": false,
+      "c_elo": 390,
+      "mu": 1.5
+    },
+    {
+      "rps_90min": 0.21169267725938268,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.11714302247425024,
+      "worst_decile_idx": 6,
+      "fully_passes": false,
+      "c_elo": 390,
+      "mu": 1.55
+    },
+    {
+      "rps_90min": 0.21187045721801165,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1269383850336112,
+      "worst_decile_idx": 5,
+      "fully_passes": false,
+      "c_elo": 390,
+      "mu": 1.6
+    },
+    {
+      "rps_90min": 0.21090220913801327,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.14476672321719486,
+      "worst_decile_idx": 5,
+      "fully_passes": false,
+      "c_elo": 400,
+      "mu": 1.1
+    },
+    {
+      "rps_90min": 0.2109365614440757,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1293138467566567,
+      "worst_decile_idx": 5,
+      "fully_passes": false,
+      "c_elo": 400,
+      "mu": 1.15
+    },
+    {
+      "rps_90min": 0.21100416576559933,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.1146300305049266,
+      "worst_decile_idx": 5,
+      "fully_passes": false,
+      "c_elo": 400,
+      "mu": 1.2
+    },
+    {
+      "rps_90min": 0.21109866737521732,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.11463677322284838,
+      "worst_decile_idx": 5,
+      "fully_passes": false,
+      "c_elo": 400,
+      "mu": 1.25
+    },
+    {
+      "rps_90min": 0.21121491283319105,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.10957804942247817,
+      "worst_decile_idx": 5,
+      "fully_passes": false,
+      "c_elo": 400,
+      "mu": 1.3
+    },
+    {
+      "rps_90min": 0.21134870931391778,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.12201979800565155,
+      "worst_decile_idx": 5,
+      "fully_passes": false,
+      "c_elo": 400,
+      "mu": 1.35
+    },
+    {
+      "rps_90min": 0.21149663524381085,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.13004652450783605,
+      "worst_decile_idx": 5,
+      "fully_passes": false,
+      "c_elo": 400,
+      "mu": 1.4
+    },
+    {
+      "rps_90min": 0.21165589071544044,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.13022482698340765,
+      "worst_decile_idx": 5,
+      "fully_passes": false,
+      "c_elo": 400,
+      "mu": 1.45
+    },
+    {
+      "rps_90min": 0.2118241788557177,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.13042766119904015,
+      "worst_decile_idx": 5,
+      "fully_passes": false,
+      "c_elo": 400,
+      "mu": 1.5
+    },
+    {
+      "rps_90min": 0.2119996113747756,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.13065064650408797,
+      "worst_decile_idx": 5,
+      "fully_passes": false,
+      "c_elo": 400,
+      "mu": 1.55
+    },
+    {
+      "rps_90min": 0.21218063307544405,
+      "rps_passes": true,
+      "calibration_ok": false,
+      "worst_decile_err": 0.13089017039528716,
+      "worst_decile_idx": 5,
+      "fully_passes": false,
+      "c_elo": 400,
+      "mu": 1.6
+    }
+  ],
+  "gate": {
+    "rps": 0.215,
+    "cal_tolerance": 0.05
+  }
+}
