@@ -134,6 +134,7 @@ def simulate_group_stage(
                 rating=rating, params=params,
                 a_is_host=a_home, b_is_host=b_home,
                 rng=rng, stage="group",
+                live_ratings=live_ratings,
             )
             all_matches.append(m)
             _update_ratings_after_match(m, rating, live_ratings)
@@ -240,6 +241,7 @@ def _play_knockout_round(
             rating=rating, params=params,
             a_is_host=a_home, b_is_host=b_home,
             rng=rng, stage=stage,
+            live_ratings=live_ratings,
         )
         matches.append(m)
         _update_ratings_after_match(m, rating, live_ratings)
@@ -278,11 +280,18 @@ def simulate_knockout(
 
     if structure.third_place_playoff and len(semi_losers) == 2:
         a_iso3, b_iso3 = semi_losers
+        if knockout_host:
+            a_home = (a_iso3 == knockout_host)
+            b_home = (b_iso3 == knockout_host)
+        else:
+            a_home = (a_iso3 in hosts)
+            b_home = (b_iso3 in hosts)
         m = sample_match(
             teams[a_iso3], teams[b_iso3],
             rating=rating, params=params,
-            a_is_host=(a_iso3 in hosts), b_is_host=(b_iso3 in hosts),
+            a_is_host=a_home, b_is_host=b_home,
             rng=rng, stage="3rd",
+            live_ratings=live_ratings,
         )
         matches.append(m)
         _update_ratings_after_match(m, rating, live_ratings)
@@ -348,6 +357,13 @@ def simulate_tournament(
     rng = np.random.default_rng(seed)
 
     live_ratings = {iso3: rating.rating_of(t) for iso3, t in teams.items()}
+
+    if p.shrinkage < 1.0:
+        r_mean = sum(live_ratings.values()) / len(live_ratings)
+        live_ratings = {
+            iso3: r_mean + p.shrinkage * (r - r_mean)
+            for iso3, r in live_ratings.items()
+        }
 
     group_matches, positions = simulate_group_stage(
         teams=teams, draw=draw, rating=rating, params=p, rng=rng, hosts=hosts,

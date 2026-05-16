@@ -57,6 +57,7 @@ class Params:
     rho: float = 0.0
     k_elo: float = 60.0
     k_fifa: float = 60.0
+    shrinkage: float = 1.0  # 1.0 = use raw ratings; <1 compresses toward field mean
 
 
 @dataclass(frozen=True)

@@ -73,10 +73,21 @@ def sample_match(
     a_is_host: bool = False, b_is_host: bool = False,
     rng: np.random.Generator,
     stage: str = "group",
+    live_ratings: dict[str, float] | None = None,
 ) -> MatchResult:
-    """Sample a single match. For non-group stages, plays ET then pens if tied."""
+    """Sample a single match. For non-group stages, plays ET then pens if tied.
+    If live_ratings is provided, uses those values instead of rating.rating_of()
+    for computing the rating diff (supports shrinkage + in-tournament updates)."""
     p = params if params is not None else Params()
-    diff = rating.rating_diff(team_a, team_b, a_is_host, b_is_host)
+    if live_ratings:
+        host_diff = float(a_is_host) - float(b_is_host)
+        diff = (live_ratings[team_a.iso3] - live_ratings[team_b.iso3]) + rating.home_bonus * host_diff
+        r_a = live_ratings[team_a.iso3]
+        r_b = live_ratings[team_b.iso3]
+    else:
+        diff = rating.rating_diff(team_a, team_b, a_is_host, b_is_host)
+        r_a = rating.rating_of(team_a)
+        r_b = rating.rating_of(team_b)
     lam_a, lam_b = rating.lambdas(diff, p.mu, p.lambda_min)
 
     home_goals, away_goals = _sample_score(lam_a, lam_b, p.rho, rng)
@@ -100,6 +111,6 @@ def sample_match(
         stage=stage,
         neutral=not (a_is_host or b_is_host),
         extra_time=extra_time, went_to_pens=went_to_pens, pen_winner=pen_winner,
-        home_rating_before=rating.rating_of(team_a),
-        away_rating_before=rating.rating_of(team_b),
+        home_rating_before=r_a,
+        away_rating_before=r_b,
     )

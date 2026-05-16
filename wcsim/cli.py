@@ -37,6 +37,7 @@ def run(
     fmt: str = typer.Option("table", "--format"),
     workers: Optional[int] = typer.Option(None, "--workers"),
     ci: bool = typer.Option(True, "--ci/--no-ci"),
+    shrinkage: float = typer.Option(1.0, "--shrinkage", help="Rating regression to mean (1.0=none, 0.85=moderate)"),
     verbose: bool = typer.Option(False, "-v", "--verbose"),
     quiet: bool = typer.Option(False, "-q", "--quiet"),
 ):
@@ -53,7 +54,7 @@ def run(
     hosts = {"USA", "MEX", "CAN"}
     group_venues = venues.group_venues if venues else None
     knockout_host_iso3 = venues.knockout_venue if venues else None
-    params = Params()
+    params = Params(shrinkage=shrinkage)
     rating = _make_rating(rating_mode, params)
 
     actual_seed = seed if seed is not None else _random.randint(0, 2**31)

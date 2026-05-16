@@ -264,8 +264,8 @@ def test_wc_2022_tournament_pin(bundled_elo_history, default_params):
     advancers = frozenset(iso for iso, stage in result.placements.items() if stage != "GroupOut")
     assert len(advancers) == 16  # top 2 per group x 8 groups
 
-    # LOCKED from first green run
-    assert champion == "NED"
+    # LOCKED (re-pinned after live_ratings plumbing into sample_match)
+    assert champion == "ARG"
     assert advancers == frozenset({
         "ARG", "AUS", "BRA", "CRO", "ESP", "FRA", "GER", "IRN",
         "MAR", "NED", "POL", "POR", "SEN", "SRB", "URU", "USA",
@@ -297,11 +297,11 @@ def test_wc_2026_tournament_pin(bundled_elo_history, default_params):
     advancers = frozenset(iso for iso, stage in result.placements.items() if stage != "GroupOut")
     assert len(advancers) == 32  # top 2 per group (24) + 8 best thirds
 
-    # LOCKED from first green run
-    assert champion == "MEX"
+    # LOCKED (re-pinned after live_ratings plumbing into sample_match)
+    assert champion == "ITA"
     assert advancers == frozenset({
-        "ARG", "AUS", "AUT", "BEL", "BRA", "CAN", "CPV", "CRO",
-        "ECU", "EGY", "ENG", "ESP", "FRA", "GER", "ITA", "JOR",
+        "ARG", "AUS", "AUT", "BRA", "CAN", "COL", "CRO",
+        "ECU", "EGY", "ENG", "ESP", "FRA", "GER", "IRN", "ITA", "JOR",
         "KOR", "MAR", "MEX", "NED", "NOR", "PAN", "PAR", "POR",
-        "SCO", "SEN", "SUI", "TUN", "UKR", "URU", "USA", "UZB",
+        "SAU", "SCO", "SEN", "SUI", "TUN", "URU", "USA", "UZB",
     })
