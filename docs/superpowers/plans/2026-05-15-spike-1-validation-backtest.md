@@ -283,14 +283,14 @@ The 10 rows that must be present (Task 4's loader asserts coverage and aborts if
 |---|---|---|---|---|---|
 | 2018-07-01 | Russia | Spain | 1-1 | 1-1 | Russia |
 | 2018-07-01 | Croatia | Denmark | 1-1 | 1-1 | Croatia |
-| 2018-07-07 | Russia | Croatia | 2-2 | 2-2 | Croatia |
+| 2018-07-07 | Russia | Croatia | 1-1 | 2-2 | Croatia |
 | 2018-07-03 | Colombia | England | 1-1 | 1-1 | England |
 | 2018-07-11 | Croatia | England | 1-1 | 2-1 | *(no pens)* |
 | 2022-12-09 | Netherlands | Argentina | 2-2 | 2-2 | Argentina |
 | 2022-12-05 | Japan | Croatia | 1-1 | 1-1 | Croatia |
 | 2022-12-09 | Croatia | Brazil | 0-0 | 1-1 | Croatia |
 | 2022-12-06 | Morocco | Spain | 0-0 | 0-0 | Morocco |
-| 2022-12-18 | Argentina | France | 3-3 | 3-3 | Argentina |
+| 2022-12-18 | Argentina | France | 2-2 | 3-3 | Argentina |
 
 Use the team-name spellings as they appear in `matches_history.csv` so the supplement join works (Task 4 joins on `(date, home, away)`).
 
