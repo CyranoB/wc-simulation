@@ -67,6 +67,8 @@ NAME_TO_ISO3: dict[str, str] = {
     "Austria": "AUT",
     "Bolivia": "BOL",
     "Cape Verde": "CPV",
+    "Cape Verde Islands": "CPV",
+    "Cabo Verde": "CPV",
     "Curaçao": "CUW",
     "Curacao": "CUW",
     "Haiti": "HAI",

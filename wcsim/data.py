@@ -8,6 +8,7 @@ from .types import Team
 
 SPIKE_DATA = Path(__file__).parent.parent / "spikes" / "01-validation" / "data" / "raw"
 DEFAULT_TEAMS_PATH = SPIKE_DATA / "elo_history.csv"
+DEFAULT_FIFA_PATH = SPIKE_DATA / "fifa_ranking.csv"
 DEFAULT_DRAW_PATH = SPIKE_DATA / "wc2026_draw.json"
 
 # Import name_to_iso3 from the spike directory.
@@ -17,26 +18,53 @@ if _spike_dir not in sys.path:
 from name_to_iso3 import to_iso3
 
 
-def load_teams(csv_path: Path, snapshot_date: str = "2026-06-10") -> dict[str, Team]:
-    """Load teams from an elo_history.csv, filtering to a specific snapshot date."""
+def load_teams(
+    csv_path: Path, snapshot_date: str = "2026-06-10",
+    fifa_path: Path | None = None,
+) -> dict[str, Team]:
+    """Load teams from elo_history.csv + optionally merge FIFA points from
+    fifa_ranking.csv. Both are needed for --rating fifa or --rating blend."""
     if not csv_path.exists():
         raise FileNotFoundError(f"Teams file not found: {csv_path}")
     df = pd.read_csv(csv_path)
     df["date"] = pd.to_datetime(df["date"])
     target = pd.to_datetime(snapshot_date)
-    # Use only the exact snapshot date's rows (each date represents a tournament cohort).
     snapshot = df[df["date"] == target]
     if snapshot.empty:
-        # Fallback: use latest record per team on or before target.
         df = df[df["date"] <= target].sort_values("date")
         snapshot = df.groupby("team").tail(1)
+
+    # Load FIFA data if available.
+    fifa_points: dict[str, float] = {}
+    fifa_ranks: dict[str, int] = {}
+    fp = fifa_path or DEFAULT_FIFA_PATH
+    if fp.exists():
+        fdf = pd.read_csv(fp)
+        fdf["rank_date"] = pd.to_datetime(fdf["rank_date"])
+        eligible = fdf[fdf["rank_date"] <= target]
+        if not eligible.empty:
+            latest_date = eligible["rank_date"].max()
+            fsnap = eligible[eligible["rank_date"] == latest_date]
+            for _, row in fsnap.iterrows():
+                try:
+                    iso3 = to_iso3(row["country_full"])
+                except KeyError:
+                    continue
+                fifa_points[iso3] = float(row["total_points"])
+                fifa_ranks[iso3] = int(row["rank"])
+
     teams: dict[str, Team] = {}
     for _, row in snapshot.iterrows():
         try:
             iso3 = to_iso3(row["team"])
         except KeyError:
             continue
-        teams[iso3] = Team(name=row["team"], iso3=iso3, confederation="UNK", elo=float(row["rating"]))
+        teams[iso3] = Team(
+            name=row["team"], iso3=iso3, confederation="UNK",
+            elo=float(row["rating"]),
+            fifa_points=fifa_points.get(iso3),
+            fifa_rank=fifa_ranks.get(iso3),
+        )
     return teams
 
 
