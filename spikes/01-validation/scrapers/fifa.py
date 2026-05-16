@@ -44,6 +44,7 @@ REQUEST_DELAY_S = 1.0  # politeness for FIFA's API
 TARGETS = [
     ("2018-06-13", "WC 2018 (opens 2018-06-14)"),
     ("2022-11-19", "WC 2022 (opens 2022-11-20)"),
+    ("2026-06-10", "WC 2026 (opens 2026-06-11)"),
 ]
 
 

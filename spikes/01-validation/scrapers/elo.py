@@ -56,12 +56,52 @@ WC_2022 = [
     ("United_States", "United States"), ("Uruguay", "Uruguay"), ("Wales", "Wales"),
 ]
 
+WC_2026 = [
+    # Group A
+    ("Mexico", "Mexico"), ("South_Africa", "South Africa"),
+    ("South_Korea", "South Korea"), ("Denmark", "Denmark"),
+    # Group B
+    ("Canada", "Canada"), ("Italy", "Italy"),
+    ("Qatar", "Qatar"), ("Switzerland", "Switzerland"),
+    # Group C
+    ("Brazil", "Brazil"), ("Morocco", "Morocco"),
+    ("Haiti", "Haiti"), ("Scotland", "Scotland"),
+    # Group D
+    ("United_States", "United States"), ("Paraguay", "Paraguay"),
+    ("Australia", "Australia"), ("Turkey", "Turkey"),
+    # Group E
+    ("Germany", "Germany"), ("Curacao", "Curacao"),
+    ("Ivory_Coast", "Ivory Coast"), ("Ecuador", "Ecuador"),
+    # Group F
+    ("Netherlands", "Netherlands"), ("Japan", "Japan"),
+    ("Ukraine", "Ukraine"), ("Tunisia", "Tunisia"),
+    # Group G
+    ("Belgium", "Belgium"), ("Egypt", "Egypt"),
+    ("Iran", "Iran"), ("New_Zealand", "New Zealand"),
+    # Group H
+    ("Spain", "Spain"), ("Cape_Verde", "Cape Verde"),
+    ("Saudi_Arabia", "Saudi Arabia"), ("Uruguay", "Uruguay"),
+    # Group I
+    ("France", "France"), ("Senegal", "Senegal"),
+    ("Bolivia", "Bolivia"), ("Norway", "Norway"),
+    # Group J
+    ("Argentina", "Argentina"), ("Algeria", "Algeria"),
+    ("Austria", "Austria"), ("Jordan", "Jordan"),
+    # Group K
+    ("Portugal", "Portugal"), ("Jamaica", "Jamaica"),
+    ("Uzbekistan", "Uzbekistan"), ("Colombia", "Colombia"),
+    # Group L
+    ("England", "England"), ("Croatia", "Croatia"),
+    ("Ghana", "Ghana"), ("Panama", "Panama"),
+]
+
 SNAPSHOTS = [
     # (snapshot_date, [(eloratings_name, display_name), ...])
     # Day before tournament opening match. Captures the team's Elo after their
     # last pre-tournament fixture (typically a warm-up friendly).
     ("2018-06-13", WC_2018),  # WC 2018 opened 2018-06-14
     ("2022-11-19", WC_2022),  # WC 2022 opened 2022-11-20
+    ("2026-06-10", WC_2026),  # WC 2026 opens 2026-06-11
 ]
 
 ELORATINGS_BASE = "https://www.eloratings.net"
