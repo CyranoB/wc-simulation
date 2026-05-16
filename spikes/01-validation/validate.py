@@ -241,7 +241,79 @@ def predict(
     return _outcome_probs(lam_a, lam_b)
 
 
+HOST_BY_YEAR = {2018: {"RUS"}, 2022: {"QAT"}}
+
+
+def one_hot_90min(match: dict) -> np.ndarray:
+    """Return one-hot (home_win, draw, away_win) under the 90-minute convention.
+    Knockout matches that went to ET are counted as 90-min draws (because the
+    teams were tied at 90 min before extra time)."""
+    h, a = match["regulation_home"], match["regulation_away"]
+    if h > a:
+        return np.array([1.0, 0.0, 0.0])
+    if h < a:
+        return np.array([0.0, 0.0, 1.0])
+    return np.array([0.0, 1.0, 0.0])
+
+
+def one_hot_post_et(match: dict) -> np.ndarray:
+    """Return one-hot under the post-ET convention. Penalty winners are
+    attributed to that side; 'draw' is impossible for knockout matches."""
+    h, a = match["et_home"], match["et_away"]
+    if h > a:
+        return np.array([1.0, 0.0, 0.0])
+    if h < a:
+        return np.array([0.0, 0.0, 1.0])
+    if match["is_knockout"] and match["pen_winner_iso3"]:
+        if match["pen_winner_iso3"] == match["home_iso3"]:
+            return np.array([1.0, 0.0, 0.0])
+        return np.array([0.0, 0.0, 1.0])
+    return np.array([0.0, 1.0, 0.0])
+
+
+def predict_all_matches(
+    matches: list[dict],
+    elo: dict[str, float],
+    fifa_pts: dict[str, float],
+    f0: float,
+    hosts: set[str],
+) -> dict[str, np.ndarray]:
+    """Return {mode: array of shape (N, 3)} with predicted probabilities."""
+    preds = {mode: np.zeros((len(matches), 3)) for mode in ("elo", "fifa", "blend")}
+    for i, m in enumerate(matches):
+        a, b = m["home_iso3"], m["away_iso3"]
+        for mode in ("elo", "fifa", "blend"):
+            preds[mode][i] = predict(
+                elo_a=elo[a], elo_b=elo[b],
+                fifa_a=fifa_pts[a], fifa_b=fifa_pts[b],
+                f0=f0,
+                a_is_host=(a in hosts), b_is_host=(b in hosts),
+                mode=mode,
+            )
+    return preds
+
+
+def rps(preds: np.ndarray, outcomes: np.ndarray) -> float:
+    """Ranked Probability Score on 3-outcome data. `preds` and `outcomes` are
+    both shape (N, 3) with the column order [home_win, draw, away_win] and
+    `outcomes` one-hot. Returns mean RPS in [0, 1] where lower is better.
+
+    A uniform predictor on balanced 3-outcome data scores exactly 2/9 ≈ 0.222
+    (asserted at startup in main; see Task 6 Step 2)."""
+    K = preds.shape[1]
+    cum_p = np.cumsum(preds[:, :-1], axis=1)
+    cum_y = np.cumsum(outcomes[:, :-1], axis=1)
+    return float(np.mean(np.sum((cum_p - cum_y) ** 2, axis=1) / (K - 1)))
+
+
 def main() -> None:
+    # --- Startup invariants (Fix 6). Failures here mean validate.py is broken. ---
+    _uniform = np.full((300, 3), 1 / 3)
+    _balanced = np.tile(np.eye(3), (100, 1))
+    assert abs(rps(_uniform, _balanced) - 2 / 9) < 1e-9, (
+        f"RPS broken: uniform predictor should score 2/9, got {rps(_uniform, _balanced)}"
+    )
+
     # --- Predictor invariants (Fix 6). These run on synthetic inputs, no data needed. ---
     _p = predict(elo_a=2000, elo_b=1500, fifa_a=1500, fifa_b=1200,
                  f0=1300.0, a_is_host=False, b_is_host=False, mode="elo")
@@ -252,46 +324,96 @@ def main() -> None:
         f"Predictor not symmetric: {_p} vs {_q}"
     )
 
-    elo_2018 = load_elo(WC2018[0])
-    elo_2022 = load_elo(WC2022[0])
-    fifa_2018_pts, _ = load_fifa(WC2018[0])
-    fifa_2022_pts, _ = load_fifa(WC2022[0])
-    m2018 = load_matches(2018)
-    m2022 = load_matches(2022)
+    results: dict = {"params": dict(PARAMS), "n_matches": {}}
+    f0_by_year: dict[int, float] = {}
 
-    print(f"Elo 2018: {len(elo_2018)} teams (sample BRA={elo_2018.get('BRA')})")
-    print(f"Elo 2022: {len(elo_2022)} teams (sample ARG={elo_2022.get('ARG')})")
-    print(f"FIFA 2018: {len(fifa_2018_pts)} teams (sample BRA={fifa_2018_pts.get('BRA')})")
-    print(f"FIFA 2022: {len(fifa_2022_pts)} teams (sample ARG={fifa_2022_pts.get('ARG')})")
-    print(f"Matches 2018: {len(m2018)} (expect 64)")
-    print(f"Matches 2022: {len(m2022)} (expect 64)")
-    print(f"Sample 2022 final: {m2022[-1]}")
+    all_matches: list[dict] = []
+    all_preds = {mode: [] for mode in ("elo", "fifa", "blend")}
+    all_y_90: list[np.ndarray] = []
+    all_y_et: list[np.ndarray] = []
+    per_year_indices: dict[int, list[int]] = {}
+    elo_by_year: dict[int, dict[str, float]] = {}
 
-    # --- Loader invariants (Fix 6). ---
-    assert len(m2018) == 64, f"Expected 64 WC 2018 matches, got {len(m2018)}"
-    assert len(m2022) == 64, f"Expected 64 WC 2022 matches, got {len(m2022)}"
-    for team_iso in ["ARG", "FRA", "BRA", "GER", "ESP"]:   # spot-check well-known teams
-        assert team_iso in elo_2022, f"{team_iso} missing from Elo 2022"
-        assert team_iso in fifa_2022_pts, f"{team_iso} missing from FIFA 2022"
-    # The 2022 final must have gone to pens with Argentina winning.
-    final_2022 = m2022[-1]
+    for year, snap in ((2018, WC2018[0]), (2022, WC2022[0])):
+        elo = load_elo(snap)
+        elo_by_year[year] = elo
+        fifa_pts, _ = load_fifa(snap)
+        f0 = float(np.mean(list(fifa_pts.values())))
+        f0_by_year[year] = f0
+        matches = load_matches(year)
+        preds = predict_all_matches(matches, elo, fifa_pts, f0, HOST_BY_YEAR[year])
+        print(f"WC {year}: {len(matches)} matches, {len(elo)} elo teams, "
+              f"{len(fifa_pts)} fifa teams, f0={f0:.1f}")
+
+        # --- Loader invariants (Fix 6) — moved into the per-year loop. ---
+        assert len(matches) == 64, f"Expected 64 WC {year} matches, got {len(matches)}"
+
+        start = len(all_matches)
+        all_matches.extend(matches)
+        for mode in preds:
+            all_preds[mode].append(preds[mode])
+        for m in matches:
+            all_y_90.append(one_hot_90min(m))
+            all_y_et.append(one_hot_post_et(m))
+        per_year_indices[year] = list(range(start, len(all_matches)))
+
+    y_90 = np.array(all_y_90)
+    y_et = np.array(all_y_et)
+    preds_all = {mode: np.vstack(all_preds[mode]) for mode in all_preds}
+
+    # Cross-year spot-check invariants.
+    for team_iso in ["ARG", "FRA", "BRA", "GER", "ESP"]:
+        assert team_iso in elo_by_year[2022], f"{team_iso} missing from Elo 2022"
+    final_2022 = all_matches[-1]
     assert final_2022["pen_winner_iso3"] == "ARG", (
         f"2022 final's pen_winner_iso3 should be ARG, got {final_2022['pen_winner_iso3']}"
     )
 
-    # --- Task 5 sanity print: ARG-FRA 2022 final prediction in all 3 modes. ---
-    f0_2022 = float(np.mean(list(fifa_2022_pts.values())))
-    print(f"\nF0 (mean FIFA points 2022 snapshot) = {f0_2022:.1f}")
-    a, b = "ARG", "FRA"
+    # Fix 4: record f0 per tournament (FIFA reformed mid-2018; 2018 and 2022
+    # means differ; schema uses f0_by_year, not a single scalar).
+    results["params"]["f0_by_year"] = {str(y): v for y, v in f0_by_year.items()}
+
+    n_kn = sum(1 for m in all_matches if m["is_knockout"])
+    results["n_matches"] = {
+        "total": len(all_matches),
+        "group_stage": len(all_matches) - n_kn,
+        "knockout": n_kn,
+    }
+    results["rps_90min"] = {}
+    results["rps_post_et"] = {}
     for mode in ("elo", "fifa", "blend"):
-        p = predict(
-            elo_a=elo_2022[a], elo_b=elo_2022[b],
-            fifa_a=fifa_2022_pts[a], fifa_b=fifa_2022_pts[b],
-            f0=f0_2022,
-            a_is_host=False, b_is_host=False,    # neutral venue (Qatar hosted)
-            mode=mode,
-        )
-        print(f"ARG-FRA 2022 final ({mode}): P(ARG)={p[0]:.3f} draw={p[1]:.3f} P(FRA)={p[2]:.3f}")
+        idx_2018 = per_year_indices[2018]
+        idx_2022 = per_year_indices[2022]
+        results["rps_90min"][mode] = {
+            "total": rps(preds_all[mode], y_90),
+            "2018": rps(preds_all[mode][idx_2018], y_90[idx_2018]),
+            "2022": rps(preds_all[mode][idx_2022], y_90[idx_2022]),
+        }
+        results["rps_post_et"][mode] = {
+            "total": rps(preds_all[mode], y_et),
+            "2018": rps(preds_all[mode][idx_2018], y_et[idx_2018]),
+            "2022": rps(preds_all[mode][idx_2022], y_et[idx_2022]),
+        }
+    results["et_divergence"] = {
+        mode: results["rps_post_et"][mode]["total"] - results["rps_90min"][mode]["total"]
+        for mode in ("elo", "fifa", "blend")
+    }
+
+    print(json.dumps({
+        "n_matches": results["n_matches"],
+        "f0_by_year": results["params"]["f0_by_year"],
+        "rps_90min": results["rps_90min"],
+        "rps_post_et": results["rps_post_et"],
+        "et_divergence": results["et_divergence"],
+    }, indent=2))
+
+    # Stash for Tasks 7-10 (refactored away in Task 10 when we write brier.json).
+    globals()["_RESULTS"] = results
+    globals()["_PREDS"] = preds_all
+    globals()["_MATCHES"] = all_matches
+    globals()["_Y_90"] = y_90
+    globals()["_Y_ET"] = y_et
+    globals()["_ELO_BY_YEAR"] = elo_by_year
 
 
 if __name__ == "__main__":
