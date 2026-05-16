@@ -57,3 +57,15 @@ class Params:
     rho: float = 0.0
     k_elo: float = 60.0
     k_fifa: float = 60.0
+
+
+@dataclass(frozen=True)
+class SimulationResult:
+    """Aggregated output of N tournament simulations."""
+    n: int
+    seed: int
+    probabilities: dict[str, dict[str, float]]
+    ci_lo: dict[str, dict[str, float]]
+    ci_hi: dict[str, dict[str, float]]
+    mean_goals_for: dict[str, float]
+    mean_goals_against: dict[str, float]
