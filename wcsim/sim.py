@@ -47,7 +47,8 @@ def run_simulations(
         for iso3, stage in placements.items():
             stage_counts[iso3][stage] += 1
 
-    # Determine stage order.
+    # Stage order from deepest to earliest exit. Output is CUMULATIVE
+    # ("reached at least this stage") per PRD §5.4, not exclusive.
     all_stages_seen: set[str] = set()
     for counts in stage_counts.values():
         all_stages_seen.update(counts.keys())
@@ -55,17 +56,25 @@ def run_simulations(
     stages = [s for s in stage_order if s in all_stages_seen]
     output_stages = ["Win" if s == "Champion" else s for s in stages]
 
-    # Compute probabilities + Wilson CIs.
+    # Compute CUMULATIVE probabilities: P(reached at least stage X).
+    # A team that won also reached Final, SF, QF, etc.
+    # GroupOut stays exclusive (fraction that didn't advance past groups).
     probabilities: dict[str, dict[str, float]] = {}
     ci_lo: dict[str, dict[str, float]] = {}
     ci_hi: dict[str, dict[str, float]] = {}
 
     for iso3, counts in stage_counts.items():
+        exclusive = {stage: counts.get(stage, 0) / n for stage in stages}
         probs: dict[str, float] = {}
         lo: dict[str, float] = {}
         hi: dict[str, float] = {}
+        cumulative = 0.0
         for stage, out_name in zip(stages, output_stages):
-            p = counts.get(stage, 0) / n
+            if stage == "GroupOut":
+                p = exclusive[stage]
+            else:
+                cumulative += exclusive[stage]
+                p = cumulative
             probs[out_name] = p
             ci = wilson_ci(p, n)
             lo[out_name] = ci[0]
