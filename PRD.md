@@ -1,8 +1,11 @@
 # PRD: `wcsim` — Football Tournament Monte Carlo Simulator CLI
 
 **Author:** Research Agent
-**Status:** Draft v1.5
+**Status:** Draft v1.6
 **Last updated:** 2026-05-15
+
+**Changelog v1.6 (post-plan-review metric correction):**
+- Switched the validation metric in §12.2 and AC8 from "Brier score" to **RPS (Ranked Probability Score)**. The PRD's documented baseline (0.222) and gate (0.21) were always correct for RPS — a uniform 3-outcome predictor on balanced one-hot data scores exactly $2/9 \approx 0.222$ under RPS, whereas multiclass Brier (sum-over-classes) scores $2/3 \approx 0.667$. The formula in §12.2 (and the description in M5 / AC8 / command table / architecture) is updated; no thresholds change. RPS is also the academically standard metric for ordinal football predictions (Constantinou & Fenton, 2012). Spike 1's `validate.py` asserts the uniform-RPS baseline at startup.
 
 **Changelog v1.5 (second-round peer-review responses):**
 - **Host bonus is now rating-mode-aware.** §5.5 specifies the rescaling: $H_{\text{elo}} = H_{\text{blend}} =$ `--home-bonus` (default 100); $H_{\text{fifa}} =$ `--home-bonus` $\cdot\ S_{\text{fifa}}/S_{\text{elo}}$ (default 150). The rescaling preserves the win-probability bump across modes.
@@ -89,7 +92,7 @@ The default configuration ships with the 48-team, 12-group format used by the 20
 | `wcsim bracket` | Print the **per-slot most-likely** knockout bracket, walked top-down from the modal champion using slot-matchup frequencies from the latest `run` cache. |
 | `wcsim teams` | List loaded teams with their Elo, FIFA points, FIFA rank, and group. |
 | `wcsim update-ratings [--source elo\|fifa\|all]` | Re-fetch ratings from the configured upstream sources. |
-| `wcsim backtest --year YYYY [--tournament wc\|euro]` | Re-simulate a finished tournament using pre-tournament ratings; report Brier score and calibration plot data. |
+| `wcsim backtest --year YYYY [--tournament wc\|euro]` | Re-simulate a finished tournament using pre-tournament ratings; report RPS (Ranked Probability Score) and calibration plot data. |
 | `wcsim version` | Print version and per-source data snapshot dates. |
 
 ### 5.2 Global flags
@@ -230,8 +233,8 @@ wcsim/
 ├── sim.py                # Monte Carlo runner with counter-seeded multiprocessing.Pool.
 ├── report.py             # Table / CSV / JSON formatters, Wilson CIs, ASCII bracket renderer.
 ├── cache.py              # Persists aggregates to ~/.wcsim/last_run.parquet plus meta sidecar.
-└── validate.py           # backtest command: re-runs historical tournaments, computes Brier
-                          # score and calibration buckets.
+└── validate.py           # backtest command: re-runs historical tournaments, computes RPS
+                          # and calibration buckets.
 ```
 
 Dependencies: `numpy`, `pandas`, `typer`, `rich` (pretty tables), `httpx` (rating refresh), `pyarrow` (cache), `lxml` (HTML parsing for scrapers).
@@ -288,7 +291,7 @@ The `Team` dataclass mirrors the CSV schema in §5.3 exactly, including the `*_u
 - **M2 — Tournament engine (week 2):** Group stage with full tiebreakers and a knockout bracket simulated once end-to-end for all three rating modes.
 - **M3 — Monte Carlo (week 3):** `wcsim run` with counter-seeded multiprocessing, deterministic across worker counts, CSV/JSON output with Wilson CIs.
 - **M4 — Data & UX (week 4):** Elo + FIFA scrapers, `update-ratings`, ASCII bracket, rich tables, docs, CI on macOS/Linux/Windows.
-- **M5 — Validation (week 5):** `wcsim backtest` against the last two completed World Cups and the most recent Euros; calibration of `c` against the ~25% historical group-stage draw rate; published Brier scores and calibration plots in `docs/validation.md`.
+- **M5 — Validation (week 5):** `wcsim backtest` against the last two completed World Cups and the most recent Euros; calibration of `c` against the ~25% historical group-stage draw rate; published RPS scores and calibration plots in `docs/validation.md`.
 
 ## 10. Acceptance Criteria
 
@@ -299,7 +302,7 @@ The `Team` dataclass mirrors the CSV schema in §5.3 exactly, including the `*_u
 5. The sum of `win_pct` across all teams equals `1.0 ± 0.001`.
 6. For two teams with identical FIFA rank but different Elo, group-survival% under `--rating elo` is monotonic in Elo; the symmetric statement holds for `--rating fifa` (different FIFA, identical Elo).
 7. **Calibration:** with default parameters, the simulated group-stage draw rate is within 2 pp of the historical international rate (~25%).
-8. **Back-test:** on the 2018 and 2022 World Cups, the per-match Brier score across the simulated probabilities is below 0.21 (better than a 0.222 uniform-probability baseline).
+8. **Back-test:** on the 2018 and 2022 World Cups, the per-match RPS (Ranked Probability Score) across the simulated probabilities is below 0.21 (better than the $2/9 \approx 0.222$ uniform-predictor baseline on balanced 3-outcome data).
 9. `wcsim update-ratings --source fifa` produces a `teams.csv` in which every team has populated `fifa_points` and `fifa_rank`; equivalent for `--source elo` and `--source all`.
 10. CSV / JSON output includes `_ci_lo` / `_ci_hi` columns for every probability when `--ci` is on. For every reported probability $\hat{p}$ at sample size $n$, the bounds match the Wilson 95% closed form to within $10^{-6}$ — verified by a unit test against `statsmodels.stats.proportion.proportion_confint(..., method="wilson")`.
 
@@ -331,7 +334,7 @@ Two artifacts produced at M5 and rerun on every release:
 
 `wcsim backtest --year 2022` (and `--year 2018`) replays a completed World Cup using the ratings as they stood the week before kickoff (snapshots are bundled in `wcsim/data/backtest/`). For each completed match $m$ we record the model's predicted probability $\hat{p}_m$ over `{home win, draw, away win}` and the realised outcome $y_m$, then compute:
 
-- **Per-match Brier score:** $B = \frac{1}{N} \sum_m \sum_k (\hat{p}_{m,k} - y_{m,k})^2$. Target: $B < 0.21$ (a uniform-probability baseline scores $\approx 0.222$).
+- **Per-match RPS (Ranked Probability Score):** $$\text{RPS} = \frac{1}{N(K-1)} \sum_m \sum_{k=1}^{K-1} \left( \sum_{j \le k} \hat{p}_{m,j} - \sum_{j \le k} y_{m,j} \right)^2$$ with $K = 3$ outcomes (home win, draw, away win) and the outcome ordering `[home_win, draw, away_win]`. RPS is the academically standard metric for ordinal football predictions (Constantinou & Fenton, 2012): it penalises a "home win" prediction less when the realised outcome is a draw than when it is an away win. Target: $\text{RPS} < 0.21$ (the uniform-predictor baseline on balanced 3-outcome data is exactly $2/9 \approx 0.222$; Spike 1's `validate.py` asserts this at startup).
 - **Calibration plot:** bucket predictions into deciles of $\hat{p}$ and plot mean predicted vs. observed frequency; the diagonal is perfect calibration.
 - **Trophy-probability comparison:** the simulated trophy probabilities are compared to FiveThirtyEight's published pre-tournament forecasts (where available) as an external sanity check.
 

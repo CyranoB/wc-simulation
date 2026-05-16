@@ -2,9 +2,9 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Validate the `wcsim` match model (PRD §5.5) against the 2018 + 2022 World Cups before any production code is written. The gate is `brier_90min[elo].total < 0.215`; pass means Spike 2 (library extraction) starts.
+**Goal:** Validate the `wcsim` match model (PRD §5.5) against the 2018 + 2022 World Cups before any production code is written. The gate is `rps_90min[elo].total < 0.215`; pass means Spike 2 (library extraction) starts.
 
-**Architecture:** A single throwaway Python script (`spikes/01-validation/validate.py`) on branch `spike/01-validation`. It loads three bundled CSVs (Elo, FIFA, match results), predicts every historical match under three rating modes × two scoring conventions, computes Brier + simulated-draw-rate + Elo-mode calibration, and writes `results/brier.json` plus `results/calibration.png`. Single-threaded NumPy; no CLI, no package, no unit tests beyond the validation outputs themselves (per spec §2).
+**Architecture:** A single throwaway Python script (`spikes/01-validation/validate.py`) on the current working branch (`CyranoB/review-prd` in the Conductor workspace; no separate spike branch). It loads three bundled CSVs (Elo, FIFA, match results), predicts every historical match under three rating modes × two scoring conventions, computes RPS + simulated-draw-rate + Elo-mode calibration, and writes `results/brier.json` plus `results/calibration.png`. Single-threaded NumPy; no CLI, no package, no unit tests beyond the validation outputs themselves (per spec §2).
 
 **Tech Stack:** Python ≥ 3.11, NumPy, pandas, matplotlib, requests (only for the one-time data fetch).
 
@@ -112,11 +112,7 @@ git commit -m "Correct Elo source: eloratings.net (international), not clubelo.c
 - Create: `spikes/01-validation/data/raw/.gitkeep`
 - Create: `spikes/01-validation/results/.gitkeep`
 
-- [ ] **Step 1: Create the branch.**
-
-```bash
-git checkout -b spike/01-validation
-```
+- [x] **Step 1: (omitted in Conductor)** — work happens in-place on the current branch `CyranoB/review-prd`. No `git checkout -b` needed; Conductor's workspace already provides the working branch. If executing this plan outside Conductor, manually create a branch first (e.g. `git checkout -b spike/01-validation`).
 
 - [ ] **Step 2: Create the directory tree.**
 
@@ -141,7 +137,7 @@ requests>=2.31
 
 Loads pre-WC Elo + FIFA ratings and historical match results, predicts every
 match under Elo / FIFA / Blend rating modes under two scoring conventions
-(90-min and post-ET), computes Brier + draw-rate + Elo-mode calibration,
+(90-min and post-ET), computes RPS + draw-rate + Elo-mode calibration,
 and emits results/brier.json plus results/calibration.png.
 
 Throwaway. Single-threaded NumPy. No CLI, no package, no unit tests.
@@ -220,22 +216,25 @@ git commit -m "Spike 1: scaffold directory + stubs"
 
 The three Kaggle datasets below are stable and well-maintained as of 2026-05; if any have moved, search Kaggle for the closest equivalent.
 
-- [ ] **Step 1: Fetch the eloratings.net mirror.** Kaggle dataset `martj42/international-football-elo-ratings` (or the closest current equivalent — search for "international football elo"). Use the Kaggle CLI:
+- [ ] **Step 1: Fetch the eloratings.net mirror.** Kaggle dataset `saifalnimri/international-football-elo-ratings` (the buddy reviewer's verified slug; if it has moved, search Kaggle for "international football elo"). Use the Kaggle CLI:
 
 ```bash
 cd spikes/01-validation/data/raw
-kaggle datasets download -d martj42/international-football-elo-ratings -p . --unzip
+kaggle datasets download -d saifalnimri/international-football-elo-ratings -p . --unzip
 mv *.csv elo_history.csv
 ```
 
 If you don't have the Kaggle CLI configured, download the ZIP manually from the dataset's Kaggle page and extract the CSV into `data/raw/elo_history.csv`.
 
-Verify the file has daily Elo ratings keyed by team name and date, with both 2018-06-13 and 2022-11-19 in the date range:
+**Verify schema before proceeding to Task 3** — this dataset uses a `rating` column (not `elo`), and may store rating-change rows only (not a row per team per day). Confirm the column names and the date format:
 
 ```bash
 head -3 elo_history.csv
-awk -F, '$1 == "2018-06-13" || $1 == "2022-11-19"' elo_history.csv | head -5
+# Expected header roughly: date,team,rating  (or similar — note the column name).
+awk -F, 'NR==1 || $1 == "2018-06-13" || $1 == "2018-06-12" || $1 == "2022-11-19" || $1 == "2022-11-18"' elo_history.csv | head -10
 ```
+
+If the header is not `(date, team, rating)`, note the actual column names and update `load_elo()` in Task 4 Step 1 accordingly. If exact-date rows are missing for snapshot dates, that's expected — Task 4's loader uses a "latest row on or before snapshot date" lookup.
 
 - [ ] **Step 2: Fetch the Kaggle FIFA Men's World Ranking dataset.** Slug `cashncarry/fifaworldranking` (monthly snapshots back to 1992):
 
@@ -266,16 +265,34 @@ grep -c "FIFA World Cup" matches_history.csv   # expect at least 128 (2018+2022)
 
 Note: this dataset has columns `date, home_team, away_team, home_score, away_score, tournament, city, country, neutral`. It records **post-ET final scores** for knockout matches in `home_score`/`away_score` — the regulation 90-minute score is **not** in this dataset. We'll need a separate supplement for the ET/penalty split (Step 4).
 
-- [ ] **Step 4: Fetch a knockout ET/penalty supplement.** Slug `mathurinache/fifa-world-cup` provides shootouts and ET goals. If unavailable, fall back to manually building a small CSV of just the ET/pens matches across both tournaments. Save as `spikes/01-validation/data/raw/knockout_supplement.csv` with columns `date, home, away, regulation_home, regulation_away, et_home, et_away, pen_winner`.
+- [ ] **Step 4: Build the knockout ET/penalty supplement — REQUIRED.** The base `matches_history.csv` stores post-ET scores in the regulation columns for knockout matches, so without an ET supplement the gating `rps_90min` metric is silently corrupted (ET goals get treated as 90-min goals). The supplement is therefore **required**, not optional. Save as `spikes/01-validation/data/raw/knockout_supplement.csv` with columns:
+
+```
+date,home,away,regulation_home,regulation_away,et_home,et_away,pen_winner
+```
+
+Try the Kaggle dataset first, then fall back to hand-writing:
 
 ```bash
 kaggle datasets download -d mathurinache/fifa-world-cup -p . --unzip 2>/dev/null || true
 ```
 
-Adapt or hand-write the supplement as needed — there are at most ~12 rows. The known ET/pens matches:
+The 10 rows that must be present (Task 4's loader asserts coverage and aborts if any are missing):
 
-- WC 2018: ESP–RUS (R16, pens), CRO–DEN (R16, pens), CRO–RUS (QF, pens), ENG–COL (R16, pens), CRO–ENG (SF, ET goals).
-- WC 2022: NED–ARG (QF, pens), CRO–JPN (R16, pens), CRO–BRA (QF, pens), MAR–ESP (R16, pens), ARG–FRA (final, pens).
+| date | home | away | reg | ET | pen winner |
+|---|---|---|---|---|---|
+| 2018-07-01 | Russia | Spain | 1-1 | 1-1 | Russia |
+| 2018-07-01 | Croatia | Denmark | 1-1 | 1-1 | Croatia |
+| 2018-07-07 | Russia | Croatia | 2-2 | 2-2 | Croatia |
+| 2018-07-03 | Colombia | England | 1-1 | 1-1 | England |
+| 2018-07-11 | Croatia | England | 1-1 | 2-1 | *(no pens)* |
+| 2022-12-09 | Netherlands | Argentina | 2-2 | 2-2 | Argentina |
+| 2022-12-05 | Japan | Croatia | 1-1 | 1-1 | Croatia |
+| 2022-12-09 | Croatia | Brazil | 0-0 | 1-1 | Croatia |
+| 2022-12-06 | Morocco | Spain | 0-0 | 0-0 | Morocco |
+| 2022-12-18 | Argentina | France | 3-3 | 3-3 | Argentina |
+
+Use the team-name spellings as they appear in `matches_history.csv` so the supplement join works (Task 4 joins on `(date, home, away)`).
 
 - [ ] **Step 5: Eyeball each file.**
 
@@ -439,13 +456,22 @@ WC2022 = ("2022-11-19", "2022-11-20", "2022-12-18")
 
 
 def load_elo(snapshot_date: str) -> dict[str, float]:
-    """Return {iso3: elo_rating} for teams as of snapshot_date."""
+    """Return {iso3: rating} for teams as of snapshot_date.
+
+    Uses 'latest row on or before snapshot_date, per team' so rating-change-only
+    datasets work (Kaggle saifalnimri/international-football-elo-ratings stores
+    one row per rating change, not per day). Column name is 'rating' in that
+    dataset; verified in Task 2 Step 1.
+    """
     df = pd.read_csv(DATA / "elo_history.csv")
-    df = df[df["date"] == snapshot_date]
+    df["date"] = pd.to_datetime(df["date"])
+    target = pd.to_datetime(snapshot_date)
+    df = df[df["date"] <= target].sort_values("date")
+    latest = df.groupby("team").tail(1)
     out: dict[str, float] = {}
-    for _, row in df.iterrows():
+    for _, row in latest.iterrows():
         try:
-            out[to_iso3(row["team"])] = float(row["elo"])
+            out[to_iso3(row["team"])] = float(row["rating"])
         except KeyError:
             # Team not in our ISO3 map — likely a non-WC participant; skip.
             continue
@@ -473,6 +499,21 @@ def load_fifa(snapshot_date: str) -> tuple[dict[str, float], dict[str, int]]:
     return points, ranks
 
 
+REQUIRED_ET_PENS_MATCHES = {
+    # (date, home, away) — names must match matches_history.csv exactly.
+    ("2018-07-01", "Russia", "Spain"),
+    ("2018-07-01", "Croatia", "Denmark"),
+    ("2018-07-07", "Russia", "Croatia"),
+    ("2018-07-03", "Colombia", "England"),
+    ("2018-07-11", "Croatia", "England"),  # ET goals, no pens
+    ("2022-12-09", "Netherlands", "Argentina"),
+    ("2022-12-05", "Japan", "Croatia"),
+    ("2022-12-09", "Croatia", "Brazil"),
+    ("2022-12-06", "Morocco", "Spain"),
+    ("2022-12-18", "Argentina", "France"),
+}
+
+
 def load_matches(year: int) -> list[dict]:
     """Return list of dicts per WC match.
 
@@ -494,7 +535,18 @@ def load_matches(year: int) -> list[dict]:
     wc = window[window["tournament"].eq("FIFA World Cup")].sort_values("date")
 
     supplement_path = DATA / "knockout_supplement.csv"
-    supp = pd.read_csv(supplement_path) if supplement_path.exists() else pd.DataFrame()
+    if not supplement_path.exists():
+        raise FileNotFoundError(
+            f"{supplement_path} is required (see Task 2 Step 4). "
+            "Without it, ET goals get scored as 90-min goals and rps_90min is corrupted."
+        )
+    supp = pd.read_csv(supplement_path)
+    covered = {(r["date"], r["home"], r["away"]) for _, r in supp.iterrows()}
+    missing = REQUIRED_ET_PENS_MATCHES - covered
+    assert not missing, (
+        f"knockout_supplement.csv missing required rows: {missing}. "
+        f"See Task 2 Step 4 for the full list."
+    )
 
     out: list[dict] = []
     for _, row in wc.iterrows():
@@ -556,6 +608,17 @@ def main() -> None:
     print(f"Matches 2018: {len(m2018)} (expect 64)")
     print(f"Matches 2022: {len(m2022)} (expect 64)")
     print(f"Sample 2022 final: {m2022[-1]}")
+
+    # --- Loader invariants (Fix 6). ---
+    assert len(m2018) == 64, f"Expected 64 WC 2018 matches, got {len(m2018)}"
+    assert len(m2022) == 64, f"Expected 64 WC 2022 matches, got {len(m2022)}"
+    for team_iso in ["ARG", "FRA", "BRA", "GER", "ESP"]:   # spot-check well-known teams
+        assert team_iso in elo_2022, f"{team_iso} missing from Elo 2022"
+        assert team_iso in fifa_2022_pts, f"{team_iso} missing from FIFA 2022"
+    # The final must have gone to pens.
+    final_2022 = m2022[-1]
+    assert final_2022["pen_winner_iso3"] == "ARG", \
+        f"2022 final's pen_winner_iso3 should be ARG, got {final_2022['pen_winner_iso3']}"
 ```
 
 - [ ] **Step 3: Run and verify.**
@@ -663,6 +726,15 @@ def predict(
 
 ```python
 def main() -> None:
+    # --- Predictor invariants (Fix 6). These run on synthetic inputs, no data needed. ---
+    _p = predict(elo_a=2000, elo_b=1500, fifa_a=1500, fifa_b=1200,
+                 f0=1300.0, a_is_host=False, b_is_host=False, mode="elo")
+    assert abs(sum(_p) - 1.0) < 1e-9, f"Probs don't sum to 1: {_p}"
+    _q = predict(elo_a=1500, elo_b=2000, fifa_a=1200, fifa_b=1500,
+                 f0=1300.0, a_is_host=False, b_is_host=False, mode="elo")
+    assert abs(_p[0] - _q[2]) < 1e-9 and abs(_p[2] - _q[0]) < 1e-9, \
+        f"Predictor not symmetric: {_p} vs {_q}"
+
     elo_2022 = load_elo(WC2022[0])
     fifa_pts_2022, _ = load_fifa(WC2022[0])
     f0_2022 = float(np.mean(list(fifa_pts_2022.values())))
@@ -698,12 +770,12 @@ git commit -m "Spike 1: match predictor (Elo / FIFA / Blend)"
 
 ---
 
-## Task 6: Brier under both conventions
+## Task 6: RPS under both conventions
 
 **Files:**
 - Modify: `spikes/01-validation/validate.py`
 
-- [ ] **Step 1: Add outcome helpers and the Brier computation.** Insert above `main`:
+- [ ] **Step 1: Add outcome helpers and the RPS computation.** Insert above `main`:
 
 ```python
 HOST_BY_YEAR = {2018: {"RUS"}, 2022: {"QAT"}}
@@ -753,16 +825,30 @@ def predict_all_matches(
     return preds
 
 
-def brier(preds: np.ndarray, outcomes: np.ndarray) -> float:
-    """Mean per-match Brier score over a (N,3) prediction array."""
-    return float(np.mean(np.sum((preds - outcomes) ** 2, axis=1)))
+def rps(preds: np.ndarray, outcomes: np.ndarray) -> float:
+    """Ranked Probability Score on 3-outcome data. preds, outcomes shape (N, 3),
+    one-hot outcomes with column order [home_win, draw, away_win].
+    Returns mean RPS in [0, 1] where lower is better.
+    Uniform predictor on balanced 3-outcome data scores exactly 2/9 ≈ 0.222
+    (asserted at startup in main; see Task 6 Step 2)."""
+    K = preds.shape[1]
+    cum_p = np.cumsum(preds[:, :-1], axis=1)
+    cum_y = np.cumsum(outcomes[:, :-1], axis=1)
+    return float(np.mean(np.sum((cum_p - cum_y) ** 2, axis=1) / (K - 1)))
 ```
 
-- [ ] **Step 2: Wire Brier computation into `main`.**
+- [ ] **Step 2: Wire RPS computation into `main`.**
 
 ```python
 def main() -> None:
+    # --- Startup invariants (Fix 6). Failures here mean validate.py itself is broken.
+    _uniform = np.full((300, 3), 1 / 3)
+    _balanced = np.tile(np.eye(3), (100, 1))
+    assert abs(rps(_uniform, _balanced) - 2 / 9) < 1e-9, \
+        f"RPS broken: uniform predictor should score 2/9, got {rps(_uniform, _balanced)}"
+
     results: dict = {"params": dict(PARAMS), "n_matches": {}}
+    f0_by_year: dict[int, float] = {}
 
     all_matches: list[dict] = []
     all_preds = {mode: [] for mode in ("elo", "fifa", "blend")}
@@ -776,6 +862,7 @@ def main() -> None:
         elo_by_year[year] = elo
         fifa_pts, _ = load_fifa(snap)
         f0 = float(np.mean(list(fifa_pts.values())))
+        f0_by_year[year] = f0
         matches = load_matches(year)
         preds = predict_all_matches(matches, elo, fifa_pts, f0, HOST_BY_YEAR[year])
 
@@ -792,36 +879,40 @@ def main() -> None:
     y_et = np.array(all_y_et)
     preds_all = {mode: np.vstack(all_preds[mode]) for mode in all_preds}
 
+    # Fix 4: record f0 per tournament (FIFA reformed its algorithm mid-2018,
+    # so 2018 and 2022 means differ; schema uses f0_by_year, not a single scalar).
+    results["params"]["f0_by_year"] = {str(y): v for y, v in f0_by_year.items()}
+
     n_kn = sum(1 for m in all_matches if m["is_knockout"])
     results["n_matches"] = {
         "total": len(all_matches),
         "group_stage": len(all_matches) - n_kn,
         "knockout": n_kn,
     }
-    results["brier_90min"] = {}
-    results["brier_post_et"] = {}
+    results["rps_90min"] = {}
+    results["rps_post_et"] = {}
     for mode in ("elo", "fifa", "blend"):
         idx_2018 = per_year_indices[2018]
         idx_2022 = per_year_indices[2022]
-        results["brier_90min"][mode] = {
-            "total": brier(preds_all[mode], y_90),
-            "2018": brier(preds_all[mode][idx_2018], y_90[idx_2018]),
-            "2022": brier(preds_all[mode][idx_2022], y_90[idx_2022]),
+        results["rps_90min"][mode] = {
+            "total": rps(preds_all[mode], y_90),
+            "2018": rps(preds_all[mode][idx_2018], y_90[idx_2018]),
+            "2022": rps(preds_all[mode][idx_2022], y_90[idx_2022]),
         }
-        results["brier_post_et"][mode] = {
-            "total": brier(preds_all[mode], y_et),
-            "2018": brier(preds_all[mode][idx_2018], y_et[idx_2018]),
-            "2022": brier(preds_all[mode][idx_2022], y_et[idx_2022]),
+        results["rps_post_et"][mode] = {
+            "total": rps(preds_all[mode], y_et),
+            "2018": rps(preds_all[mode][idx_2018], y_et[idx_2018]),
+            "2022": rps(preds_all[mode][idx_2022], y_et[idx_2022]),
         }
     results["et_divergence"] = {
-        mode: results["brier_post_et"][mode]["total"] - results["brier_90min"][mode]["total"]
+        mode: results["rps_post_et"][mode]["total"] - results["rps_90min"][mode]["total"]
         for mode in ("elo", "fifa", "blend")
     }
 
     print(json.dumps({
         "n_matches": results["n_matches"],
-        "brier_90min": results["brier_90min"],
-        "brier_post_et": results["brier_post_et"],
+        "rps_90min": results["rps_90min"],
+        "rps_post_et": results["rps_post_et"],
         "et_divergence": results["et_divergence"],
     }, indent=2))
 
@@ -840,14 +931,14 @@ def main() -> None:
 cd spikes/01-validation && python validate.py
 ```
 
-Expected: every Brier value lands in [0.18, 0.25]. Elo 90-min total should be the lowest of the three modes (since Elo is the production default). `et_divergence` should be small (< 0.02) for all modes — > 0.05 indicates a bug in `one_hot_post_et`.
+Expected: every RPS value lands in [0.18, 0.25]. Elo 90-min total should be the lowest of the three modes (since Elo is the production default). `et_divergence` should be small (< 0.02) for all modes — > 0.05 indicates a bug in `one_hot_post_et`.
 
 - [ ] **Step 4: Commit.**
 
 ```bash
 cd ../..
 git add spikes/01-validation/validate.py
-git commit -m "Spike 1: Brier under 90-min and post-ET conventions"
+git commit -m "Spike 1: RPS under 90-min and post-ET conventions"
 ```
 
 ---
@@ -871,7 +962,7 @@ def observed_draw_rate(matches: list[dict], y_90: np.ndarray) -> float:
     return float(np.mean(y_90[grp_mask, 1]))
 ```
 
-- [ ] **Step 2: Wire it into `main` after the Brier block.**
+- [ ] **Step 2: Wire it into `main` after the RPS block.**
 
 ```python
     grp_mask = np.array([not m["is_knockout"] for m in all_matches])
@@ -983,7 +1074,7 @@ git commit -m "Spike 1: Elo-mode calibration plot"
 
 ---
 
-## Task 9: By-bucket Brier breakdown
+## Task 9: By-bucket RPS breakdown
 
 **Files:**
 - Modify: `spikes/01-validation/validate.py`
@@ -991,7 +1082,7 @@ git commit -m "Spike 1: Elo-mode calibration plot"
 - [ ] **Step 1: Add the bucketer.** Insert above `main`:
 
 ```python
-def by_bucket_brier(
+def by_bucket_rps(
     matches: list[dict],
     preds_all: dict[str, np.ndarray],
     y_90: np.ndarray,
@@ -1024,14 +1115,14 @@ def by_bucket_brier(
         if mask.sum() == 0:
             continue
         for mode in preds_all:
-            out[tag][mode] = brier(preds_all[mode][mask], y_90[mask])
+            out[tag][mode] = rps(preds_all[mode][mask], y_90[mask])
     return out
 ```
 
 - [ ] **Step 2: Call it from `main` after the calibration block.**
 
 ```python
-    results["by_bucket"] = by_bucket_brier(all_matches, preds_all, y_90, elo_by_year)
+    results["by_bucket"] = by_bucket_rps(all_matches, preds_all, y_90, elo_by_year)
     print(json.dumps({"by_bucket": results["by_bucket"]}, indent=2))
 ```
 
@@ -1041,14 +1132,14 @@ def by_bucket_brier(
 cd spikes/01-validation && python validate.py
 ```
 
-Expected: `favourite_wins` bucket should have lower Brier than `underdog_wins` (the model is more confident when it picks right). `draw` Brier is typically the highest. `n` per bucket: roughly 60 favourite-wins, 30–40 underdog-wins, 25–30 draws.
+Expected: `favourite_wins` bucket should have lower RPS than `underdog_wins` (the model is more confident when it picks right). `draw` RPS is typically the highest. `n` per bucket: roughly 60 favourite-wins, 30–40 underdog-wins, 25–30 draws.
 
 - [ ] **Step 4: Commit.**
 
 ```bash
 cd ../..
 git add spikes/01-validation/validate.py
-git commit -m "Spike 1: per-outcome-bucket Brier breakdown"
+git commit -m "Spike 1: per-outcome-bucket RPS breakdown"
 ```
 
 ---
@@ -1064,7 +1155,7 @@ git commit -m "Spike 1: per-outcome-bucket Brier breakdown"
 ```python
 def decide(results: dict) -> tuple[str, list[str]]:
     """Apply the spec §6 four-way decision matrix. Returns (label, flags)."""
-    elo_90 = results["brier_90min"]["elo"]["total"]
+    elo_90 = results["rps_90min"]["elo"]["total"]
     cal = results["calibration_elo_90min"]
 
     # Calibration check: every decile with >= 8 matches within +/- 0.05 of diagonal.
@@ -1083,8 +1174,8 @@ def decide(results: dict) -> tuple[str, list[str]]:
         flags.append("et_divergence_high")
 
     if elo_90 < 0.215 and cal_ok:
-        fifa_b = results["brier_90min"]["fifa"]["total"]
-        blend_b = results["brier_90min"]["blend"]["total"]
+        fifa_b = results["rps_90min"]["fifa"]["total"]
+        blend_b = results["rps_90min"]["blend"]["total"]
         if fifa_b > 0.225 or blend_b > 0.225:
             return "pass_with_caveat", flags
         return "pass", flags
@@ -1099,6 +1190,18 @@ def decide(results: dict) -> tuple[str, list[str]]:
     decision, flags = decide(results)
     results["decision"] = decision
     results["informational_flags"] = flags
+
+    # --- Schema check (Fix 6). Verifies every consumer-visible key is present
+    # before we declare success.
+    required_top_level = {
+        "decision", "params", "n_matches",
+        "rps_90min", "rps_post_et", "et_divergence",
+        "draw_rate", "calibration_elo_90min", "by_bucket",
+        "informational_flags",
+    }
+    missing_keys = required_top_level - set(results)
+    assert not missing_keys, f"brier.json missing required keys: {missing_keys}"
+    assert "f0_by_year" in results["params"], "params.f0_by_year missing"
 
     RESULTS.mkdir(parents=True, exist_ok=True)
     with open(RESULTS / "brier.json", "w") as f:
@@ -1144,11 +1247,11 @@ cat spikes/01-validation/results/brier.json
 ````markdown
 # Spike 1: Model Validation Back-Test
 
-**Decision: <FILL FROM brier.json>.** Elo 90-min Brier on 128 historical World Cup matches (2018 + 2022) was **<FILL>**, vs the < 0.215 gate. FIFA mode: <FILL>; Blend mode: <FILL>. Calibration curve fits diagonal within ±0.05 across deciles with ≥ 8 matches. Simulated group-stage draw rate <FILL>%, vs observed <FILL>% (Δ = <FILL>pp). ET divergence (post-ET − 90-min): <FILL>. Spike 2 (library extraction) is <cleared / blocked / soft-blocked> to start.
+**Decision: <FILL FROM brier.json>.** Elo 90-min RPS on 128 historical World Cup matches (2018 + 2022) was **<FILL>**, vs the < 0.215 gate. FIFA mode: <FILL>; Blend mode: <FILL>. Calibration curve fits diagonal within ±0.05 across deciles with ≥ 8 matches. Simulated group-stage draw rate <FILL>%, vs observed <FILL>% (Δ = <FILL>pp). ET divergence (post-ET − 90-min): <FILL>. Spike 2 (library extraction) is <cleared / blocked / soft-blocked> to start.
 
 ## Summary table
 
-| Mode  | Brier 90-min | Brier post-ET | Sim draw rate | Δ vs observed |
+| Mode  | RPS 90-min | RPS post-ET | Sim draw rate | Δ vs observed |
 |-------|-------------:|--------------:|--------------:|--------------:|
 | Elo   |   <FILL>     |     <FILL>    |    <FILL>%    |   <FILL>pp    |
 | FIFA  |   <FILL>     |     <FILL>    |    <FILL>%    |   <FILL>pp    |
@@ -1169,8 +1272,8 @@ All inputs are bundled under `data/raw/` (Kaggle mirrors of eloratings.net, FIFA
 
 - **Elo source** — eloratings.net via a Kaggle mirror snapshot. The production scraper (PRD §7) will hit eloratings.net directly; the mirror is convenient for offline reproducibility but should not be relied on long-term.
 - **FIFA reform** — the FIFA ranking algorithm changed in mid-2018, so the 2018 and 2022 snapshots have different point distributions. `F0` is computed per-tournament here; production uses a single bundled snapshot.
-- **Knockout convention** — `brier_90min` is the gating metric (the match model predicts 90 minutes); `brier_post_et` is informational. A divergence > 0.01 is flagged for Spike 2 (see `informational_flags` in `brier.json`).
-- **Sample size noise** — 128 matches → Brier has ~±0.015 noise. If you re-run with a Kaggle dataset that has shifted, the headline number may move by that much; the < 0.215 gate has ~0.5σ headroom over the 0.222 uniform baseline.
+- **Knockout convention** — `rps_90min` is the gating metric (the match model predicts 90 minutes); `rps_post_et` is informational. A divergence > 0.01 is flagged for Spike 2 (see `informational_flags` in `brier.json`).
+- **Sample size noise** — 128 matches → RPS has ~±0.015 noise. If you re-run with a Kaggle dataset that has shifted, the headline number may move by that much; the < 0.215 gate has ~0.5σ headroom over the 0.222 uniform baseline.
 
 ## Next step
 
@@ -1182,10 +1285,9 @@ If `decision` is `pass` or `pass_with_caveat`, proceed to Spike 2 (library extra
 ```bash
 git add spikes/01-validation/README.md
 git commit -m "Spike 1: README with conclusion paragraph"
-git push -u origin spike/01-validation
 ```
 
-The spike branch now contains the full validation artifact. Either open a PR back to `main` summarising the decision, or stay on the branch and start Spike 2 from here.
+The working branch (`CyranoB/review-prd` in Conductor) now contains the full validation artifact. Open a PR to `main` summarising the decision, or stay on the branch and start Spike 2 from here. (Push deferred to the user — Conductor does not auto-push on commit.)
 
 ---
 
@@ -1193,7 +1295,7 @@ The spike branch now contains the full validation artifact. Either open a PR bac
 
 Reviewed against the spec on 2026-05-15:
 
-- **Spec coverage:** Tasks 4–10 cover §4 *Method* (loaders, predictors, dual-convention Brier, draw rate, calibration, by-bucket breakdown); Task 10 covers §5 *Output / Artifacts* (`brier.json` schema) and §6 *Pass / Fail* (decision matrix); Task 11 covers the conclusion-paragraph requirement at the top of §9 *Decision Record*. Tasks 1–3 cover §3 *Inputs* (bundled data, ISO3 normalisation) and §8 *Workflow tip* (front-loaded data prep).
+- **Spec coverage:** Tasks 4–10 cover §4 *Method* (loaders, predictors, dual-convention RPS, draw rate, calibration, by-bucket breakdown); Task 10 covers §5 *Output / Artifacts* (`brier.json` schema) and §6 *Pass / Fail* (decision matrix); Task 11 covers the conclusion-paragraph requirement at the top of §9 *Decision Record*. Tasks 1–3 cover §3 *Inputs* (bundled data, ISO3 normalisation) and §8 *Workflow tip* (front-loaded data prep).
 - **Identified spec error:** Task 0 corrects the `clubelo.com` references in PRD v1.5 and the spike spec — `clubelo.com` is club Elo only; international Elo lives at `eloratings.net`. This is a real bug in the upstream docs, not a plan-level issue.
 - **No placeholders:** every code-bearing step shows the full code; every verify step has a specific expected outcome.
-- **Type consistency:** `predict()`, `predict_all_matches()`, `brier()`, and `decide()` use consistent shapes (`(N, 3)` arrays, `{mode: array}` dicts). `to_iso3()` is named consistently across `name_to_iso3.py` and its callers. `elo_by_year` is constructed in Task 6 Step 2 and consumed in Task 9 — naming matches.
+- **Type consistency:** `predict()`, `predict_all_matches()`, `rps()`, and `decide()` use consistent shapes (`(N, 3)` arrays, `{mode: array}` dicts). `to_iso3()` is named consistently across `name_to_iso3.py` and its callers. `elo_by_year` is constructed in Task 6 Step 2 and consumed in Task 9 — naming matches.
