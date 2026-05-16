@@ -1,8 +1,8 @@
-"""Match model: Poisson + Dixon-Coles τ. Pure deterministic predict_match."""
+"""Match model: Poisson + Dixon-Coles τ. predict_match + sample_match."""
 from __future__ import annotations
 import numpy as np
 from .ratings.base import RatingSystem
-from .types import Params, Team
+from .types import MatchResult, Params, Team
 
 SCORE_GRID_MAX = 8
 
@@ -50,3 +50,56 @@ def predict_match(
     diff = rating.rating_diff(team_a, team_b, a_is_host, b_is_host)
     lam_a, lam_b = rating.lambdas(diff, p.mu, p.lambda_min)
     return _outcome_probs(lam_a, lam_b, p.rho)
+
+
+ET_LAMBDA_SCALE = 30.0 / 90.0
+
+
+def _sample_score(lam_a: float, lam_b: float, rho: float, rng: np.random.Generator) -> tuple[int, int]:
+    """Sample (home_goals, away_goals) from the τ-corrected joint Poisson grid."""
+    pa = _poisson_pmf(lam_a, SCORE_GRID_MAX)
+    pb = _poisson_pmf(lam_b, SCORE_GRID_MAX)
+    grid = _apply_tau(np.outer(pa, pb), lam_a, lam_b, rho)
+    grid = grid / grid.sum()
+    flat = grid.flatten()
+    idx = int(rng.choice(len(flat), p=flat))
+    n = SCORE_GRID_MAX + 1
+    return idx // n, idx % n
+
+
+def sample_match(
+    team_a: Team, team_b: Team, *,
+    rating: RatingSystem, params: Params | None = None,
+    a_is_host: bool = False, b_is_host: bool = False,
+    rng: np.random.Generator,
+    stage: str = "group",
+) -> MatchResult:
+    """Sample a single match. For non-group stages, plays ET then pens if tied."""
+    p = params if params is not None else Params()
+    diff = rating.rating_diff(team_a, team_b, a_is_host, b_is_host)
+    lam_a, lam_b = rating.lambdas(diff, p.mu, p.lambda_min)
+
+    home_goals, away_goals = _sample_score(lam_a, lam_b, p.rho, rng)
+    extra_time = False
+    went_to_pens = False
+    pen_winner: str | None = None
+
+    if stage != "group" and home_goals == away_goals:
+        extra_time = True
+        et_h, et_a = _sample_score(lam_a * ET_LAMBDA_SCALE, lam_b * ET_LAMBDA_SCALE, p.rho, rng)
+        home_goals += et_h
+        away_goals += et_a
+        if home_goals == away_goals:
+            went_to_pens = True
+            w_e = rating.win_expectation(diff)
+            pen_winner = team_a.iso3 if rng.random() < w_e else team_b.iso3
+
+    return MatchResult(
+        home=team_a.iso3, away=team_b.iso3,
+        home_goals=home_goals, away_goals=away_goals,
+        stage=stage,
+        neutral=not (a_is_host or b_is_host),
+        extra_time=extra_time, went_to_pens=went_to_pens, pen_winner=pen_winner,
+        home_rating_before=rating.rating_of(team_a),
+        away_rating_before=rating.rating_of(team_b),
+    )
