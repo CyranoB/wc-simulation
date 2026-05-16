@@ -2,3 +2,4 @@ spikes/01-validation/.venv/
 __pycache__/
 .pytest_cache/
 htmlcov/
+.coverage
