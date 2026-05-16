@@ -1,8 +1,12 @@
 # PRD: `wcsim` — Football Tournament Monte Carlo Simulator CLI
 
 **Author:** Research Agent
-**Status:** Draft v1.6
-**Last updated:** 2026-05-15
+**Status:** Draft v1.7
+**Last updated:** 2026-05-16
+
+**Changelog v1.7 (Spike 1 follow-up: structural model fix):**
+- **Added Dixon-Coles correlation $\tau$ to §5.5's joint score distribution.** Spike 1's calibration sweep showed that no $(c_\text{elo}, \mu)$ in the PRD-prescribed grid passes the Elo-mode calibration gate — every cell over-predicts draws and is under-confident in the moderate-favourite range (decile 6: model 63% vs observed 84%, an ~2σ miss). Dixon-Coles introduces a single correlation parameter $\rho$ that adjusts the four lowest-scoring joint outcomes (0-0, 0-1, 1-0, 1-1); positive $\rho$ shifts mass from low-score draws to decisive low-score outcomes, which is the direction our tournament data demands.
+- New parameter: `--rho FLOAT` (default `0.0` — preserves v1.6 independent-Poisson behaviour at defaults; Spike 1's sweep recommends a non-zero value). AC8 remains valid as written (the back-test metric and threshold are model-agnostic).
 
 **Changelog v1.6 (post-plan-review metric correction):**
 - Switched the validation metric in §12.2 and AC8 from "Brier score" to **RPS (Ranked Probability Score)**. The PRD's documented baseline (0.222) and gate (0.21) were always correct for RPS — a uniform 3-outcome predictor on balanced one-hot data scores exactly $2/9 \approx 0.222$ under RPS, whereas multiclass Brier (sum-over-classes) scores $2/3 \approx 0.667$. The formula in §12.2 (and the description in M5 / AC8 / command table / architecture) is updated; no thresholds change. RPS is also the academically standard metric for ordinal football predictions (Constantinou & Fenton, 2012). Spike 1's `validate.py` asserts the uniform-RPS baseline at startup.
@@ -111,6 +115,7 @@ The default configuration ships with the 48-team, 12-group format used by the 20
 - `--c-fifa FLOAT` — rating-to-goal scaling constant for pure-FIFA mode (default `450`).
 - `--mu FLOAT` — Poisson baseline goals per team per game (default `1.35`).
 - `--lambda-min FLOAT` — floor applied to Poisson rates (default `0.05`); see §5.5 for the rare-discontinuity caveat.
+- `--rho FLOAT` — Dixon-Coles correlation parameter for the joint score distribution (default `0.0` — reduces to independent Poisson). Positive values reduce P(0-0) and P(1-1) (suppress low-scoring draws); negative values increase them. Valid range: $|\rho| \le \min(1/(\lambda_A \lambda_B), 1)$ across the relevant $\lambda$ band.
 - `--no-update-ratings` — keep ratings frozen across the tournament (faster, less realistic).
 - `--pens {coinflip,elo,fifa,blend}` — penalty shootout model (default: match `--rating`; `coinflip` always available). With `--pens blend`, the shootout uses the blended rating with the same `--blend` weight as match prediction.
 - `--out PATH` — write results to CSV or JSON (extension-detected).
@@ -186,7 +191,11 @@ For two teams A and B with chosen rating $$R$$ (Elo, FIFA points, or blended), a
 - **Effective rating difference:** $$D = (R_A + H) - R_B$$.
 - **Win expectation:** $$W_e = \frac{1}{1 + 10^{-D/S}}$$, where the scale $$S$$ depends on rating system: $$S = 400$$ for Elo, $$S = 600$$ for FIFA points, and $$S = 400$$ for blend (since the blended rating is normalised to Elo space — see *Blended rating* below). The FIFA scale is empirically chosen so that FIFA-point gaps in the bundled snapshot reproduce the same median win-rate as Elo on the same matchups; the calibration script is shipped in `tools/calibrate_fifa_scale.py` and is rerun whenever the snapshot is refreshed.
 - **Goal expectations:** $$\lambda_A = \max(\lambda_{\min},\ \mu + D/(2c)),\quad \lambda_B = \max(\lambda_{\min},\ \mu - D/(2c))$$. The constant $$c$$ is `--c-elo` for Elo/Blend (default `300`) and `--c-fifa` for pure FIFA (default `450`). The floor $$\lambda_{\min}$$ (default `0.05`) introduces a small discontinuity for $$|D| \gtrsim 2c(\mu - \lambda_{\min})$$, which for default values is $$\approx 780$$ Elo points — present in $$< 1\%$$ of international fixtures. See §11 for an open question on switching to a multiplicative form.
-- **Goals sampled independently:** $$G_A \sim \text{Poisson}(\lambda_A),\quad G_B \sim \text{Poisson}(\lambda_B)$$.
+- **Joint score distribution (Dixon-Coles):** marginally each side follows $$G_A \sim \text{Poisson}(\lambda_A),\quad G_B \sim \text{Poisson}(\lambda_B)$$, but the joint probability of $(x, y)$ goals is multiplied by a Dixon-Coles correlation factor $\tau$ that adjusts the four lowest-scoring outcomes:
+  $$P(G_A=x, G_B=y) = \frac{\lambda_A^x e^{-\lambda_A}}{x!} \cdot \frac{\lambda_B^y e^{-\lambda_B}}{y!} \cdot \tau(\lambda_A, \lambda_B, x, y, \rho)$$
+  where
+  $$\tau(\lambda_A, \lambda_B, x, y, \rho) = \begin{cases} 1 - \lambda_A \lambda_B \rho & (x, y) = (0, 0) \\ 1 + \lambda_A \rho & (x, y) = (0, 1) \\ 1 + \lambda_B \rho & (x, y) = (1, 0) \\ 1 - \rho & (x, y) = (1, 1) \\ 1 & \text{otherwise} \end{cases}$$
+  $\rho$ is the `--rho` parameter (default `0`, reducing to independent Poisson). Sign convention: **positive $\rho$ suppresses low-scoring draws** (matches our tournament-data finding); negative $\rho$ inflates them (the league-football default in Dixon-Coles 1997). The PRD-default $\rho = 0$ preserves v1.6 behaviour; Spike 1's sweep selects a non-zero value when the data warrants it. Validity: $\rho$ must keep all four adjusted probabilities non-negative — for our typical $\lambda \in [0.05, 5]$ band, $|\rho| \le 0.2$ is safe and is the bound used in the sweep.
 - **Post-match rating update** follows the chosen system's official formula:
   - **Elo:** $$R' = R + K_{\text{elo}} \cdot G_m \cdot (W - W_e)$$, with $$G_m = 1$$ for draws or 1-goal wins, $$1.5$$ for 2-goal wins, and $$(11 + |\Delta|)/8$$ for margins of 3+.
   - **FIFA:** $$R' = R + I \cdot (W - W_e)$$, with $$I = K_{\text{fifa}}$$ (default `60`, the official FIFA value for World-Cup tournament matches).

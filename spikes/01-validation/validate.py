@@ -166,7 +166,7 @@ def load_matches(year: int) -> list[dict]:
     return out
 
 
-# Defaults from PRD v1.6 §5.5.
+# Defaults from PRD v1.7 §5.5.
 PARAMS = {
     "c_elo": 300.0,
     "c_fifa": 450.0,
@@ -176,6 +176,7 @@ PARAMS = {
     "e0": 1500.0,
     "home_bonus_elo": 100.0,
     "home_bonus_fifa": 150.0,
+    "rho": 0.0,  # Dixon-Coles correlation; 0 reduces to independent Poisson
 }
 
 SCORE_GRID_MAX = 8   # inclusive => 9x9 grid; covers > 99.99% of mass.
@@ -190,11 +191,21 @@ def _poisson_pmf(lmbda: float, max_goals: int) -> np.ndarray:
     return np.exp(log_pmf)
 
 
-def _outcome_probs(lam_a: float, lam_b: float) -> tuple[float, float, float]:
-    """Return (P(home_win), P(draw), P(away_win)) from two independent Poissons."""
+def _outcome_probs(lam_a: float, lam_b: float, rho: float = 0.0) -> tuple[float, float, float]:
+    """Return (P(home_win), P(draw), P(away_win)) from two Poisson marginals with
+    a Dixon-Coles τ correlation factor on the four lowest-scoring joint outcomes.
+    rho=0 reduces to independent Poisson (the v1.6 baseline)."""
     pa = _poisson_pmf(lam_a, SCORE_GRID_MAX)
     pb = _poisson_pmf(lam_b, SCORE_GRID_MAX)
     grid = np.outer(pa, pb)
+    if rho != 0.0:
+        # Dixon-Coles τ only adjusts the four cells (0,0), (0,1), (1,0), (1,1).
+        # Validity: τ must stay non-negative. For |rho|<=0.2 and typical λ band,
+        # the binding constraint is τ(0,0) = 1 − λ_A λ_B ρ; we clamp to 0.
+        grid[0, 0] *= max(0.0, 1 - lam_a * lam_b * rho)
+        grid[0, 1] *= max(0.0, 1 + lam_a * rho)
+        grid[1, 0] *= max(0.0, 1 + lam_b * rho)
+        grid[1, 1] *= max(0.0, 1 - rho)
     p_home = float(np.tril(grid, k=-1).sum())
     p_draw = float(np.trace(grid))
     p_away = float(np.triu(grid, k=1).sum())
@@ -238,7 +249,7 @@ def predict(
 
     lam_a = max(lam_min, mu + D / (2 * c))
     lam_b = max(lam_min, mu - D / (2 * c))
-    return _outcome_probs(lam_a, lam_b)
+    return _outcome_probs(lam_a, lam_b, p.get("rho", 0.0))
 
 
 HOST_BY_YEAR = {2018: {"RUS"}, 2022: {"QAT"}}

@@ -1,17 +1,15 @@
-"""Calibration sweep for the Spike 1 soft_fail follow-up.
+"""Calibration sweep for Spike 1 — now 3D (c_elo, μ, ρ) after PRD v1.7's
+Dixon-Coles addition.
 
-Per spec §6, soft_fail prescribes: 'Sweep c_elo ∈ [200, 400] and μ ∈ [1.1, 1.6];
-if a setting passes, update PRD defaults and proceed.'
+Per spec §6, soft_fail prescribes a sweep over `c_elo ∈ [200, 400]` and
+`μ ∈ [1.1, 1.6]`. The original 2D sweep (v1.6) confirmed no setting in that
+grid passes the calibration gate. PRD v1.7 added `ρ` (Dixon-Coles
+correlation) to the model; this sweep extends to that third dimension to
+test whether the structural change rescues calibration.
 
-This script:
-1. Loads the bundled Elo + match data via validate.py helpers.
-2. For each (c_elo, μ) on a 21×11 grid (c step 10, μ step 0.05), recomputes
-   Elo-mode 90-min predictions and:
-     - rps_90min[elo] (must stay below 0.215, the headline gate)
-     - calibration buckets (every decile with n ≥ 8 must be within ±0.05
-       of the diagonal — this is what failed in the baseline run)
-3. Reports the best fully-passing setting (if any) and the worst-failing
-   decile + its error magnitude for the runner-up.
+For each (c_elo, μ, ρ) cell:
+- rps_90min[elo] must stay below 0.215 (headline gate)
+- every calibration decile with n ≥ 8 must be within ±0.05 of diagonal
 
 Outputs:
 - results/sweep.json: full grid with rps_90min and calibration metrics per cell
@@ -53,9 +51,10 @@ def elo_predictions(
     hosts: set[str],
     c_elo: float,
     mu: float,
+    rho: float = 0.0,
 ) -> np.ndarray:
-    """Compute Elo-mode 3-outcome predictions for all matches with given (c, μ).
-    Other params (lam_min, home_bonus) are held at PRD defaults."""
+    """Compute Elo-mode 3-outcome predictions for all matches with given
+    (c_elo, μ, ρ). Other params (lam_min, home_bonus) are held at PRD defaults."""
     out = np.zeros((len(matches), 3))
     for i, m in enumerate(matches):
         a, b = m["home_iso3"], m["away_iso3"]
@@ -63,7 +62,7 @@ def elo_predictions(
         D = (elo[a] - elo[b]) + HOME_BONUS_ELO * host_diff
         lam_a = max(LAM_MIN, mu + D / (2 * c_elo))
         lam_b = max(LAM_MIN, mu - D / (2 * c_elo))
-        out[i] = _outcome_probs(lam_a, lam_b)
+        out[i] = _outcome_probs(lam_a, lam_b, rho)
     return out
 
 
@@ -101,23 +100,32 @@ def main() -> int:
     all_matches = matches_2018 + matches_2022
     y_90 = np.array([one_hot_90min(m) for m in all_matches])
 
-    # Sweep grid: c_elo in [200, 400] step 10, mu in [1.10, 1.60] step 0.05.
-    c_grid = list(range(200, 401, 10))   # 21 values
-    mu_grid = [round(1.10 + 0.05 * i, 3) for i in range(11)]  # 1.10, 1.15, ..., 1.60
+    # 3D sweep grid:
+    #   c_elo ∈ [200, 400] step 10  (21 values)
+    #   μ     ∈ [1.10, 1.60] step 0.05  (11 values)
+    #   ρ     ∈ [−0.40, 0.40] step 0.025 (33 values; widened past PRD's safe
+    #         band of |ρ|≤0.2 to probe whether larger ρ fully passes — τ clamps
+    #         to 0 at the boundary in _outcome_probs so it stays well-defined).
+    c_grid = list(range(200, 401, 10))
+    mu_grid = [round(1.10 + 0.05 * i, 3) for i in range(11)]
+    rho_grid = [round(-0.40 + 0.025 * i, 4) for i in range(33)]
 
-    print(f"Sweeping {len(c_grid)} × {len(mu_grid)} = {len(c_grid) * len(mu_grid)} cells "
-          f"(c_elo step 10, μ step 0.05)...")
+    total = len(c_grid) * len(mu_grid) * len(rho_grid)
+    print(f"Sweeping {len(c_grid)} × {len(mu_grid)} × {len(rho_grid)} = {total} cells "
+          f"(c_elo step 10, μ step 0.05, ρ step 0.025)...")
 
     grid: list[dict] = []
     for c in c_grid:
         for mu in mu_grid:
-            preds_2018 = elo_predictions(matches_2018, elo_2018, HOST_BY_YEAR[2018], c, mu)
-            preds_2022 = elo_predictions(matches_2022, elo_2022, HOST_BY_YEAR[2022], c, mu)
-            preds = np.vstack([preds_2018, preds_2022])
-            cell = evaluate(preds, y_90)
-            cell["c_elo"] = c
-            cell["mu"] = mu
-            grid.append(cell)
+            for rho in rho_grid:
+                preds_2018 = elo_predictions(matches_2018, elo_2018, HOST_BY_YEAR[2018], c, mu, rho)
+                preds_2022 = elo_predictions(matches_2022, elo_2022, HOST_BY_YEAR[2022], c, mu, rho)
+                preds = np.vstack([preds_2018, preds_2022])
+                cell = evaluate(preds, y_90)
+                cell["c_elo"] = c
+                cell["mu"] = mu
+                cell["rho"] = rho
+                grid.append(cell)
 
     RESULTS.mkdir(parents=True, exist_ok=True)
     with (RESULTS / "sweep.json").open("w") as f:
@@ -127,38 +135,46 @@ def main() -> int:
     print(f"\n{len(fully)} of {len(grid)} cells fully pass "
           f"(rps_90min < {GATE_RPS} AND every decile with n≥{GATE_CAL_MIN_N} within ±{GATE_CAL_TOLERANCE} of diagonal).")
 
-    # Current baseline.
-    baseline = next(c for c in grid if c["c_elo"] == 300 and abs(c["mu"] - 1.35) < 1e-6)
-    print(f"\nBaseline (c_elo=300, μ=1.35): rps={baseline['rps_90min']:.4f}  "
+    # Current baseline (rho=0 reproduces the v1.6 independent-Poisson result).
+    baseline = next(
+        c for c in grid
+        if c["c_elo"] == 300 and abs(c["mu"] - 1.35) < 1e-6 and abs(c["rho"]) < 1e-6
+    )
+    print(f"\nBaseline (c_elo=300, μ=1.35, ρ=0): rps={baseline['rps_90min']:.4f}  "
           f"worst_err={baseline['worst_decile_err']:.4f} (decile {baseline['worst_decile_idx']})  "
           f"fully_passes={baseline['fully_passes']}")
 
     if fully:
-        # Rank fully-passing by tightest calibration margin, then by lowest RPS.
-        ranked = sorted(fully, key=lambda c: (c["worst_decile_err"], c["rps_90min"]))
-        print(f"\nTop 5 fully-passing settings:")
-        print(f"  {'c_elo':>5}  {'mu':>5}  {'rps':>7}  {'worst_err':>9}")
-        for c in ranked[:5]:
-            print(f"  {c['c_elo']:>5}  {c['mu']:>5.2f}  {c['rps_90min']:>7.4f}  {c['worst_decile_err']:>9.4f}")
+        # Rank fully-passing by tightest calibration margin, then by lowest RPS,
+        # then prefer settings closer to the PRD defaults (smaller change).
+        def closeness(c):
+            return (
+                c["worst_decile_err"],
+                c["rps_90min"],
+                abs(c["c_elo"] - 300) / 100.0 + abs(c["mu"] - 1.35) + abs(c["rho"]) * 5,
+            )
+        ranked = sorted(fully, key=closeness)
+        print(f"\nTop 10 fully-passing settings:")
+        print(f"  {'c_elo':>5}  {'mu':>5}  {'rho':>6}  {'rps':>7}  {'worst_err':>9}")
+        for c in ranked[:10]:
+            print(f"  {c['c_elo']:>5}  {c['mu']:>5.2f}  {c['rho']:>+6.3f}  "
+                  f"{c['rps_90min']:>7.4f}  {c['worst_decile_err']:>9.4f}")
         best = ranked[0]
-        print(f"\nRECOMMENDED DEFAULTS:  c_elo = {best['c_elo']}, μ = {best['mu']:.2f}")
+        print(f"\nRECOMMENDED DEFAULTS:  c_elo = {best['c_elo']}  μ = {best['mu']:.2f}  ρ = {best['rho']:+.3f}")
         print(f"  rps_90min = {best['rps_90min']:.4f}  worst calibration error = {best['worst_decile_err']:.4f}")
         return 0
     else:
         # No fully-passing cell. Find closest-to-passing.
-        # First filter to cells that pass the RPS gate (a soft_fail with passing RPS
-        # is still preferred over a hard_fail with both failing).
         rps_passing = [c for c in grid if c["rps_passes"]]
-        print(f"\nNo (c, μ) setting fully passes. {len(rps_passing)} of {len(grid)} pass the RPS gate.")
+        print(f"\nNo (c, μ, ρ) setting fully passes. {len(rps_passing)} of {len(grid)} pass the RPS gate.")
         ranked = sorted(rps_passing, key=lambda c: c["worst_decile_err"])
         print(f"\nTop 5 closest-to-passing (RPS passes; calibration sorted by worst-decile error):")
-        print(f"  {'c_elo':>5}  {'mu':>5}  {'rps':>7}  {'worst_err':>9}  {'decile':>6}")
+        print(f"  {'c_elo':>5}  {'mu':>5}  {'rho':>6}  {'rps':>7}  {'worst_err':>9}  {'decile':>6}")
         for c in ranked[:5]:
-            print(f"  {c['c_elo']:>5}  {c['mu']:>5.2f}  {c['rps_90min']:>7.4f}  "
-                  f"{c['worst_decile_err']:>9.4f}  {c['worst_decile_idx']:>6}")
-        print(f"\nCONCLUSION: parameter sweep alone cannot fix calibration; "
-              f"the model likely needs a structural change per spec §6 hard_fail action "
-              f"(multiplicative Poisson, separate home/away μ, or Dixon-Coles).")
+            print(f"  {c['c_elo']:>5}  {c['mu']:>5.2f}  {c['rho']:>+6.3f}  "
+                  f"{c['rps_90min']:>7.4f}  {c['worst_decile_err']:>9.4f}  {c['worst_decile_idx']:>6}")
+        print(f"\nCONCLUSION: Dixon-Coles alone is not sufficient. Further structural "
+              f"change required (multiplicative Poisson or larger calibration sample).")
         return 1
 
 
