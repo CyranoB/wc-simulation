@@ -293,6 +293,45 @@ def predict_all_matches(
     return preds
 
 
+def by_bucket_rps(
+    matches: list[dict],
+    preds_all: dict[str, np.ndarray],
+    y_90: np.ndarray,
+    elo_by_year: dict[int, dict[str, float]],
+) -> dict:
+    """Bucket each match by 90-min realised outcome:
+    favourite_wins / underdog_wins / draw. Favourite is defined by higher
+    pre-match Elo, independent of which mode is scored, so the buckets stay
+    comparable across modes."""
+    fav_is_home = []
+    for m in matches:
+        year = 2018 if m["date"].startswith("2018") else 2022
+        elo = elo_by_year[year]
+        fav_is_home.append(elo[m["home_iso3"]] >= elo[m["away_iso3"]])
+    fav_is_home = np.array(fav_is_home)
+
+    labels = []
+    for i, m in enumerate(matches):
+        outcome = int(np.argmax(y_90[i]))   # 0=home, 1=draw, 2=away
+        if outcome == 1:
+            labels.append("draw")
+        elif (outcome == 0 and fav_is_home[i]) or (outcome == 2 and not fav_is_home[i]):
+            labels.append("favourite_wins")
+        else:
+            labels.append("underdog_wins")
+    labels = np.array(labels)
+
+    out: dict = {}
+    for tag in ("favourite_wins", "underdog_wins", "draw"):
+        mask = labels == tag
+        out[tag] = {"n": int(mask.sum())}
+        if mask.sum() == 0:
+            continue
+        for mode in preds_all:
+            out[tag][mode] = rps(preds_all[mode][mask], y_90[mask])
+    return out
+
+
 def calibration_buckets(preds: np.ndarray, outcomes: np.ndarray, n_buckets: int = 10):
     """Decile-bucket all (prediction, outcome) pairs flattened across
     home/draw/away. Returns (mean_predicted, mean_observed, bucket_sizes)
@@ -476,6 +515,9 @@ def main() -> None:
     results["calibration_elo_90min"] = cal
     print(f"\nCalibration plot -> {RESULTS / 'calibration.png'}")
 
+    # --- Task 9: by-outcome-bucket RPS breakdown. ---
+    results["by_bucket"] = by_bucket_rps(all_matches, preds_all, y_90, elo_by_year)
+
     print(json.dumps({
         "n_matches": results["n_matches"],
         "f0_by_year": results["params"]["f0_by_year"],
@@ -483,7 +525,7 @@ def main() -> None:
         "rps_post_et": results["rps_post_et"],
         "et_divergence": results["et_divergence"],
         "draw_rate": results["draw_rate"],
-        "calibration_elo_90min": results["calibration_elo_90min"],
+        "by_bucket": results["by_bucket"],
     }, indent=2))
 
     # Stash for Tasks 8-10 (refactored away in Task 10 when we write brier.json).
