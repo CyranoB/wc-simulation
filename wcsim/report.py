@@ -11,9 +11,9 @@ def wilson_ci(p: float, n: int, z: float = 1.96) -> tuple[float, float]:
     """Wilson 95% confidence interval for proportion p at sample size n."""
     if n == 0:
         return (0.0, 1.0)
-    if p == 0.0:
+    if p < 1e-15:
         return (0.0, 1.0 - (1.0 - 0.95) ** (1.0 / n))
-    if p == 1.0:
+    if p > 1.0 - 1e-15:
         return ((1.0 - 0.95) ** (1.0 / n), 1.0)
     denom = 1 + z * z / n
     center = (p + z * z / (2 * n)) / denom
@@ -22,18 +22,25 @@ def wilson_ci(p: float, n: int, z: float = 1.96) -> tuple[float, float]:
 
 
 def format_table(result: SimulationResult, verbose: bool = False) -> str:
-    """Plain-text table for stdout."""
+    """Plain-text table for stdout. With verbose=True, shows ±CI half-width."""
     if not result.probabilities:
         return "(no results)"
     stages = list(next(iter(result.probabilities.values())).keys())
-    header = f"{'Team':<6}" + "".join(f"{s:>10}" for s in stages)
+    col_width = 16 if verbose else 10
+    header = f"{'Team':<6}" + "".join(f"{s:>{col_width}}" for s in stages)
     lines = [header, "-" * len(header)]
     sorted_teams = sorted(result.probabilities.items(), key=lambda kv: -kv[1].get("Win", 0))
     for iso3, probs in sorted_teams:
         row = f"{iso3:<6}"
         for stage in stages:
             pct = probs.get(stage, 0) * 100
-            row += f"{pct:>9.1f}%"
+            if verbose:
+                lo = result.ci_lo[iso3].get(stage, 0) * 100
+                hi = result.ci_hi[iso3].get(stage, 0) * 100
+                half = (hi - lo) / 2
+                row += f"{pct:>7.1f}%±{half:<5.1f}"
+            else:
+                row += f"{pct:>9.1f}%"
         lines.append(row)
     return "\n".join(lines)
 

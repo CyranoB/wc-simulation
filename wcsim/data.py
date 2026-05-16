@@ -18,12 +18,45 @@ if _spike_dir not in sys.path:
 from name_to_iso3 import to_iso3
 
 
+def _load_fifa_snapshot(
+    fifa_path: Path, target: pd.Timestamp,
+) -> tuple[dict[str, float], dict[str, int]]:
+    """Load FIFA points and ranks from the latest snapshot <= target date."""
+    import warnings
+    fifa_points: dict[str, float] = {}
+    fifa_ranks: dict[str, int] = {}
+    if not fifa_path.exists():
+        return fifa_points, fifa_ranks
+    fdf = pd.read_csv(fifa_path)
+    fdf["rank_date"] = pd.to_datetime(fdf["rank_date"])
+    eligible = fdf[fdf["rank_date"] <= target]
+    if eligible.empty:
+        return fifa_points, fifa_ranks
+    latest_date = eligible["rank_date"].max()
+    staleness_days = (target - latest_date).days
+    if staleness_days > 180:
+        warnings.warn(
+            f"FIFA ranking snapshot is {staleness_days} days stale "
+            f"(latest: {latest_date.date()}, target: {target.date()}). "
+            f"Results for --rating fifa/blend may be unreliable.",
+            stacklevel=3,
+        )
+    fsnap = eligible[eligible["rank_date"] == latest_date]
+    for _, row in fsnap.iterrows():
+        try:
+            iso3 = to_iso3(row["country_full"])
+        except KeyError:
+            continue
+        fifa_points[iso3] = float(row["total_points"])
+        fifa_ranks[iso3] = int(row["rank"])
+    return fifa_points, fifa_ranks
+
+
 def load_teams(
     csv_path: Path, snapshot_date: str = "2026-06-10",
     fifa_path: Path | None = None,
 ) -> dict[str, Team]:
-    """Load teams from elo_history.csv + optionally merge FIFA points from
-    fifa_ranking.csv. Both are needed for --rating fifa or --rating blend."""
+    """Load teams from elo_history.csv + merge FIFA points from fifa_ranking.csv."""
     if not csv_path.exists():
         raise FileNotFoundError(f"Teams file not found: {csv_path}")
     df = pd.read_csv(csv_path)
@@ -34,33 +67,7 @@ def load_teams(
         df = df[df["date"] <= target].sort_values("date")
         snapshot = df.groupby("team").tail(1)
 
-    # Load FIFA data if available.
-    fifa_points: dict[str, float] = {}
-    fifa_ranks: dict[str, int] = {}
-    fp = fifa_path or DEFAULT_FIFA_PATH
-    if fp.exists():
-        fdf = pd.read_csv(fp)
-        fdf["rank_date"] = pd.to_datetime(fdf["rank_date"])
-        eligible = fdf[fdf["rank_date"] <= target]
-        if not eligible.empty:
-            latest_date = eligible["rank_date"].max()
-            staleness_days = (target - latest_date).days
-            if staleness_days > 180:
-                import warnings
-                warnings.warn(
-                    f"FIFA ranking snapshot is {staleness_days} days stale "
-                    f"(latest: {latest_date.date()}, target: {target.date()}). "
-                    f"Results for --rating fifa/blend may be unreliable.",
-                    stacklevel=2,
-                )
-            fsnap = eligible[eligible["rank_date"] == latest_date]
-            for _, row in fsnap.iterrows():
-                try:
-                    iso3 = to_iso3(row["country_full"])
-                except KeyError:
-                    continue
-                fifa_points[iso3] = float(row["total_points"])
-                fifa_ranks[iso3] = int(row["rank"])
+    fifa_points, fifa_ranks = _load_fifa_snapshot(fifa_path or DEFAULT_FIFA_PATH, target)
 
     teams: dict[str, Team] = {}
     for _, row in snapshot.iterrows():

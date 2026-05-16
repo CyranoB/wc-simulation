@@ -30,26 +30,18 @@ def _simulate_one(args: tuple) -> tuple[dict[str, str], dict[str, int], dict[str
     return result.placements, gf, ga
 
 
-def run_simulations(
-    teams: dict[str, Team], draw: dict[str, list[str]], hosts: set[str],
-    *, rating: RatingSystem, params: Params = Params(),
-    n: int = 100_000, seed: int | None = None, workers: int | None = None,
-) -> SimulationResult:
-    """Run N tournaments deterministically. seed_i = base_seed + i per sim."""
-    if seed is None:
-        seed = _random.randint(0, 2**31)
-    if workers is None:
-        workers = os.cpu_count() or 1
-
-    args_list = [(teams, draw, hosts, rating, params, seed + i) for i in range(n)]
-
+def _run_parallel(args_list: list[tuple], workers: int) -> list:
+    """Execute simulations either serially or in parallel."""
     if workers == 1:
-        all_results = [_simulate_one(a) for a in args_list]
-    else:
-        with ProcessPoolExecutor(max_workers=workers) as executor:
-            all_results = list(executor.map(_simulate_one, args_list))
+        return [_simulate_one(a) for a in args_list]
+    with ProcessPoolExecutor(max_workers=workers) as executor:
+        return list(executor.map(_simulate_one, args_list))
 
-    # Aggregate.
+
+def _aggregate_results(
+    all_results: list,
+) -> tuple[dict[str, dict[str, int]], dict[str, int], dict[str, int]]:
+    """Aggregate placements and goal totals across all simulations."""
     stage_counts: dict[str, dict[str, int]] = defaultdict(lambda: defaultdict(int))
     total_gf: dict[str, int] = defaultdict(int)
     total_ga: dict[str, int] = defaultdict(int)
@@ -60,9 +52,13 @@ def run_simulations(
             total_gf[iso3] += goals
         for iso3, goals in ga.items():
             total_ga[iso3] += goals
+    return stage_counts, total_gf, total_ga
 
-    # Stage order from deepest to earliest exit. Output is CUMULATIVE
-    # ("reached at least this stage") per PRD §5.4, not exclusive.
+
+def _compute_probabilities(
+    stage_counts: dict[str, dict[str, int]], n: int,
+) -> tuple[dict[str, dict[str, float]], dict[str, dict[str, float]], dict[str, dict[str, float]]]:
+    """Compute cumulative probabilities + Wilson CIs from stage counts."""
     all_stages_seen: set[str] = set()
     for counts in stage_counts.values():
         all_stages_seen.update(counts.keys())
@@ -70,9 +66,6 @@ def run_simulations(
     stages = [s for s in stage_order if s in all_stages_seen]
     output_stages = ["Win" if s == "Champion" else s for s in stages]
 
-    # Compute CUMULATIVE probabilities: P(reached at least stage X).
-    # A team that won also reached Final, SF, QF, etc.
-    # GroupOut stays exclusive (fraction that didn't advance past groups).
     probabilities: dict[str, dict[str, float]] = {}
     ci_lo: dict[str, dict[str, float]] = {}
     ci_hi: dict[str, dict[str, float]] = {}
@@ -96,6 +89,24 @@ def run_simulations(
         probabilities[iso3] = probs
         ci_lo[iso3] = lo
         ci_hi[iso3] = hi
+    return probabilities, ci_lo, ci_hi
+
+
+def run_simulations(
+    teams: dict[str, Team], draw: dict[str, list[str]], hosts: set[str],
+    *, rating: RatingSystem, params: Params = Params(),
+    n: int = 100_000, seed: int | None = None, workers: int | None = None,
+) -> SimulationResult:
+    """Run N tournaments deterministically. seed_i = base_seed + i per sim."""
+    if seed is None:
+        seed = _random.randint(0, 2**31)
+    if workers is None:
+        workers = os.cpu_count() or 1
+
+    args_list = [(teams, draw, hosts, rating, params, seed + i) for i in range(n)]
+    all_results = _run_parallel(args_list, workers)
+    stage_counts, total_gf, total_ga = _aggregate_results(all_results)
+    probabilities, ci_lo, ci_hi = _compute_probabilities(stage_counts, n)
 
     return SimulationResult(
         n=n, seed=seed,

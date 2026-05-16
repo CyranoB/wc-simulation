@@ -196,6 +196,40 @@ def seed_knockout(
 # ---------------------------------------------------------------------------
 
 
+def _match_winner(m: MatchResult) -> str:
+    """Determine the winner of a knockout match."""
+    if m.went_to_pens:
+        return m.pen_winner
+    return m.home if m.home_goals > m.away_goals else m.away
+
+
+def _play_knockout_round(
+    current: list[str], teams: dict[str, Team], stage: str,
+    *, rating: RatingSystem, params: Params, rng: np.random.Generator,
+    hosts: set[str], live_ratings: dict[str, float],
+    matches: list[MatchResult], placements: dict[str, str], semi_losers: list[str],
+) -> list[str]:
+    """Play one knockout round; return advancers. Mutates matches, placements, semi_losers."""
+    next_round: list[str] = []
+    for i in range(0, len(current), 2):
+        a_iso3, b_iso3 = current[i], current[i + 1]
+        m = sample_match(
+            teams[a_iso3], teams[b_iso3],
+            rating=rating, params=params,
+            a_is_host=(a_iso3 in hosts), b_is_host=(b_iso3 in hosts),
+            rng=rng, stage=stage,
+        )
+        matches.append(m)
+        _update_ratings_after_match(m, rating, live_ratings)
+        winner = _match_winner(m)
+        loser = b_iso3 if winner == a_iso3 else a_iso3
+        placements[loser] = stage
+        if stage == "SF":
+            semi_losers.append(loser)
+        next_round.append(winner)
+    return next_round
+
+
 def simulate_knockout(
     seeded: list[str], teams: dict[str, Team], structure: TournamentStructure,
     *, rating: RatingSystem, params: Params, rng: np.random.Generator,
@@ -205,36 +239,18 @@ def simulate_knockout(
     Returns (matches, {iso3 -> exit_stage or 'Champion'})."""
     matches: list[MatchResult] = []
     placements: dict[str, str] = {}
-    current = list(seeded)
     semi_losers: list[str] = []
+    current = list(seeded)
 
     for stage in structure.knockout_stages:
-        next_round: list[str] = []
-        for i in range(0, len(current), 2):
-            a_iso3, b_iso3 = current[i], current[i + 1]
-            m = sample_match(
-                teams[a_iso3], teams[b_iso3],
-                rating=rating, params=params,
-                a_is_host=(a_iso3 in hosts), b_is_host=(b_iso3 in hosts),
-                rng=rng, stage=stage,
-            )
-            matches.append(m)
-            _update_ratings_after_match(m, rating, live_ratings)
-            if m.went_to_pens:
-                winner = m.pen_winner
-            elif m.home_goals > m.away_goals:
-                winner = m.home
-            else:
-                winner = m.away
-            loser = b_iso3 if winner == a_iso3 else a_iso3
-            placements[loser] = stage
-            if stage == "SF":
-                semi_losers.append(loser)
-            next_round.append(winner)
-        current = next_round
+        current = _play_knockout_round(
+            current, teams, stage,
+            rating=rating, params=params, rng=rng,
+            hosts=hosts, live_ratings=live_ratings,
+            matches=matches, placements=placements, semi_losers=semi_losers,
+        )
 
-    champion = current[0]
-    placements[champion] = "Champion"
+    placements[current[0]] = "Champion"
 
     if structure.third_place_playoff and len(semi_losers) == 2:
         a_iso3, b_iso3 = semi_losers
@@ -255,6 +271,41 @@ def simulate_knockout(
 # ---------------------------------------------------------------------------
 
 
+def _extract_group_positions(
+    draw: dict[str, list[str]], positions: dict[str, int],
+) -> tuple[list[str], list[str], list[str]]:
+    """Extract winners, runners-up, and third-place teams from group positions."""
+    group_letters = sorted(draw.keys())
+    winners = [next(t for t in draw[g] if positions[t] == 1) for g in group_letters]
+    runners_up = [next(t for t in draw[g] if positions[t] == 2) for g in group_letters]
+    thirds = [next(t for t in draw[g] if positions[t] == 3) for g in group_letters]
+    return winners, runners_up, thirds
+
+
+def _update_standing(standing: dict, goals_for: int, goals_against: int) -> None:
+    """Update a single team's standing entry after one match."""
+    if goals_for > goals_against:
+        standing["points"] += 3
+    elif goals_for == goals_against:
+        standing["points"] += 1
+    standing["gd"] += goals_for - goals_against
+    standing["gf"] += goals_for
+
+
+def _compute_third_place_standings(
+    third_place_iso3s: list[str], group_matches: list[MatchResult],
+) -> list[dict]:
+    """Build standings for third-place teams from group-stage match results."""
+    standings = {iso3: {"team": iso3, "points": 0, "gd": 0, "gf": 0}
+                 for iso3 in third_place_iso3s}
+    for m in group_matches:
+        if m.home in standings:
+            _update_standing(standings[m.home], m.home_goals, m.away_goals)
+        if m.away in standings:
+            _update_standing(standings[m.away], m.away_goals, m.home_goals)
+    return list(standings.values())
+
+
 def simulate_tournament(
     teams: dict[str, Team], draw: dict[str, list[str]], hosts: set[str],
     *, rating: RatingSystem, params: Params | None = None, seed: int,
@@ -264,7 +315,6 @@ def simulate_tournament(
     structure = _structure_for(len(teams))
     rng = np.random.default_rng(seed)
 
-    # Mutable rating tracker — updated after every match per PRD §5.5.
     live_ratings = {iso3: rating.rating_of(t) for iso3, t in teams.items()}
 
     group_matches, positions = simulate_group_stage(
@@ -272,34 +322,10 @@ def simulate_tournament(
         live_ratings=live_ratings,
     )
 
-    group_letters = sorted(draw.keys())
-    group_winners = [next(t for t in draw[g] if positions[t] == 1) for g in group_letters]
-    group_runners_up = [next(t for t in draw[g] if positions[t] == 2) for g in group_letters]
-
-    # Third-place candidates.
-    third_place_iso3s = [
-        next(t for t in draw[g] if positions[t] == 3) for g in group_letters
-    ]
-    # Build standings for those teams from group_matches.
-    standings_by_team = {iso3: {"team": iso3, "points": 0, "gd": 0, "gf": 0}
-                         for iso3 in third_place_iso3s}
-    for m in group_matches:
-        for iso3 in (m.home, m.away):
-            if iso3 not in standings_by_team:
-                continue
-            if iso3 == m.home:
-                gf, ga = m.home_goals, m.away_goals
-            else:
-                gf, ga = m.away_goals, m.home_goals
-            if gf > ga:
-                standings_by_team[iso3]["points"] += 3
-            elif gf == ga:
-                standings_by_team[iso3]["points"] += 1
-            standings_by_team[iso3]["gd"] += gf - ga
-            standings_by_team[iso3]["gf"] += gf
-
+    group_winners, group_runners_up, third_place_iso3s = _extract_group_positions(draw, positions)
     best_thirds = best_third_place_teams(
-        list(standings_by_team.values()), n=structure.best_thirds,
+        _compute_third_place_standings(third_place_iso3s, group_matches),
+        n=structure.best_thirds,
     )
 
     seeded = seed_knockout(structure, group_winners, group_runners_up, best_thirds)
@@ -309,15 +335,19 @@ def simulate_tournament(
         live_ratings=live_ratings,
     )
 
-    placements: dict[str, str] = {}
-    advancing = set(seeded)
-    for iso3 in teams:
-        if iso3 not in advancing:
-            placements[iso3] = "GroupOut"
-    placements.update(knockout_placements)
-
+    placements = _build_final_placements(teams, seeded, knockout_placements)
     return TournamentResult(
         seed=seed, rating_mode=rating.name,
         matches=group_matches + knockout_matches,
         placements=placements, final_ratings=live_ratings,
     )
+
+
+def _build_final_placements(
+    teams: dict[str, Team], seeded: list[str], knockout_placements: dict[str, str],
+) -> dict[str, str]:
+    """Merge group-stage eliminations with knockout placements."""
+    advancing = set(seeded)
+    placements = {iso3: "GroupOut" for iso3 in teams if iso3 not in advancing}
+    placements.update(knockout_placements)
+    return placements

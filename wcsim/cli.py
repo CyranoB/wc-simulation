@@ -8,6 +8,24 @@ import typer
 app = typer.Typer(name="wcsim", help="Football Tournament Monte Carlo Simulator")
 
 
+def _make_rating(rating_mode: str, params):
+    from .ratings.elo import EloRating
+    from .ratings.fifa import FifaRating
+    from .ratings.blend import BlendRating
+    return {"elo": EloRating, "fifa": FifaRating, "blend": BlendRating}[rating_mode](params)
+
+
+def _format_output(result, fmt, out, ci, verbose, actual_seed, n, rating_mode, elapsed):
+    from .report import format_table, format_csv, format_json
+    if fmt == "csv" or (out and str(out).endswith(".csv")):
+        return format_csv(result, include_ci=ci)
+    if fmt == "json" or (out and str(out).endswith(".json")):
+        meta_det = {"seed": actual_seed, "simulations": n, "rating_mode": rating_mode}
+        meta_env = {"runtime_seconds": elapsed}
+        return format_json(result, meta_det, meta_env)
+    return format_table(result, verbose=verbose)
+
+
 @app.command()
 def run(
     n: int = typer.Option(100_000, "-n", "--simulations"),
@@ -24,24 +42,16 @@ def run(
 ):
     """Run Monte Carlo tournament simulation."""
     from .data import load_teams, load_draw, DEFAULT_TEAMS_PATH, DEFAULT_DRAW_PATH
-    from .ratings.elo import EloRating
-    from .ratings.fifa import FifaRating
-    from .ratings.blend import BlendRating
     from .sim import run_simulations
-    from .report import format_table, format_csv, format_json
     from .cache import write_cache
     from .types import Params
     import random as _random
 
-    tp = teams_path or DEFAULT_TEAMS_PATH
-    dp = draw_path or DEFAULT_DRAW_PATH
-    teams = load_teams(tp)
-    draw = load_draw(dp)
+    teams = load_teams(teams_path or DEFAULT_TEAMS_PATH)
+    draw = load_draw(draw_path or DEFAULT_DRAW_PATH)
     hosts = {"USA", "MEX", "CAN"}
-
     params = Params()
-    rating_cls = {"elo": EloRating, "fifa": FifaRating, "blend": BlendRating}[rating_mode]
-    rating = rating_cls(params)
+    rating = _make_rating(rating_mode, params)
 
     actual_seed = seed if seed is not None else _random.randint(0, 2**31)
     if not quiet:
@@ -56,15 +66,7 @@ def run(
     if not quiet:
         typer.echo(f"Done in {elapsed:.1f}s.")
 
-    if fmt == "csv" or (out and str(out).endswith(".csv")):
-        output = format_csv(result, include_ci=ci)
-    elif fmt == "json" or (out and str(out).endswith(".json")):
-        meta_det = {"seed": actual_seed, "simulations": n, "rating_mode": rating_mode}
-        meta_env = {"runtime_seconds": elapsed}
-        output = format_json(result, meta_det, meta_env)
-    else:
-        output = format_table(result, verbose=verbose)
-
+    output = _format_output(result, fmt, out, ci, verbose, actual_seed, n, rating_mode, elapsed)
     if out:
         out.write_text(output)
         if not quiet:

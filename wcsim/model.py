@@ -8,7 +8,7 @@ SCORE_GRID_MAX = 8
 
 
 def _poisson_pmf(lmbda: float, max_goals: int) -> np.ndarray:
-    if lmbda == 0.0:
+    if abs(lmbda) < 1e-15:
         pmf = np.zeros(max_goals + 1)
         pmf[0] = 1.0
         return pmf
@@ -20,7 +20,7 @@ def _poisson_pmf(lmbda: float, max_goals: int) -> np.ndarray:
 
 
 def _apply_tau(grid: np.ndarray, lam_a: float, lam_b: float, rho: float) -> np.ndarray:
-    if rho == 0.0:
+    if abs(rho) < 1e-15:
         return grid
     grid[0, 0] *= max(0.0, 1.0 - lam_a * lam_b * rho)
     grid[0, 1] *= max(0.0, 1.0 + lam_a * rho)
