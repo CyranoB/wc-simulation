@@ -105,14 +105,14 @@ def match(
     iso_b = to_iso3(team_b)
     t_a, t_b = teams[iso_a], teams[iso_b]
 
-    a_is_host = (home == "A") if home else False
-    b_is_host = (home == "B") if home else False
-    if neutral:
-        a_is_host = b_is_host = False
+    effective_home = "none" if neutral else (home or "A")
+    a_is_host = effective_home == "A"
+    b_is_host = effective_home == "B"
 
     p = predict_match(t_a, t_b, rating=rating, params=params,
                       a_is_host=a_is_host, b_is_host=b_is_host)
-    typer.echo(f"{team_a} vs {team_b} ({rating_mode}, {'neutral' if neutral else 'home=' + (home or 'A')}):")
+    venue = "neutral" if effective_home == "none" else f"home={effective_home}"
+    typer.echo(f"{team_a} vs {team_b} ({rating_mode}, {venue}):")
     typer.echo(f"  {team_a} wins: {p[0]*100:.1f}%")
     typer.echo(f"  Draw:         {p[1]*100:.1f}%")
     typer.echo(f"  {team_b} wins: {p[2]*100:.1f}%")

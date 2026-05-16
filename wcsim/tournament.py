@@ -88,13 +88,28 @@ def _rank_group(standings: list[dict], rng: np.random.Generator) -> list[dict]:
     return out
 
 
+def _update_ratings_after_match(
+    m: MatchResult, rating: RatingSystem, live_ratings: dict[str, float],
+) -> None:
+    """Apply post-match rating update to both teams per PRD §5.5."""
+    diff = live_ratings[m.home] - live_ratings[m.away]
+    w_e_home = rating.win_expectation(diff)
+    w_e_away = 1.0 - w_e_home
+    live_ratings[m.home] = rating.update(
+        live_ratings[m.home], w_e_home, m.home_goals, m.away_goals,
+    )
+    live_ratings[m.away] = rating.update(
+        live_ratings[m.away], w_e_away, m.away_goals, m.home_goals,
+    )
+
+
 def simulate_group_stage(
     teams: dict[str, Team], draw: dict[str, list[str]],
     *, rating: RatingSystem, params: Params, rng: np.random.Generator,
-    hosts: set[str],
+    hosts: set[str], live_ratings: dict[str, float],
 ) -> tuple[list[MatchResult], dict[str, int]]:
-    """Simulate round-robin for each group. Returns (matches, positions)
-    where positions[iso3] in {1..group_size}."""
+    """Simulate round-robin for each group. Mutates live_ratings in place
+    after each match per PRD §5.5. Returns (matches, positions)."""
     all_matches: list[MatchResult] = []
     positions: dict[str, int] = {}
 
@@ -109,6 +124,7 @@ def simulate_group_stage(
                 rng=rng, stage="group",
             )
             all_matches.append(m)
+            _update_ratings_after_match(m, rating, live_ratings)
             pa, pb = _points_from_score(m.home_goals, m.away_goals)
             standings[a_iso3]["points"] += pa
             standings[b_iso3]["points"] += pb
@@ -183,9 +199,10 @@ def seed_knockout(
 def simulate_knockout(
     seeded: list[str], teams: dict[str, Team], structure: TournamentStructure,
     *, rating: RatingSystem, params: Params, rng: np.random.Generator,
-    hosts: set[str],
+    hosts: set[str], live_ratings: dict[str, float],
 ) -> tuple[list[MatchResult], dict[str, str]]:
-    """Play knockout rounds. Returns (matches, {iso3 -> exit_stage or 'Champion'})."""
+    """Play knockout rounds. Mutates live_ratings after each match.
+    Returns (matches, {iso3 -> exit_stage or 'Champion'})."""
     matches: list[MatchResult] = []
     placements: dict[str, str] = {}
     current = list(seeded)
@@ -202,6 +219,7 @@ def simulate_knockout(
                 rng=rng, stage=stage,
             )
             matches.append(m)
+            _update_ratings_after_match(m, rating, live_ratings)
             if m.went_to_pens:
                 winner = m.pen_winner
             elif m.home_goals > m.away_goals:
@@ -227,6 +245,7 @@ def simulate_knockout(
             rng=rng, stage="3rd",
         )
         matches.append(m)
+        _update_ratings_after_match(m, rating, live_ratings)
 
     return matches, placements
 
@@ -245,8 +264,12 @@ def simulate_tournament(
     structure = _structure_for(len(teams))
     rng = np.random.default_rng(seed)
 
+    # Mutable rating tracker — updated after every match per PRD §5.5.
+    live_ratings = {iso3: rating.rating_of(t) for iso3, t in teams.items()}
+
     group_matches, positions = simulate_group_stage(
         teams=teams, draw=draw, rating=rating, params=p, rng=rng, hosts=hosts,
+        live_ratings=live_ratings,
     )
 
     group_letters = sorted(draw.keys())
@@ -283,6 +306,7 @@ def simulate_tournament(
     knockout_matches, knockout_placements = simulate_knockout(
         seeded=seeded, teams=teams, structure=structure,
         rating=rating, params=p, rng=rng, hosts=hosts,
+        live_ratings=live_ratings,
     )
 
     placements: dict[str, str] = {}
@@ -292,10 +316,8 @@ def simulate_tournament(
             placements[iso3] = "GroupOut"
     placements.update(knockout_placements)
 
-    final_ratings = {iso3: rating.rating_of(t) for iso3, t in teams.items()}
-
     return TournamentResult(
         seed=seed, rating_mode=rating.name,
         matches=group_matches + knockout_matches,
-        placements=placements, final_ratings=final_ratings,
+        placements=placements, final_ratings=live_ratings,
     )

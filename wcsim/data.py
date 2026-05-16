@@ -44,6 +44,15 @@ def load_teams(
         eligible = fdf[fdf["rank_date"] <= target]
         if not eligible.empty:
             latest_date = eligible["rank_date"].max()
+            staleness_days = (target - latest_date).days
+            if staleness_days > 180:
+                import warnings
+                warnings.warn(
+                    f"FIFA ranking snapshot is {staleness_days} days stale "
+                    f"(latest: {latest_date.date()}, target: {target.date()}). "
+                    f"Results for --rating fifa/blend may be unreliable.",
+                    stacklevel=2,
+                )
             fsnap = eligible[eligible["rank_date"] == latest_date]
             for _, row in fsnap.iterrows():
                 try:

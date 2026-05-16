@@ -12,14 +12,22 @@ from .tournament import simulate_tournament
 from .types import Params, SimulationResult, Team
 
 
-def _simulate_one(args: tuple) -> dict[str, str]:
-    """Worker function (top-level for pickling). Returns placements dict."""
+def _simulate_one(args: tuple) -> tuple[dict[str, str], dict[str, int], dict[str, int]]:
+    """Worker function (top-level for pickling). Returns (placements,
+    goals_for per team, goals_against per team)."""
     teams, draw, hosts, rating, params, seed_i = args
     result = simulate_tournament(
         teams=teams, draw=draw, hosts=hosts,
         rating=rating, params=params, seed=seed_i,
     )
-    return result.placements
+    gf: dict[str, int] = {iso3: 0 for iso3 in teams}
+    ga: dict[str, int] = {iso3: 0 for iso3 in teams}
+    for m in result.matches:
+        gf[m.home] += m.home_goals
+        ga[m.home] += m.away_goals
+        gf[m.away] += m.away_goals
+        ga[m.away] += m.home_goals
+    return result.placements, gf, ga
 
 
 def run_simulations(
@@ -36,16 +44,22 @@ def run_simulations(
     args_list = [(teams, draw, hosts, rating, params, seed + i) for i in range(n)]
 
     if workers == 1:
-        all_placements = [_simulate_one(a) for a in args_list]
+        all_results = [_simulate_one(a) for a in args_list]
     else:
         with ProcessPoolExecutor(max_workers=workers) as executor:
-            all_placements = list(executor.map(_simulate_one, args_list))
+            all_results = list(executor.map(_simulate_one, args_list))
 
     # Aggregate.
     stage_counts: dict[str, dict[str, int]] = defaultdict(lambda: defaultdict(int))
-    for placements in all_placements:
+    total_gf: dict[str, int] = defaultdict(int)
+    total_ga: dict[str, int] = defaultdict(int)
+    for placements, gf, ga in all_results:
         for iso3, stage in placements.items():
             stage_counts[iso3][stage] += 1
+        for iso3, goals in gf.items():
+            total_gf[iso3] += goals
+        for iso3, goals in ga.items():
+            total_ga[iso3] += goals
 
     # Stage order from deepest to earliest exit. Output is CUMULATIVE
     # ("reached at least this stage") per PRD §5.4, not exclusive.
@@ -87,6 +101,6 @@ def run_simulations(
         n=n, seed=seed,
         probabilities=probabilities,
         ci_lo=ci_lo, ci_hi=ci_hi,
-        mean_goals_for={iso3: 0.0 for iso3 in teams},
-        mean_goals_against={iso3: 0.0 for iso3 in teams},
+        mean_goals_for={iso3: total_gf[iso3] / n for iso3 in teams},
+        mean_goals_against={iso3: total_ga[iso3] / n for iso3 in teams},
     )

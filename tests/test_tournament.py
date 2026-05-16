@@ -54,10 +54,11 @@ def test_simulate_group_stage_returns_correct_counts(default_params):
     draw = {chr(ord("A") + g): [f"T{g*4+j:02d}" for j in range(4)]
             for g in range(8)}
     rng = np.random.default_rng(42)
+    live_ratings = {iso3: t.elo for iso3, t in teams.items()}
     matches, positions = simulate_group_stage(
         teams=teams, draw=draw,
         rating=EloRating(default_params), params=default_params,
-        rng=rng, hosts=set(),
+        rng=rng, hosts=set(), live_ratings=live_ratings,
     )
     assert len(matches) == 48
     assert len(positions) == 32
@@ -83,10 +84,11 @@ def test_simulate_group_stage_is_deterministic(default_params):
 
     def run(seed):
         rng = np.random.default_rng(seed)
+        live_ratings = {iso3: t.elo for iso3, t in teams.items()}
         return simulate_group_stage(
             teams=teams, draw=draw,
             rating=EloRating(default_params), params=default_params,
-            rng=rng, hosts=set(),
+            rng=rng, hosts=set(), live_ratings=live_ratings,
         )
     m1, p1 = run(42)
     m2, p2 = run(42)
