@@ -119,3 +119,87 @@ def test_rank_group_gd_breaks_tie():
     rng = np.random.default_rng(1)
     ranked = _rank_group(standings, rng=rng)
     assert [s["team"] for s in ranked] == ["B", "A", "C"]
+
+
+def test_best_third_place_teams_returns_empty_for_n_zero():
+    from wcsim.tournament import best_third_place_teams
+    candidates = [{"team": "T1", "points": 3, "gd": 0, "gf": 2}]
+    assert best_third_place_teams(candidates, n=0) == []
+
+
+def test_best_third_place_teams_ranks_correctly():
+    from wcsim.tournament import best_third_place_teams
+    candidates = [
+        {"team": "T0", "points": 6, "gd": 4, "gf": 7},
+        {"team": "T1", "points": 4, "gd": 2, "gf": 5},
+        {"team": "T2", "points": 4, "gd": 1, "gf": 5},
+        {"team": "T3", "points": 3, "gd": 0, "gf": 3},
+    ]
+    top2 = best_third_place_teams(candidates, n=2)
+    assert top2 == ["T0", "T1"]
+
+
+def test_simulate_tournament_32_teams_end_to_end(default_params):
+    """32-team tournament runs and produces 64 matches + 1 champion."""
+    from wcsim.tournament import simulate_tournament
+    from wcsim.ratings.elo import EloRating
+    from wcsim.types import Team
+
+    teams = {f"T{i:02d}": Team(name=f"T{i:02d}", iso3=f"T{i:02d}",
+                               confederation="UNK", elo=1500.0 + i * 10)
+             for i in range(32)}
+    draw = {chr(ord("A") + g): [f"T{g*4+j:02d}" for j in range(4)]
+            for g in range(8)}
+
+    result = simulate_tournament(
+        teams=teams, draw=draw, hosts=set(),
+        rating=EloRating(default_params), params=default_params, seed=42,
+    )
+    assert result.seed == 42
+    assert result.rating_mode == "elo"
+    # 48 group + 8 R16 + 4 QF + 2 SF + 1 Final + 1 third-place = 64
+    assert len(result.matches) == 64
+    champions = [iso for iso, stage in result.placements.items() if stage == "Champion"]
+    assert len(champions) == 1
+    assert set(result.placements.keys()) == set(teams.keys())
+
+
+def test_simulate_tournament_48_teams_end_to_end(default_params):
+    """48-team tournament runs and produces 103 matches + 1 champion."""
+    from wcsim.tournament import simulate_tournament
+    from wcsim.ratings.elo import EloRating
+    from wcsim.types import Team
+
+    teams = {f"T{i:02d}": Team(name=f"T{i:02d}", iso3=f"T{i:02d}",
+                               confederation="UNK", elo=1500.0 + i * 10)
+             for i in range(48)}
+    draw = {chr(ord("A") + g): [f"T{g*4+j:02d}" for j in range(4)]
+            for g in range(12)}
+
+    result = simulate_tournament(
+        teams=teams, draw=draw, hosts=set(),
+        rating=EloRating(default_params), params=default_params, seed=42,
+    )
+    assert result.seed == 42
+    # 72 group + 16 R32 + 8 R16 + 4 QF + 2 SF + 1 Final = 103 (no 3rd place)
+    assert len(result.matches) == 103
+    champions = [iso for iso, stage in result.placements.items() if stage == "Champion"]
+    assert len(champions) == 1
+    assert set(result.placements.keys()) == set(teams.keys())
+
+
+def test_simulate_tournament_is_deterministic(default_params):
+    from wcsim.tournament import simulate_tournament
+    from wcsim.ratings.elo import EloRating
+    from wcsim.types import Team
+
+    teams = {f"T{i:02d}": Team(name=f"T{i:02d}", iso3=f"T{i:02d}",
+                               confederation="UNK", elo=1500.0 + i * 10)
+             for i in range(32)}
+    draw = {chr(ord("A") + g): [f"T{g*4+j:02d}" for j in range(4)]
+            for g in range(8)}
+    r1 = simulate_tournament(teams=teams, draw=draw, hosts=set(),
+                             rating=EloRating(default_params), params=default_params, seed=42)
+    r2 = simulate_tournament(teams=teams, draw=draw, hosts=set(),
+                             rating=EloRating(default_params), params=default_params, seed=42)
+    assert r1.placements == r2.placements
