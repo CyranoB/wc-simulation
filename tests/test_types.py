@@ -52,3 +52,28 @@ def test_tournament_result_fields():
     )
     assert r.seed == 42
     assert r.placements["ARG"] == "Champion"
+
+
+def test_params_defaults_match_prd_v17():
+    from wcsim.types import Params
+    p = Params()
+    assert p.c_elo == 300.0
+    assert p.c_fifa == 450.0
+    assert p.mu == 1.35
+    assert p.lambda_min == 0.05
+    assert p.blend_w == 0.7
+    assert p.e0 == 1500.0
+    assert p.f0 == 1300.0
+    assert p.home_bonus_elo == 100.0
+    assert p.home_bonus_fifa == 150.0
+    assert p.rho == 0.0
+    assert p.k_elo == 60.0
+    assert p.k_fifa == 60.0
+
+
+def test_params_is_frozen():
+    from wcsim.types import Params
+    import pytest
+    p = Params()
+    with pytest.raises(Exception):
+        p.mu = 2.0

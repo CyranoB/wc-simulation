@@ -40,3 +40,20 @@ class TournamentResult:
     matches: list[MatchResult]
     placements: dict[str, str]
     final_ratings: dict[str, float]
+
+
+@dataclass(frozen=True)
+class Params:
+    """PRD v1.7 §5.5 model parameters. All defaults match the PRD."""
+    c_elo: float = 300.0
+    c_fifa: float = 450.0
+    mu: float = 1.35
+    lambda_min: float = 0.05
+    blend_w: float = 0.7
+    e0: float = 1500.0
+    f0: float = 1300.0
+    home_bonus_elo: float = 100.0
+    home_bonus_fifa: float = 150.0
+    rho: float = 0.0
+    k_elo: float = 60.0
+    k_fifa: float = 60.0
