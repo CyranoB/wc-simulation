@@ -1,6 +1,6 @@
 # Spike 1: Model Validation Back-Test
 
-**Decision: `soft_fail`.** The headline RPS metric **passes** (Elo 90-min RPS = **0.2088** vs the < 0.215 gate), but the Elo-mode calibration curve fails the spec gate in two deciles, so per spec §6 the decision is `soft_fail`: the next step is a parameter sweep over `c_elo ∈ [200, 400]` and `μ ∈ [1.1, 1.6]` before Spike 2 starts. FIFA-mode RPS = 0.2140, Blend-mode RPS = 0.2082. ET divergence (post-ET − 90-min) is right at the 0.01 flag threshold for Elo (0.011). Simulated group-stage draw rate is 23.8% (Elo) vs 19.8% observed — also above the ±2pp flag threshold.
+**Decision: `soft_fail` — and the prescribed parameter sweep does not rescue it.** The headline RPS metric **passes** (Elo 90-min RPS = **0.2088** vs the < 0.215 gate), but the Elo-mode calibration curve fails the spec gate in two deciles. The follow-up `c_elo / μ` sweep in `tools/sweep.py` evaluated **231 (c_elo, μ) combinations** across the full prescribed range and found **0 fully-passing settings**: every cell passes RPS, but no cell fits calibration within ±0.05. The persistent failure is **decile 6** (predicted 0.55-0.65 range), worst-failing in 65% of swept cells. **Spike 2 (library extraction) should not start until PRD §5.5 gets a structural model change** — parameter tuning alone is insufficient. FIFA-mode RPS = 0.2140, Blend-mode RPS = 0.2082. ET divergence (post-ET − 90-min) is right at the 0.01 flag threshold for Elo (0.011). Simulated group-stage draw rate is 23.8% (Elo) vs 19.8% observed — also above the ±2pp flag threshold.
 
 ## Summary table
 
@@ -48,6 +48,26 @@ All inputs are bundled under `data/raw/` from three canonical-source scrapers (`
 - **Knockout convention** — `rps_90min` is the gating metric (the match model predicts 90 minutes); `rps_post_et` is informational. The observed ET divergence (0.011 for Elo) is right at the 0.01 flag threshold — slightly above means the model handles ET-bound matches a bit differently from its standalone 90-min predictions. Spike 2 should investigate before wiring up the tournament engine.
 - **Sample size noise** — 128 matches → RPS has ~±0.015 noise. The 0.215 gate has ~0.6σ headroom over the 0.222 uniform baseline. If the calibration sweep doesn't bring the curve in line, extend the dataset to Euro 2020 (51 matches) before declaring a hard fail.
 
+## Sweep finding (soft_fail follow-up)
+
+`tools/sweep.py` runs the spec-prescribed `c_elo ∈ [200, 400]` / `μ ∈ [1.1, 1.6]` sweep at step sizes 10 and 0.05 (231 cells total). Full grid is committed to `results/sweep.json`.
+
+| Outcome | Count |
+|---|---:|
+| Cells passing the RPS gate (rps_90min < 0.215) | **231 / 231** |
+| Cells passing the calibration gate (every decile with n ≥ 8 within ±0.05 of diagonal) | **0 / 231** |
+| Cells fully passing both | **0 / 231** |
+
+The best-calibrated cell in the grid is `(c_elo=380, μ=1.55)` with `worst_err = 0.0731` in decile 5 — still 46% over the 0.05 tolerance. Decile 6 (model predicted 0.55-0.65 range) is the persistent culprit, worst-failing in 149 of 231 cells (65%).
+
+**Conclusion:** the spec's soft_fail fallback action applies — *"revisit model definition."* The score-grid Poisson model under-predicts moderate-favourite outcomes in a way that parameter tuning cannot fix.
+
 ## Next step
 
-The headline RPS passes but calibration soft-fails. Per spec §6, run the `c_elo ∈ [200, 400]` / `μ ∈ [1.1, 1.6]` sweep before Spike 2 starts. If a setting passes, update PRD defaults and proceed; if not, the model definition needs structural attention (multiplicative Poisson, separate home/away `μ`, or Dixon-Coles correlation as candidates).
+Update PRD §5.5 with a structural model change before Spike 2 starts. Candidates listed in the PRD's existing risks section (§11), ordered by relevance to the observed miss:
+
+1. **Dixon-Coles correlation** — adjusts the low-score outcomes (0-0, 1-0, 0-1, 1-1) to better fit observed soccer score distributions. Directly addresses the under-prediction of moderate-favourite wins AND the over-prediction of draws (the two flags we triggered) in a single change. **Most likely fix.**
+2. **Multiplicative Poisson form** — `λ_{A/B} = μ · 10^(±D/(2cS))` instead of additive. Removes the `λ_min` floor and changes the shape at moderate rating gaps; might or might not solve the calibration miss on its own.
+3. **Separate home/away μ** — usually 1.45 home / 1.25 away in club football. Less applicable to WC (mostly neutral venues); probably orthogonal to the observed miss.
+
+Implementation path: amend PRD §5.5 with the chosen structural change, re-run `validate.py` and `tools/sweep.py`. If the updated model achieves `worst_err ≤ 0.05` at a defensible `(c_elo, μ)`, update the PRD defaults and proceed to Spike 2. Otherwise, escalate further (consider asking whether 128 matches is too small a calibration sample given the model's structure).
