@@ -203,3 +203,103 @@ def test_simulate_tournament_is_deterministic(default_params):
     r2 = simulate_tournament(teams=teams, draw=draw, hosts=set(),
                              rating=EloRating(default_params), params=default_params, seed=42)
     assert r1.placements == r2.placements
+
+
+# ---------------------------------------------------------------------------
+# WC 2022 / 2026 PIN TESTS (Tasks 19-20)
+# ---------------------------------------------------------------------------
+
+import json
+from pathlib import Path
+
+WC2022_DRAW = {
+    "A": ["QAT", "ECU", "SEN", "NED"],
+    "B": ["ENG", "IRN", "USA", "WAL"],
+    "C": ["ARG", "SAU", "MEX", "POL"],
+    "D": ["FRA", "AUS", "DEN", "TUN"],
+    "E": ["ESP", "CRC", "GER", "JPN"],
+    "F": ["BEL", "CAN", "MAR", "CRO"],
+    "G": ["BRA", "SRB", "SUI", "CMR"],
+    "H": ["POR", "GHA", "URU", "KOR"],
+}
+
+
+def _load_teams_from_elo(bundled_elo_history, snapshot_date: str, iso3_set: set[str]):
+    """Build a dict of {iso3: Team} from the bundled Elo CSV for teams in iso3_set."""
+    from wcsim.types import Team
+    from name_to_iso3 import to_iso3
+
+    df = bundled_elo_history[bundled_elo_history["date"] == snapshot_date]
+    teams = {}
+    for _, row in df.iterrows():
+        try:
+            iso3 = to_iso3(row["team"])
+        except KeyError:
+            continue
+        if iso3 in iso3_set:
+            teams[iso3] = Team(name=row["team"], iso3=iso3, confederation="UNK", elo=float(row["rating"]))
+    return teams
+
+
+def test_wc_2022_tournament_pin(bundled_elo_history, default_params):
+    """Pin the WC 2022 simulation at seed=42."""
+    from wcsim.tournament import simulate_tournament
+    from wcsim.ratings.elo import EloRating
+
+    all_iso3s = {iso3 for group in WC2022_DRAW.values() for iso3 in group}
+    teams = _load_teams_from_elo(bundled_elo_history, "2022-11-19", all_iso3s)
+    assert len(teams) == 32, f"Expected 32 teams, got {len(teams)}: missing {all_iso3s - set(teams)}"
+
+    result = simulate_tournament(
+        teams=teams, draw=WC2022_DRAW, hosts={"QAT"},
+        rating=EloRating(default_params), params=default_params, seed=42,
+    )
+
+    champion = [iso for iso, stage in result.placements.items() if stage == "Champion"][0]
+    assert champion in all_iso3s
+
+    # Teams that made it past the group stage
+    advancers = frozenset(iso for iso, stage in result.placements.items() if stage != "GroupOut")
+    assert len(advancers) == 16  # top 2 per group x 8 groups
+
+    # LOCKED from first green run
+    assert champion == "NED"
+    assert advancers == frozenset({
+        "ARG", "AUS", "BRA", "CRO", "ESP", "FRA", "GER", "IRN",
+        "MAR", "NED", "POL", "POR", "SEN", "SRB", "URU", "USA",
+    })
+
+
+def test_wc_2026_tournament_pin(bundled_elo_history, default_params):
+    """Pin the WC 2026 simulation at seed=42."""
+    from wcsim.tournament import simulate_tournament
+    from wcsim.ratings.elo import EloRating
+
+    draw_path = Path(__file__).parent.parent / "spikes" / "01-validation" / "data" / "raw" / "wc2026_draw.json"
+    with draw_path.open() as f:
+        wc2026_draw = json.load(f)
+
+    all_iso3s = {iso3 for group in wc2026_draw.values() for iso3 in group}
+    teams = _load_teams_from_elo(bundled_elo_history, "2026-06-10", all_iso3s)
+    assert len(teams) == 48, f"Expected 48 teams, got {len(teams)}: missing {all_iso3s - set(teams)}"
+
+    result = simulate_tournament(
+        teams=teams, draw=wc2026_draw, hosts={"USA", "MEX", "CAN"},
+        rating=EloRating(default_params), params=default_params, seed=42,
+    )
+
+    assert len(result.matches) == 103  # 72 group + 31 knockout, no 3rd place
+    champion = [iso for iso, stage in result.placements.items() if stage == "Champion"][0]
+    assert champion in all_iso3s
+
+    advancers = frozenset(iso for iso, stage in result.placements.items() if stage != "GroupOut")
+    assert len(advancers) == 32  # top 2 per group (24) + 8 best thirds
+
+    # LOCKED from first green run
+    assert champion == "MEX"
+    assert advancers == frozenset({
+        "ARG", "AUS", "AUT", "BEL", "BRA", "CAN", "CPV", "CRO",
+        "ECU", "EGY", "ENG", "ESP", "FRA", "GER", "ITA", "JOR",
+        "KOR", "MAR", "MEX", "NED", "NOR", "PAN", "PAR", "POR",
+        "SCO", "SEN", "SUI", "TUN", "UKR", "URU", "USA", "UZB",
+    })
