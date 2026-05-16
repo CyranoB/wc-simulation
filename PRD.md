@@ -8,7 +8,7 @@
 - **Host bonus is now rating-mode-aware.** §5.5 specifies the rescaling: $H_{\text{elo}} = H_{\text{blend}} =$ `--home-bonus` (default 100); $H_{\text{fifa}} =$ `--home-bonus` $\cdot\ S_{\text{fifa}}/S_{\text{elo}}$ (default 150). The rescaling preserves the win-probability bump across modes.
 - **Blend's $S$ stated explicitly.** §5.5 now says $S = 400$ for blend (because blend ratings are normalised to Elo space). Blend's $c$ was already specified as `--c-elo`.
 - **`wcsim_version` moved from `meta.deterministic` to `meta.environment`.** The cache-invalidation logic in §5.4 still keys on it, but output reproducibility no longer depends on the build string — so an upgrade no longer breaks byte-identical reproducibility by definition.
-- **Elo source aligned with the Spike 1 validation source: `clubelo.com`** (CSV API) instead of `eloratings.net` (HTML). Removes the cross-source re-validation risk and reduces scraper fragility. §7 and §11 updated.
+- **Elo source clarified: `eloratings.net`** is the correct upstream for international-team Elo (an earlier draft incorrectly named `clubelo.com`, which covers clubs only). §7 and §11 updated. Spike 1 uses the same source via a bundled snapshot, so cross-source re-validation risk remains eliminated.
 
 **Changelog v1.4 (peer-review responses):**
 - Redefined `wcsim bracket` as the **per-slot most-likely matchup** walked top-down from the modal champion, *not* "the modal full bracket" (which is essentially never repeated across 100k sims). The cache now stores a per-slot matchup frequency table alongside the per-team aggregates.
@@ -215,7 +215,9 @@ wcsim/
 ├── data.py               # Loaders: teams CSV (+ teams.meta.json), group-draw JSON,
 │                         # host config, tournament-structure JSON.
 ├── scrapers/             # One module per upstream rating source.
-│   ├── elo.py            #   clubelo.com CSV API client (matches the Spike 1 validation source).
+│   ├── elo.py            #   eloratings.net scraper (matches the Spike 1 validation source).
+│   │                     #   Bundled historical snapshots in wcsim/data/snapshots/
+│   │                     #   are derived from the same source.
 │   └── fifa.py           #   fifa.com Men's World Ranking (JSON endpoint where available,
 │                         #   HTML fallback).
 ├── ratings/              # Rating-system math (pluggable).
@@ -303,7 +305,7 @@ The `Team` dataclass mirrors the CSV schema in §5.3 exactly, including the `*_u
 
 ## 11. Risks & Open Questions
 
-- **Elo source stability** — `clubelo.com` exposes a stable CSV API (lower fragility than HTML scraping); risk further mitigated with a versioned client, bundled snapshot fallback, and a CI job that fetches weekly. The Spike 1 validation uses the same source, so a passing spike means production calibration is not at risk from a source switch.
+- **Elo source stability** — `eloratings.net` publishes international-team Elo via HTML; fragility is mitigated with a versioned scraper, bundled snapshot fallback, and a CI job that fetches and parses weekly. The Spike 1 validation uses the same source (via a bundled snapshot of the same data), so a passing spike means production calibration is not at risk from a source switch. `clubelo.com` is **not** an option — it covers European club football only, not international teams.
 - **FIFA source stability** — `fifa.com` JSON endpoints have changed twice in the last two years; same mitigation as Elo, plus an HTML fallback parser.
 - **Group-draw updates** — if the configured tournament reseeds, ship updated `draw.json` as a patch release.
 - **Calibration of $c$** — needs tuning so the simulated draw rate matches historical reality (~25% in international football). Exposed as `--c-elo` / `--c-fifa` and documented in `docs/validation.md`.

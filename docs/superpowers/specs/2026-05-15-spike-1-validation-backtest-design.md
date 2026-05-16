@@ -22,7 +22,7 @@ Retire model risk **before** any production `wcsim` code is written. Demonstrate
 
 All datasets are fetched once, normalised, and committed under `spikes/01-validation/data/`. The spike is offline-reproducible afterwards.
 
-- **Pre-tournament Elo** — clubelo.com daily snapshot for the day before each tournament's opening match (2018-06-13, 2022-11-19). Public-domain CSV API.
+- **Pre-tournament Elo** — eloratings.net snapshot for the day before each tournament's opening match (2018-06-13, 2022-11-19). Sourced via a public Kaggle mirror that scrapes eloratings.net daily (see Task 2 in the plan for the specific dataset), so we get a stable historical snapshot without scraping HTML ourselves.
 - **Pre-tournament FIFA points** — Kaggle "FIFA Men's World Ranking" dataset, monthly snapshot immediately before each tournament (2018-06-07 and 2022-10-06 rankings).
 - **WC match results** — Kaggle "FIFA World Cup" dataset (fallback: football-data.co.uk). 64 matches per tournament; both 90-minute and post-extra-time scores; penalty winner where applicable.
 
@@ -132,7 +132,8 @@ Calibration-curve failure with a passing Brier counts as soft fail.
 
 ## 7. Risks & Contingencies
 
-- **Elo source aligned with production** — clubelo.com is the source for **both** this spike and the production scraper (PRD v1.5 §7 was updated to match). This eliminates the cross-source re-validation risk that would have existed if the production scraper targeted eloratings.net. Documented in `README.md`.
+- **Elo source aligned with production** — eloratings.net is the source for both this spike (via a bundled Kaggle mirror snapshot) and the production scraper (PRD v1.5 §7). This eliminates cross-source re-validation risk. Documented in `README.md`.
+- **Kaggle Elo mirror staleness** — the public mirror dataset may lag the live eloratings.net by a few days. For 2018 and 2022 historical snapshots this is irrelevant; for the production scraper, it is mitigated by hitting eloratings.net directly.
 - **FIFA reform discontinuity** — FIFA reformed its ranking algorithm in mid-2018. The 2018 and 2022 snapshots have different point distributions, so $F_0$ is computed per-tournament here. Flagged in `README.md`; production uses a single snapshot.
 - **Team-name normalisation** — clubelo, Kaggle FIFA, and match-results datasets disagree on spellings ("South Korea" / "Korea Republic" / "KOR"). Normalise to ISO3; expect 30–60 minutes of data cleanup.
 - **Sample size noise** — 128 matches → Brier has ~±0.015 noise. If the Elo total lands in [0.215, 0.218], extend the dataset by adding Euro 2020 (51 matches) before declaring soft fail.
