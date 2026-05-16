@@ -405,6 +405,37 @@ def rps(preds: np.ndarray, outcomes: np.ndarray) -> float:
     return float(np.mean(np.sum((cum_p - cum_y) ** 2, axis=1) / (K - 1)))
 
 
+def decide(results: dict) -> tuple[str, list[str]]:
+    """Apply the spec §6 four-way decision matrix. Returns (label, flags)."""
+    elo_90 = results["rps_90min"]["elo"]["total"]
+    cal = results["calibration_elo_90min"]
+
+    # Calibration check: every decile with >= 8 matches within +/- 0.05 of diagonal.
+    cal_ok = True
+    for p, y, n in zip(cal["mean_predicted"], cal["mean_observed"], cal["bucket_sizes"]):
+        if n is None or n < 8 or p is None or y is None:
+            continue
+        if abs(p - y) > 0.05:
+            cal_ok = False
+            break
+
+    flags: list[str] = []
+    if abs(results["draw_rate"]["delta_pp"]["elo"]) > 2:
+        flags.append("draw_rate_off")
+    if results["et_divergence"]["elo"] > 0.01:
+        flags.append("et_divergence_high")
+
+    if elo_90 < 0.215 and cal_ok:
+        fifa_b = results["rps_90min"]["fifa"]["total"]
+        blend_b = results["rps_90min"]["blend"]["total"]
+        if fifa_b > 0.225 or blend_b > 0.225:
+            return "pass_with_caveat", flags
+        return "pass", flags
+    if elo_90 >= 0.222:
+        return "hard_fail", flags
+    return "soft_fail", flags
+
+
 def main() -> None:
     # --- Startup invariants (Fix 6). Failures here mean validate.py is broken. ---
     _uniform = np.full((300, 3), 1 / 3)
@@ -528,13 +559,30 @@ def main() -> None:
         "by_bucket": results["by_bucket"],
     }, indent=2))
 
-    # Stash for Tasks 8-10 (refactored away in Task 10 when we write brier.json).
-    globals()["_RESULTS"] = results
-    globals()["_PREDS"] = preds_all
-    globals()["_MATCHES"] = all_matches
-    globals()["_Y_90"] = y_90
-    globals()["_Y_ET"] = y_et
-    globals()["_ELO_BY_YEAR"] = elo_by_year
+    # --- Task 10: decide + write brier.json + final schema check. ---
+    decision, flags = decide(results)
+    results["decision"] = decision
+    results["informational_flags"] = flags
+
+    # Final schema check (Fix 6) — verify every consumer-visible key is present
+    # before we declare success.
+    required_top_level = {
+        "decision", "params", "n_matches",
+        "rps_90min", "rps_post_et", "et_divergence",
+        "draw_rate", "calibration_elo_90min", "by_bucket",
+        "informational_flags",
+    }
+    missing_keys = required_top_level - set(results)
+    assert not missing_keys, f"brier.json missing required keys: {missing_keys}"
+    assert "f0_by_year" in results["params"], "params.f0_by_year missing"
+
+    RESULTS.mkdir(parents=True, exist_ok=True)
+    with open(RESULTS / "brier.json", "w") as f:
+        json.dump(results, f, indent=2)
+    print(f"\nDecision: {decision}")
+    if flags:
+        print(f"Informational flags: {flags}")
+    print(f"Wrote {RESULTS / 'brier.json'}")
 
 
 if __name__ == "__main__":
