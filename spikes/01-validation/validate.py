@@ -293,6 +293,17 @@ def predict_all_matches(
     return preds
 
 
+def simulated_draw_rate(preds: np.ndarray) -> float:
+    """Mean predicted draw probability (column index 1)."""
+    return float(np.mean(preds[:, 1]))
+
+
+def observed_draw_rate(matches: list[dict], y_90: np.ndarray) -> float:
+    """Fraction of group-stage matches that ended 90 minutes level."""
+    grp_mask = np.array([not m["is_knockout"] for m in matches])
+    return float(np.mean(y_90[grp_mask, 1]))
+
+
 def rps(preds: np.ndarray, outcomes: np.ndarray) -> float:
     """Ranked Probability Score on 3-outcome data. `preds` and `outcomes` are
     both shape (N, 3) with the column order [home_win, draw, away_win] and
@@ -399,15 +410,28 @@ def main() -> None:
         for mode in ("elo", "fifa", "blend")
     }
 
+    # --- Task 7: simulated draw rate per mode (informational). ---
+    grp_mask = np.array([not m["is_knockout"] for m in all_matches])
+    observed = observed_draw_rate(all_matches, y_90)
+    sim_per_mode = {
+        mode: simulated_draw_rate(preds_all[mode][grp_mask]) for mode in preds_all
+    }
+    results["draw_rate"] = {
+        "observed_group_stage": observed,
+        "simulated_group_stage": sim_per_mode,
+        "delta_pp": {mode: (sim_per_mode[mode] - observed) * 100 for mode in sim_per_mode},
+    }
+
     print(json.dumps({
         "n_matches": results["n_matches"],
         "f0_by_year": results["params"]["f0_by_year"],
         "rps_90min": results["rps_90min"],
         "rps_post_et": results["rps_post_et"],
         "et_divergence": results["et_divergence"],
+        "draw_rate": results["draw_rate"],
     }, indent=2))
 
-    # Stash for Tasks 7-10 (refactored away in Task 10 when we write brier.json).
+    # Stash for Tasks 8-10 (refactored away in Task 10 when we write brier.json).
     globals()["_RESULTS"] = results
     globals()["_PREDS"] = preds_all
     globals()["_MATCHES"] = all_matches
