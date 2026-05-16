@@ -77,3 +77,18 @@ def test_params_is_frozen():
     p = Params()
     with pytest.raises(Exception):
         p.mu = 2.0
+
+
+def test_public_api_reexports():
+    """wcsim.X imports work for the documented public surface."""
+    import wcsim
+    assert hasattr(wcsim, "Team")
+    assert hasattr(wcsim, "MatchResult")
+    assert hasattr(wcsim, "TournamentResult")
+    assert hasattr(wcsim, "Params")
+    assert hasattr(wcsim, "EloRating")
+    assert hasattr(wcsim, "FifaRating")
+    assert hasattr(wcsim, "BlendRating")
+    assert hasattr(wcsim, "predict_match")
+    assert hasattr(wcsim, "sample_match")
+    assert hasattr(wcsim, "simulate_tournament")
