@@ -2,6 +2,7 @@
 from __future__ import annotations
 import json
 import sys
+from dataclasses import dataclass
 from pathlib import Path
 import pandas as pd
 from .types import Team
@@ -10,6 +11,7 @@ SPIKE_DATA = Path(__file__).parent.parent / "spikes" / "01-validation" / "data" 
 DEFAULT_TEAMS_PATH = SPIKE_DATA / "elo_history.csv"
 DEFAULT_FIFA_PATH = SPIKE_DATA / "fifa_ranking.csv"
 DEFAULT_DRAW_PATH = SPIKE_DATA / "wc2026_draw.json"
+DEFAULT_VENUES_PATH = SPIKE_DATA / "wc2026_venues.json"
 
 # Import name_to_iso3 from the spike directory.
 _spike_dir = str(Path(__file__).parent.parent / "spikes" / "01-validation")
@@ -90,3 +92,23 @@ def load_draw(json_path: Path) -> dict[str, list[str]]:
         raise FileNotFoundError(f"Draw file not found: {json_path}")
     with json_path.open() as f:
         return json.load(f)
+
+
+@dataclass(frozen=True)
+class Venues:
+    """Per-match venue mapping: which host country gets the bonus."""
+    group_venues: dict[str, str]   # group letter -> host ISO3 ("USA", "MEX", "CAN")
+    knockout_venue: str            # ISO3 of the knockout host (all rounds)
+
+
+def load_venues(json_path: Path | None = None) -> Venues | None:
+    """Load venue assignments. Returns None if file doesn't exist (backward compat)."""
+    vp = json_path or DEFAULT_VENUES_PATH
+    if not vp.exists():
+        return None
+    with vp.open() as f:
+        data = json.load(f)
+    return Venues(
+        group_venues=data.get("group_venues", {}),
+        knockout_venue=data.get("knockout_venue", "USA"),
+    )

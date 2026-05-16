@@ -15,10 +15,11 @@ from .types import Params, SimulationResult, Team
 def _simulate_one(args: tuple) -> tuple[dict[str, str], dict[str, int], dict[str, int]]:
     """Worker function (top-level for pickling). Returns (placements,
     goals_for per team, goals_against per team)."""
-    teams, draw, hosts, rating, params, seed_i = args
+    teams, draw, hosts, rating, params, seed_i, group_venues, knockout_host = args
     result = simulate_tournament(
         teams=teams, draw=draw, hosts=hosts,
         rating=rating, params=params, seed=seed_i,
+        group_venues=group_venues, knockout_host=knockout_host,
     )
     gf: dict[str, int] = {iso3: 0 for iso3 in teams}
     ga: dict[str, int] = {iso3: 0 for iso3 in teams}
@@ -96,6 +97,8 @@ def run_simulations(
     teams: dict[str, Team], draw: dict[str, list[str]], hosts: set[str],
     *, rating: RatingSystem, params: Params = Params(),
     n: int = 100_000, seed: int | None = None, workers: int | None = None,
+    group_venues: dict[str, str] | None = None,
+    knockout_host: str | None = None,
 ) -> SimulationResult:
     """Run N tournaments deterministically. seed_i = base_seed + i per sim."""
     if seed is None:
@@ -103,7 +106,10 @@ def run_simulations(
     if workers is None:
         workers = os.cpu_count() or 1
 
-    args_list = [(teams, draw, hosts, rating, params, seed + i) for i in range(n)]
+    args_list = [
+        (teams, draw, hosts, rating, params, seed + i, group_venues, knockout_host)
+        for i in range(n)
+    ]
     all_results = _run_parallel(args_list, workers)
     stage_counts, total_gf, total_ga = _aggregate_results(all_results)
     probabilities, ci_lo, ci_hi = _compute_probabilities(stage_counts, n)

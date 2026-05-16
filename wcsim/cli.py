@@ -41,7 +41,7 @@ def run(
     quiet: bool = typer.Option(False, "-q", "--quiet"),
 ):
     """Run Monte Carlo tournament simulation."""
-    from .data import load_teams, load_draw, DEFAULT_TEAMS_PATH, DEFAULT_DRAW_PATH
+    from .data import load_teams, load_draw, load_venues, DEFAULT_TEAMS_PATH, DEFAULT_DRAW_PATH
     from .sim import run_simulations
     from .cache import write_cache
     from .types import Params
@@ -49,7 +49,10 @@ def run(
 
     teams = load_teams(teams_path or DEFAULT_TEAMS_PATH)
     draw = load_draw(draw_path or DEFAULT_DRAW_PATH)
+    venues = load_venues()
     hosts = {"USA", "MEX", "CAN"}
+    group_venues = venues.group_venues if venues else None
+    knockout_host_iso3 = venues.knockout_venue if venues else None
     params = Params()
     rating = _make_rating(rating_mode, params)
 
@@ -61,6 +64,7 @@ def run(
     result = run_simulations(
         teams=teams, draw=draw, hosts=hosts,
         rating=rating, params=params, n=n, seed=actual_seed, workers=workers,
+        group_venues=group_venues, knockout_host=knockout_host_iso3,
     )
     elapsed = time.time() - start
     if not quiet:

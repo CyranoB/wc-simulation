@@ -107,20 +107,32 @@ def simulate_group_stage(
     teams: dict[str, Team], draw: dict[str, list[str]],
     *, rating: RatingSystem, params: Params, rng: np.random.Generator,
     hosts: set[str], live_ratings: dict[str, float],
+    group_venues: dict[str, str] | None = None,
 ) -> tuple[list[MatchResult], dict[str, int]]:
     """Simulate round-robin for each group. Mutates live_ratings in place
-    after each match per PRD §5.5. Returns (matches, positions)."""
+    after each match per PRD §5.5. Returns (matches, positions).
+
+    If group_venues is provided (group_letter -> host ISO3), the home bonus
+    is given only to the team whose ISO3 matches the venue country for that
+    group. Otherwise falls back to the flat `hosts` set."""
     all_matches: list[MatchResult] = []
     positions: dict[str, int] = {}
 
     for group_letter, group_iso3s in sorted(draw.items()):
+        venue_host = group_venues.get(group_letter) if group_venues else None
         standings = {t: {"team": t, "points": 0, "gd": 0, "gf": 0}
                      for t in group_iso3s}
         for a_iso3, b_iso3 in combinations(group_iso3s, 2):
+            if venue_host:
+                a_home = (a_iso3 == venue_host)
+                b_home = (b_iso3 == venue_host)
+            else:
+                a_home = (a_iso3 in hosts)
+                b_home = (b_iso3 in hosts)
             m = sample_match(
                 teams[a_iso3], teams[b_iso3],
                 rating=rating, params=params,
-                a_is_host=(a_iso3 in hosts), b_is_host=(b_iso3 in hosts),
+                a_is_host=a_home, b_is_host=b_home,
                 rng=rng, stage="group",
             )
             all_matches.append(m)
@@ -208,15 +220,25 @@ def _play_knockout_round(
     *, rating: RatingSystem, params: Params, rng: np.random.Generator,
     hosts: set[str], live_ratings: dict[str, float],
     matches: list[MatchResult], placements: dict[str, str], semi_losers: list[str],
+    knockout_host: str | None = None,
 ) -> list[str]:
-    """Play one knockout round; return advancers. Mutates matches, placements, semi_losers."""
+    """Play one knockout round; return advancers. Mutates matches, placements, semi_losers.
+
+    If knockout_host is set, only that ISO3 gets the home bonus (venue-aware).
+    Otherwise falls back to the flat `hosts` set."""
     next_round: list[str] = []
     for i in range(0, len(current), 2):
         a_iso3, b_iso3 = current[i], current[i + 1]
+        if knockout_host:
+            a_home = (a_iso3 == knockout_host)
+            b_home = (b_iso3 == knockout_host)
+        else:
+            a_home = (a_iso3 in hosts)
+            b_home = (b_iso3 in hosts)
         m = sample_match(
             teams[a_iso3], teams[b_iso3],
             rating=rating, params=params,
-            a_is_host=(a_iso3 in hosts), b_is_host=(b_iso3 in hosts),
+            a_is_host=a_home, b_is_host=b_home,
             rng=rng, stage=stage,
         )
         matches.append(m)
@@ -234,6 +256,7 @@ def simulate_knockout(
     seeded: list[str], teams: dict[str, Team], structure: TournamentStructure,
     *, rating: RatingSystem, params: Params, rng: np.random.Generator,
     hosts: set[str], live_ratings: dict[str, float],
+    knockout_host: str | None = None,
 ) -> tuple[list[MatchResult], dict[str, str]]:
     """Play knockout rounds. Mutates live_ratings after each match.
     Returns (matches, {iso3 -> exit_stage or 'Champion'})."""
@@ -248,6 +271,7 @@ def simulate_knockout(
             rating=rating, params=params, rng=rng,
             hosts=hosts, live_ratings=live_ratings,
             matches=matches, placements=placements, semi_losers=semi_losers,
+            knockout_host=knockout_host,
         )
 
     placements[current[0]] = "Champion"
@@ -309,8 +333,16 @@ def _compute_third_place_standings(
 def simulate_tournament(
     teams: dict[str, Team], draw: dict[str, list[str]], hosts: set[str],
     *, rating: RatingSystem, params: Params | None = None, seed: int,
+    group_venues: dict[str, str] | None = None,
+    knockout_host: str | None = None,
 ) -> TournamentResult:
-    """Top-level deterministic entry point."""
+    """Top-level deterministic entry point.
+
+    If group_venues is provided ({group_letter: host_iso3}), the home bonus
+    in the group stage is venue-aware: only the team whose ISO3 matches the
+    venue country for that group gets the bonus. If knockout_host is provided,
+    only that team gets the bonus in all knockout matches. Otherwise, the flat
+    `hosts` set is used for backward compatibility."""
     p = params if params is not None else Params()
     structure = _structure_for(len(teams))
     rng = np.random.default_rng(seed)
@@ -320,6 +352,7 @@ def simulate_tournament(
     group_matches, positions = simulate_group_stage(
         teams=teams, draw=draw, rating=rating, params=p, rng=rng, hosts=hosts,
         live_ratings=live_ratings,
+        group_venues=group_venues,
     )
 
     group_winners, group_runners_up, third_place_iso3s = _extract_group_positions(draw, positions)
@@ -333,6 +366,7 @@ def simulate_tournament(
         seeded=seeded, teams=teams, structure=structure,
         rating=rating, params=p, rng=rng, hosts=hosts,
         live_ratings=live_ratings,
+        knockout_host=knockout_host,
     )
 
     placements = _build_final_placements(teams, seeded, knockout_placements)
