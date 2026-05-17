@@ -37,7 +37,7 @@ def _format_output(result, fmt, out, ci, verbose, actual_seed, n, rating_mode, e
     if fmt == "json" or (out and str(out).endswith(".json")):
         meta_det = {"seed": actual_seed, "simulations": n, "rating_mode": rating_mode}
         meta_env = {"runtime_seconds": elapsed}
-        return format_json(result, meta_det, meta_env)
+        return format_json(result, meta_det, meta_env, include_ci=ci)
     return format_table(result, verbose=verbose)
 
 

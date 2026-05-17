@@ -90,9 +90,12 @@ def _rank_group(standings: list[dict], rng: np.random.Generator) -> list[dict]:
 
 def _update_ratings_after_match(
     m: MatchResult, rating: RatingSystem, live_ratings: dict[str, float],
+    a_is_host: bool = False, b_is_host: bool = False,
 ) -> None:
-    """Apply post-match rating update to both teams per PRD §5.5."""
-    diff = live_ratings[m.home] - live_ratings[m.away]
+    """Apply post-match rating update to both teams per PRD §5.5.
+    W_e includes the home bonus so updates don't inflate host ratings."""
+    host_diff = float(a_is_host) - float(b_is_host)
+    diff = (live_ratings[m.home] - live_ratings[m.away]) + rating.home_bonus * host_diff
     w_e_home = rating.win_expectation(diff)
     w_e_away = 1.0 - w_e_home
     live_ratings[m.home] = rating.update(
@@ -137,7 +140,7 @@ def simulate_group_stage(
                 live_ratings=live_ratings,
             )
             all_matches.append(m)
-            _update_ratings_after_match(m, rating, live_ratings)
+            _update_ratings_after_match(m, rating, live_ratings, a_home, b_home)
             pa, pb = _points_from_score(m.home_goals, m.away_goals)
             standings[a_iso3]["points"] += pa
             standings[b_iso3]["points"] += pb
@@ -176,6 +179,17 @@ _R16_PAIRS_2018_2022 = [
     (1, 0), (3, 2), (5, 4), (7, 6),  # bottom half (reversed group pairs)
 ]
 
+# WC 2026 R32 bracket: 16 matches. Winners (W) from one group play runners-up
+# (R) from a different group in crosswise fashion. The 8 best third-place teams
+# are matched against the 4 remaining winners whose runner-up slot is taken.
+# (winner_group_idx, runner_up_group_idx) — crosswise pairs for groups A-L.
+_R32_PAIRS_2026: list[tuple[int, int | None]] = [
+    (0, 3), (1, 4), (2, 5),      # 1A vs 2D, 1B vs 2E, 1C vs 2F
+    (3, 0), (4, 1), (5, 2),      # 1D vs 2A, 1E vs 2B, 1F vs 2C
+    (6, 9), (7, 10), (8, 11),    # 1G vs 2J, 1H vs 2K, 1I vs 2L
+    (9, 6), (10, 7), (11, 8),    # 1J vs 2G, 1K vs 2H, 1L vs 2I
+]
+
 
 def seed_knockout(
     structure: TournamentStructure,
@@ -184,23 +198,26 @@ def seed_knockout(
 ) -> list[str]:
     """Return iso3 codes in bracket order -- pairs (i, i+1) play in round 1."""
     if structure.name == "WC2018-2022":
-        # Classic crosswise: 1A vs 2B, 1C vs 2D, ..., 1B vs 2A, 1D vs 2C, ...
         out = []
         for w_idx, r_idx in _R16_PAIRS_2018_2022:
             out.append(group_winners[w_idx])
             out.append(group_runners_up[r_idx])
         return out
     elif structure.name == "WC2026":
-        # Simplified sequential arrangement for 32-slot R32 bracket.
-        # Top 2 per group (24) in group order, then best 8 thirds appended.
-        slot_iso3s = []
-        for i in range(structure.groups_count):
-            slot_iso3s.append(group_winners[i])
-            slot_iso3s.append(group_runners_up[i])
-        slot_iso3s.extend(best_thirds)
-        if len(slot_iso3s) != 32:
-            raise ValueError(f"WC2026 expected 32 slots, got {len(slot_iso3s)}")
-        return slot_iso3s
+        # 12 crosswise winner-vs-runner-up matches + 4 winner-vs-third matches
+        out: list[str] = []
+        for w_idx, r_idx in _R32_PAIRS_2026:
+            out.append(group_winners[w_idx])
+            out.append(group_runners_up[r_idx])
+        # Remaining 4 matches: pair best thirds with best thirds (seeded)
+        # Actually need 16 total matches. 12 pairs above use all 12 winners
+        # and all 12 runners-up. The 8 best thirds pair among themselves.
+        for i in range(0, len(best_thirds), 2):
+            out.append(best_thirds[i])
+            out.append(best_thirds[i + 1])
+        if len(out) != 32:
+            raise ValueError(f"WC2026 expected 32 slots, got {len(out)}")
+        return out
     raise ValueError(f"Unknown structure: {structure.name}")
 
 
@@ -244,7 +261,7 @@ def _play_knockout_round(
             live_ratings=live_ratings,
         )
         matches.append(m)
-        _update_ratings_after_match(m, rating, live_ratings)
+        _update_ratings_after_match(m, rating, live_ratings, a_home, b_home)
         winner = _match_winner(m)
         loser = b_iso3 if winner == a_iso3 else a_iso3
         placements[loser] = stage
@@ -294,7 +311,7 @@ def simulate_knockout(
             live_ratings=live_ratings,
         )
         matches.append(m)
-        _update_ratings_after_match(m, rating, live_ratings)
+        _update_ratings_after_match(m, rating, live_ratings, a_home, b_home)
 
     return matches, placements
 
@@ -353,7 +370,12 @@ def simulate_tournament(
     only that team gets the bonus in all knockout matches. Otherwise, the flat
     `hosts` set is used for backward compatibility."""
     p = params if params is not None else Params()
-    structure = _structure_for(len(teams))
+    draw_team_count = sum(len(g) for g in draw.values())
+    structure = _structure_for(draw_team_count)
+    draw_teams = {iso3 for g in draw.values() for iso3 in g}
+    missing = draw_teams - set(teams)
+    if missing:
+        raise ValueError(f"Teams missing from ratings: {sorted(missing)}")
     rng = np.random.default_rng(seed)
 
     live_ratings = {iso3: rating.rating_of(t) for iso3, t in teams.items()}

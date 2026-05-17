@@ -74,7 +74,7 @@ def format_csv(result: SimulationResult, include_ci: bool = True) -> str:
     return buf.getvalue()
 
 
-def format_json(result: SimulationResult, meta_det: dict, meta_env: dict) -> str:
+def format_json(result: SimulationResult, meta_det: dict, meta_env: dict, include_ci: bool = True) -> str:
     """JSON with meta blocks + rows."""
     rows = []
     stages = list(next(iter(result.probabilities.values())).keys()) if result.probabilities else []
@@ -82,8 +82,9 @@ def format_json(result: SimulationResult, meta_det: dict, meta_env: dict) -> str
         row = {"team": iso3}
         for s in stages:
             row[s] = result.probabilities[iso3].get(s, 0)
-            row[f"{s}_ci_lo"] = result.ci_lo[iso3].get(s, 0)
-            row[f"{s}_ci_hi"] = result.ci_hi[iso3].get(s, 0)
+            if include_ci:
+                row[f"{s}_ci_lo"] = result.ci_lo[iso3].get(s, 0)
+                row[f"{s}_ci_hi"] = result.ci_hi[iso3].get(s, 0)
         row["mean_goals_for"] = result.mean_goals_for.get(iso3, 0)
         row["mean_goals_against"] = result.mean_goals_against.get(iso3, 0)
         rows.append(row)

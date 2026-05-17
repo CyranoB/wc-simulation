@@ -297,8 +297,8 @@ def test_wc_2026_tournament_pin(bundled_elo_history, default_params):
     advancers = frozenset(iso for iso, stage in result.placements.items() if stage != "GroupOut")
     assert len(advancers) == 32  # top 2 per group (24) + 8 best thirds
 
-    # LOCKED (re-pinned after live_ratings plumbing into sample_match)
-    assert champion == "ITA"
+    # LOCKED (re-pinned after crosswise bracket + host-bonus-in-update fixes)
+    assert champion == "URU"
     assert advancers == frozenset({
         "ARG", "AUS", "AUT", "BRA", "CAN", "COL", "CRO",
         "ECU", "EGY", "ENG", "ESP", "FRA", "GER", "IRN", "ITA", "JOR",
