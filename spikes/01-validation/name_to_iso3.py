@@ -87,6 +87,16 @@ NAME_TO_ISO3: dict[str, str] = {
     "Türkiye": "TUR",
     "Ukraine": "UKR",
     "Uzbekistan": "UZB",
+    # WC 2026 corrections (teams that qualified after initial draw file)
+    "Bosnia-Herzegovina": "BIH",
+    "Bosnia and Herzegovina": "BIH",
+    "Czech Republic": "CZE",
+    "Czechia": "CZE",
+    "Sweden": "SWE",
+    "Iraq": "IRQ",
+    "DR Congo": "COD",
+    "Congo DR": "COD",
+    "Dem. Rep. Congo": "COD",
 }
 
 

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="FIFA World Cup 2026 Monte Carlo simulation results: win probabilities for all 48 teams and a sample tournament bracket.">
+<title>World Cup 2026 Simulation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:oklch(0.97 0.005 60);
+  --bg-warm:oklch(0.94 0.01 60);
+  --bg-inset:oklch(0.91 0.012 60);
+  --ink:oklch(0.18 0.01 60);
+  --ink-secondary:oklch(0.4 0.01 60);
+  --ink-muted:oklch(0.6 0.008 60);
+  --terracotta:oklch(0.55 0.14 35);
+  --terracotta-light:oklch(0.7 0.1 35);
+  --terracotta-bg:oklch(0.92 0.03 35);
+  --slate:oklch(0.35 0.03 250);
+  --slate-light:oklch(0.55 0.02 250);
+  --border:oklch(0.85 0.01 60);
+  --radius:6px;
+  --font-display:'Archivo',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+body{
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+:focus-visible{outline:2px solid var(--terracotta);outline-offset:2px;border-radius:3px}
+
+.hero{
+  padding:100px 24px 48px;
+  text-align:center;
+  max-width:680px;
+  margin:0 auto;
+}
+.hero-label{
+  font-family:var(--font-mono);
+  font-size:0.7rem;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--ink-muted);
+  margin-bottom:12px;
+}
+.hero h1{
+  font-family:var(--font-display);
+  font-size:clamp(2.2rem,5vw,3.4rem);
+  font-weight:900;
+  letter-spacing:-0.03em;
+  line-height:1.1;
+  margin-bottom:16px;
+  color:var(--ink);
+}
+.hero-meta{
+  font-size:0.85rem;
+  color:var(--ink-secondary);
+  line-height:1.7;
+}
+
+.container{max-width:960px;margin:0 auto;padding:0 24px}
+
+section{padding:48px 0}
+section+section{border-top:1px solid var(--border)}
+.section-label{
+  font-family:var(--font-mono);
+  font-size:0.65rem;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  color:var(--ink-muted);
+  margin-bottom:6px;
+}
+section h2{
+  font-family:var(--font-display);
+  font-size:1.6rem;
+  font-weight:700;
+  letter-spacing:-0.02em;
+  margin-bottom:28px;
+  color:var(--ink);
+}
+
+/* Champion reveal */
+.champion-reveal{
+  background:var(--bg-warm);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:40px 32px;
+  text-align:center;
+  margin-bottom:48px;
+}
+.champion-reveal .flag{font-size:3rem;margin-bottom:8px}
+.champion-reveal .team{
+  font-family:var(--font-display);
+  font-size:2rem;
+  font-weight:900;
+  letter-spacing:-0.02em;
+}
+.champion-reveal .context{
+  font-size:0.82rem;
+  color:var(--ink-secondary);
+  margin-top:8px;
+}
+
+/* Podium */
+.podium{
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+  gap:12px;
+  margin-bottom:40px;
+  flex-wrap:wrap;
+}
+.pod{
+  text-align:center;
+  padding:20px 16px;
+  border-radius:var(--radius);
+  background:var(--bg-warm);
+  border:1px solid var(--border);
+  width:110px;
+  transition:transform 0.15s ease-out;
+}
+.pod:focus-visible,.pod:hover{transform:translateY(-3px)}
+.pod.first{
+  width:130px;
+  padding:28px 20px;
+  background:var(--terracotta-bg);
+  border-color:var(--terracotta-light);
+}
+.pod .rank{font-family:var(--font-mono);font-size:0.65rem;color:var(--ink-muted);margin-bottom:4px}
+.pod .flag-name{font-size:1.1rem;font-weight:700;margin-bottom:2px}
+.pod.first .flag-name{font-size:1.3rem}
+.pod .pct{font-family:var(--font-display);font-size:1.3rem;font-weight:900;color:var(--terracotta)}
+.pod.first .pct{font-size:1.6rem}
+
+/* Bar chart */
+.bar-chart{max-width:700px}
+.bar-row{display:flex;align-items:center;margin-bottom:3px;font-size:0.78rem}
+.bar-label{width:60px;font-family:var(--font-mono);font-size:0.7rem;color:var(--ink-secondary)}
+.bar-track{flex:1;height:20px;background:var(--bg-inset);border-radius:3px;overflow:hidden;margin:0 8px}
+.bar-fill{height:100%;border-radius:3px}
+.bar-value{width:44px;text-align:right;font-family:var(--font-mono);font-size:0.7rem;color:var(--ink-secondary)}
+.bar-chart-toggle{
+  font-family:var(--font-mono);
+  font-size:0.7rem;
+  color:var(--terracotta);
+  background:none;
+  border:none;
+  cursor:pointer;
+  padding:8px 0;
+  margin-top:8px;
+}
+.bar-chart-toggle:hover{text-decoration:underline}
+
+/* Stage table */
+.stage-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.stage-table{
+  width:100%;
+  border-collapse:collapse;
+  font-family:var(--font-mono);
+  font-size:0.7rem;
+}
+.stage-table th{
+  padding:8px 8px;
+  text-align:center;
+  color:var(--ink-muted);
+  font-weight:500;
+  font-size:0.6rem;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  border-bottom:2px solid var(--border);
+  white-space:nowrap;
+}
+.stage-table th:first-child{text-align:left}
+.stage-table td{padding:5px 8px;text-align:center;border-bottom:1px solid var(--border)}
+.stage-table td:first-child{text-align:left;font-weight:500;color:var(--ink)}
+.stage-cell{
+  display:inline-block;
+  min-width:38px;
+  padding:2px 5px;
+  border-radius:3px;
+  font-variant-numeric:tabular-nums;
+}
+.stage-table-toggle{
+  font-family:var(--font-mono);
+  font-size:0.7rem;
+  color:var(--terracotta);
+  background:none;
+  border:none;
+  cursor:pointer;
+  padding:8px 0;
+  margin-top:8px;
+}
+.stage-table-toggle:hover{text-decoration:underline}
+
+/* Bracket */
+.bracket-intro{
+  font-size:0.85rem;
+  color:var(--ink-secondary);
+  margin-bottom:24px;
+  max-width:55ch;
+}
+.groups-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:10px;
+  margin-bottom:36px;
+}
+.group-card{
+  background:var(--bg-warm);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:10px 12px;
+  font-size:0.72rem;
+}
+.group-card h4{
+  font-family:var(--font-mono);
+  font-size:0.6rem;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--ink-muted);
+  margin-bottom:6px;
+}
+.group-row{
+  display:flex;
+  justify-content:space-between;
+  padding:2px 0;
+}
+.group-row.adv{color:var(--ink)}
+.group-row.out{color:var(--ink-muted)}
+
+.ko-stage{margin-bottom:24px}
+.ko-stage h4{
+  font-family:var(--font-mono);
+  font-size:0.65rem;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--ink-muted);
+  margin-bottom:8px;
+}
+.ko-match{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:var(--bg-warm);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:5px 10px;
+  margin:0 6px 6px 0;
+  font-size:0.75rem;
+  font-family:var(--font-mono);
+}
+.ko-match .w{font-weight:700;color:var(--ink)}
+.ko-match .l{color:var(--ink-muted)}
+.ko-match .sc{color:var(--ink-secondary)}
+.ko-match .ex{color:var(--terracotta);font-size:0.65rem}
+
+.final-match{
+  background:var(--terracotta-bg);
+  border-color:var(--terracotta-light);
+  padding:12px 20px;
+  font-size:0.85rem;
+}
+.final-match .w{color:var(--terracotta)}
+
+footer{
+  text-align:center;
+  padding:48px 24px;
+  color:var(--ink-muted);
+  font-size:0.7rem;
+  font-family:var(--font-mono);
+}
+footer a{color:var(--terracotta);text-decoration:none}
+footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <p class="hero-label">Monte Carlo Simulation</p>
+  <h1>World Cup 2026</h1>
+  <p class="hero-meta">
+    100,000 tournaments simulated<br>
+    Rating: 50% squad value + 35% Elo + 15% FIFA<br>
+    Seed: 1 &middot; Correct WC 2026 draw (Dec 2025)
+  </p>
+</header>
+
+<main class="container">
+
+<section id="champion-section">
+  <div class="champion-reveal" id="champion-reveal"></div>
+</section>
+
+<section id="podium-section">
+  <p class="section-label">Win probability</p>
+  <h2>Top Contenders</h2>
+  <div class="podium" id="podium-cards"></div>
+</section>
+
+<section id="bars-section">
+  <p class="section-label">All 48 teams</p>
+  <h2>Win Probability</h2>
+  <div class="bar-chart" id="bar-chart"></div>
+  <button class="bar-chart-toggle" id="bar-toggle" aria-expanded="false">Show all 48 teams</button>
+</section>
+
+<section id="stages-section">
+  <p class="section-label">How far does each team get?</p>
+  <h2>Stage Progression</h2>
+  <div class="stage-wrap">
+    <table class="stage-table" id="stage-table"></table>
+  </div>
+  <button class="stage-table-toggle" id="stage-toggle" aria-expanded="false">Show all teams</button>
+</section>
+
+<section id="bracket-section">
+  <p class="section-label">Sample tournament (seed: 42)</p>
+  <h2>Bracket</h2>
+  <p class="bracket-intro">One possible tournament outcome. The champion's path is highlighted.</p>
+  <h3 style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:12px">Groups</h3>
+  <div class="groups-grid" id="groups-grid"></div>
+  <div id="knockout-bracket"></div>
+</section>
+
+</main>
+
+<footer>
+  Generated by <a href="https://github.com/CyranoB/wc-simulation">wcsim</a> v0.4.0<br>
+  Poisson + Dixon-Coles model. Data: eloratings.net, FIFA, Transfermarkt.
+</footer>
+
+<script>
+const PROBS={"meta":{"deterministic":{"seed":1,"simulations":100000,"rating_mode":"blend"},"environment":{"runtime_seconds":35.311241149902344}},"rows":[{"team":"ALG","Win":0.00815,"Final":0.01997,"SF":0.05116,"QF":0.1217,"R16":0.26725,"R32":0.7071099999999999,"GroupOut":0.29289,"mean_goals_for":5.49714,"mean_goals_against":6.01108},{"team":"ARG","Win":0.08551,"Final":0.15354,"SF":0.26238,"QF":0.41248,"R16":0.58752,"R32":0.94472,"GroupOut":0.05528,"mean_goals_for":9.8216,"mean_goals_against":5.16112},{"team":"AUS","Win":0.00345,"Final":0.00954,"SF":0.02613,"QF":0.07855000000000001,"R16":0.20452,"R32":0.48826,"GroupOut":0.51174,"mean_goals_for":4.24854,"mean_goals_against":6.18934},{"team":"AUT","Win":0.01395,"Final":0.03193,"SF":0.07511000000000001,"QF":0.15986,"R16":0.31952,"R32":0.771,"GroupOut":0.229,"mean_goals_for":6.17762,"mean_goals_against":5.8985},{"team":"BEL","Win":0.02873,"Final":0.062099999999999995,"SF":0.12904,"QF":0.28171,"R16":0.55064,"R32":0.90384,"GroupOut":0.09616,"mean_goals_for":8.37474,"mean_goals_against":5.36804},{"team":"BIH","Win":0.00214,"Final":0.006240000000000001,"SF":0.02163,"QF":0.07476,"R16":0.23288999999999999,"R32":0.62529,"GroupOut":0.37471,"mean_goals_for":4.79405,"mean_goals_against":6.11211},{"team":"BRA","Win":0.05864,"Final":0.10819999999999999,"SF":0.20662999999999998,"QF":0.32263,"R16":0.5448999999999999,"R32":0.90676,"GroupOut":0.09324,"mean_goals_for":8.74652,"mean_goals_against":5.45831},{"team":"CAN","Win":0.00762,"Final":0.020569999999999998,"SF":0.05885,"QF":0.15772,"R16":0.4356,"R32":0.88366,"GroupOut":0.11634,"mean_goals_for":7.19963,"mean_goals_against":5.44776},{"team":"CIV","Win":0.0099,"Final":0.02463,"SF":0.06091,"QF":0.15808,"R16":0.34278,"R32":0.73593,"GroupOut":0.26407,"mean_goals_for":5.9691,"mean_goals_against":6.00169},{"team":"COD","Win":0.00216,"Final":0.006359999999999999,"SF":0.01859,"QF":0.05338,"R16":0.15095,"R32":0.4579,"GroupOut":0.5421,"mean_goals_for":3.85259,"mean_goals_against":6.25847},{"team":"COL","Win":0.02646,"Final":0.056639999999999996,"SF":0.12006,"QF":0.24164,"R16":0.45664,"R32":0.81966,"GroupOut":0.18034,"mean_goals_for":7.27343,"mean_goals_against":5.78582},{"team":"CPV","Win":0.00072,"Final":0.00233,"SF":0.00837,"QF":0.033460000000000004,"R16":0.1119,"R32":0.45407,"GroupOut":0.54593,"mean_goals_for":3.48256,"mean_goals_against":6.38138},{"team":"CRO","Win":0.02551,"Final":0.056620000000000004,"SF":0.11541000000000001,"QF":0.2388,"R16":0.46102,"R32":0.81714,"GroupOut":0.18286,"mean_goals_for":7.19953,"mean_goals_against":5.82105},{"team":"CUW","Win":0.00016,"Final":0.0005600000000000001,"SF":0.00231,"QF":0.011179999999999999,"R16":0.050159999999999996,"R32":0.22633999999999999,"GroupOut":0.77366,"mean_goals_for":2.37429,"mean_goals_against":6.57818},{"team":"CZE","Win":0.00638,"Final":0.01692,"SF":0.04618,"QF":0.13574,"R16":0.34469,"R32":0.7217899999999999,"GroupOut":0.27821,"mean_goals_for":5.84991,"mean_goals_against":5.94505},{"team":"ECU","Win":0.02134,"Final":0.047880000000000006,"SF":0.10691,"QF":0.23747000000000001,"R16":0.44807,"R32":0.82482,"GroupOut":0.17518,"mean_goals_for":7.13127,"mean_goals_against":5.81551},{"team":"EGY","Win":0.00437,"Final":0.01233,"SF":0.03516,"QF":0.10636999999999999,"R16":0.29783,"R32":0.7104999999999999,"GroupOut":0.2895,"mean_goals_for":5.57469,"mean_goals_against":5.92538},{"team":"ENG","Win":0.08273,"Final":0.14727,"SF":0.24947000000000003,"QF":0.43419,"R16":0.6596500000000001,"R32":0.9317600000000001,"GroupOut":0.06824,"mean_goals_for":9.85486,"mean_goals_against":5.31065},{"team":"ESP","Win":0.10951,"Final":0.18835,"SF":0.30383,"QF":0.45353,"R16":0.65543,"R32":0.9737,"GroupOut":0.0263,"mean_goals_for":10.73303,"mean_goals_against":4.90011},{"team":"FRA","Win":0.10447,"Final":0.18037999999999998,"SF":0.29103999999999997,"QF":0.45633999999999997,"R16":0.68289,"R32":0.92437,"GroupOut":0.07563,"mean_goals_for":10.01521,"mean_goals_against":5.44226},{"team":"GER","Win":0.04916,"Final":0.09689,"SF":0.18759,"QF":0.36360000000000003,"R16":0.58343,"R32":0.90795,"GroupOut":0.09205,"mean_goals_for":8.81562,"mean_goals_against":5.53881},{"team":"GHA","Win":0.00245,"Final":0.00737,"SF":0.02092,"QF":0.06131,"R16":0.17342000000000002,"R32":0.49831000000000003,"GroupOut":0.50169,"mean_goals_for":4.07489,"mean_goals_against":6.25082},{"team":"HAI","Win":0.00048,"Final":0.00153,"SF":0.00508,"QF":0.01727,"R16":0.06781999999999999,"R32":0.29521,"GroupOut":0.70479,"mean_goals_for":2.7714,"mean_goals_against":6.45331},{"team":"IRN","Win":0.00257,"Final":0.00839,"SF":0.02595,"QF":0.08139,"R16":0.25083,"R32":0.6484,"GroupOut":0.3516,"mean_goals_for":5.05362,"mean_goals_against":6.00971},{"team":"IRQ","Win":0.0005,"Final":0.00164,"SF":0.005379999999999999,"QF":0.0195,"R16":0.07252,"R32":0.24049,"GroupOut":0.75951,"mean_goals_for":2.53058,"mean_goals_against":6.5619},{"team":"JOR","Win":0.0001,"Final":0.0006100000000000001,"SF":0.00252,"QF":0.0106,"R16":0.04306,"R32":0.22855999999999999,"GroupOut":0.77144,"mean_goals_for":2.32463,"mean_goals_against":6.58825},{"team":"JPN","Win":0.01806,"Final":0.03914,"SF":0.08665,"QF":0.16299000000000002,"R16":0.35965,"R32":0.75107,"GroupOut":0.24893,"mean_goals_for":6.31077,"mean_goals_against":5.8837},{"team":"KOR","Win":0.00524,"Final":0.01505,"SF":0.04135,"QF":0.12625999999999998,"R16":0.32698,"R32":0.70522,"GroupOut":0.29478,"mean_goals_for":5.67258,"mean_goals_against":5.97826},{"team":"MAR","Win":0.02199,"Final":0.04573,"SF":0.0995,"QF":0.18365,"R16":0.39044,"R32":0.8006599999999999,"GroupOut":0.19934,"mean_goals_for":6.72556,"mean_goals_against":5.81884},{"team":"MEX","Win":0.01175,"Final":0.02957,"SF":0.07034,"QF":0.19069,"R16":0.46640000000000004,"R32":0.89154,"GroupOut":0.10846,"mean_goals_for":7.54142,"mean_goals_against":5.39252},{"team":"NED","Win":0.04807,"Final":0.0917,"SF":0.1768,"QF":0.28631,"R16":0.50505,"R32":0.87046,"GroupOut":0.12954,"mean_goals_for":8.16383,"mean_goals_against":5.55995},{"team":"NOR","Win":0.02254,"Final":0.047869999999999996,"SF":0.09822,"QF":0.19985,"R16":0.43309,"R32":0.7592099999999999,"GroupOut":0.24079,"mean_goals_for":6.59691,"mean_goals_against":5.99239},{"team":"NZL","Win":0.00031,"Final":0.00132,"SF":0.00603,"QF":0.026010000000000002,"R16":0.11169000000000001,"R32":0.40954,"GroupOut":0.59046,"mean_goals_for":3.43963,"mean_goals_against":6.27549},{"team":"PAN","Win":0.00094,"Final":0.00343,"SF":0.01088,"QF":0.035519999999999996,"R16":0.11345999999999999,"R32":0.38280000000000003,"GroupOut":0.6172,"mean_goals_for":3.33348,"mean_goals_against":6.36228},{"team":"PAR","Win":0.00782,"Final":0.01889,"SF":0.048600000000000004,"QF":0.12932,"R16":0.29721,"R32":0.61395,"GroupOut":0.38605,"mean_goals_for":5.23347,"mean_goals_against":6.07343},{"team":"POR","Win":0.05828,"Final":0.11005999999999999,"SF":0.20140999999999998,"QF":0.36053999999999997,"R16":0.58865,"R32":0.90037,"GroupOut":0.09963,"mean_goals_for":8.90955,"mean_goals_against":5.51318},{"team":"QAT","Win":0.00015,"Final":0.00052,"SF":0.0023,"QF":0.0129,"R16":0.06262,"R32":0.28958,"GroupOut":0.71042,"mean_goals_for":2.69279,"mean_goals_against":6.47463},{"team":"RSA","Win":0.00048,"Final":0.00189,"SF":0.00698,"QF":0.032189999999999996,"R16":0.11433,"R32":0.37778,"GroupOut":0.62222,"mean_goals_for":3.33209,"mean_goals_against":6.32856},{"team":"SAU","Win":6e-05,"Final":0.00044,"SF":0.0021,"QF":0.01095,"R16":0.04682,"R32":0.26366,"GroupOut":0.73634,"mean_goals_for":2.41552,"mean_goals_against":6.62582},{"team":"SCO","Win":0.00844,"Final":0.01974,"SF":0.05038,"QF":0.10758000000000001,"R16":0.27096,"R32":0.67988,"GroupOut":0.32012,"mean_goals_for":5.36588,"mean_goals_against":6.02125},{"team":"SEN","Win":0.02217,"Final":0.04801,"SF":0.09587,"QF":0.19467,"R16":0.42732000000000003,"R32":0.75214,"GroupOut":0.24786,"mean_goals_for":6.51099,"mean_goals_against":6.01254},{"team":"SUI","Win":0.01893,"Final":0.044329999999999994,"SF":0.10191,"QF":0.22976,"R16":0.51542,"R32":0.8770899999999999,"GroupOut":0.12291,"mean_goals_for":7.71413,"mean_goals_against":5.55804},{"team":"SWE","Win":0.00992,"Final":0.02346,"SF":0.05718,"QF":0.11688000000000001,"R16":0.28521,"R32":0.66421,"GroupOut":0.33579,"mean_goals_for":5.4389,"mean_goals_against":6.00798},{"team":"TUN","Win":0.00138,"Final":0.00413,"SF":0.01311,"QF":0.037239999999999995,"R16":0.12480999999999999,"R32":0.40192999999999995,"GroupOut":0.59807,"mean_goals_for":3.50661,"mean_goals_against":6.26758},{"team":"TUR","Win":0.02331,"Final":0.05094,"SF":0.10829,"QF":0.24106,"R16":0.4582,"R32":0.77661,"GroupOut":0.22339,"mean_goals_for":6.98708,"mean_goals_against":5.86982},{"team":"URU","Win":0.02702,"Final":0.05807,"SF":0.12625999999999998,"QF":0.24131999999999998,"R16":0.42579,"R32":0.8839600000000001,"GroupOut":0.11604,"mean_goals_for":7.55064,"mean_goals_against":5.6348},{"team":"USA","Win":0.03355,"Final":0.07042000000000001,"SF":0.14037,"QF":0.29449000000000003,"R16":0.51961,"R32":0.82306,"GroupOut":0.17694,"mean_goals_for":7.70432,"mean_goals_against":5.77389},{"team":"UZB","Win":0.00243,"Final":0.0065,"SF":0.01886,"QF":0.05656,"R16":0.16036,"R32":0.47774,"GroupOut":0.52226,"mean_goals_for":3.96554,"mean_goals_against":6.21318}]};
+const BRACKET={"seed":42,"groups":{"A":[{"team":"KOR","w":3,"d":0,"l":0,"gf":10,"ga":4,"pts":9},{"team":"MEX","w":2,"d":0,"l":1,"gf":6,"ga":6,"pts":6},{"team":"RSA","w":1,"d":0,"l":2,"gf":6,"ga":8,"pts":3},{"team":"CZE","w":0,"d":0,"l":3,"gf":1,"ga":5,"pts":0}],"B":[{"team":"CAN","w":2,"d":1,"l":0,"gf":6,"ga":3,"pts":7},{"team":"SUI","w":1,"d":1,"l":1,"gf":4,"ga":2,"pts":4},{"team":"QAT","w":1,"d":0,"l":2,"gf":4,"ga":8,"pts":3},{"team":"BIH","w":0,"d":2,"l":1,"gf":3,"ga":4,"pts":2}],"C":[{"team":"BRA","w":1,"d":2,"l":0,"gf":3,"ga":1,"pts":5},{"team":"HAI","w":1,"d":2,"l":0,"gf":1,"ga":0,"pts":5},{"team":"SCO","w":1,"d":1,"l":1,"gf":4,"ga":3,"pts":4},{"team":"MAR","w":0,"d":1,"l":2,"gf":1,"ga":5,"pts":1}],"D":[{"team":"PAR","w":2,"d":1,"l":0,"gf":5,"ga":3,"pts":7},{"team":"AUS","w":1,"d":1,"l":1,"gf":1,"ga":1,"pts":4},{"team":"USA","w":1,"d":0,"l":2,"gf":2,"ga":3,"pts":3},{"team":"TUR","w":0,"d":2,"l":1,"gf":4,"ga":5,"pts":2}],"E":[{"team":"GER","w":2,"d":0,"l":1,"gf":5,"ga":3,"pts":6},{"team":"CIV","w":1,"d":1,"l":1,"gf":3,"ga":2,"pts":4},{"team":"CUW","w":1,"d":1,"l":1,"gf":1,"ga":2,"pts":4},{"team":"ECU","w":1,"d":0,"l":2,"gf":1,"ga":3,"pts":3}],"F":[{"team":"NED","w":3,"d":0,"l":0,"gf":8,"ga":2,"pts":9},{"team":"JPN","w":2,"d":0,"l":1,"gf":4,"ga":3,"pts":6},{"team":"TUN","w":1,"d":0,"l":2,"gf":4,"ga":6,"pts":3},{"team":"SWE","w":0,"d":0,"l":3,"gf":2,"ga":7,"pts":0}],"G":[{"team":"BEL","w":3,"d":0,"l":0,"gf":8,"ga":2,"pts":9},{"team":"EGY","w":1,"d":0,"l":2,"gf":7,"ga":5,"pts":3},{"team":"NZL","w":1,"d":0,"l":2,"gf":1,"ga":3,"pts":3},{"team":"IRN","w":1,"d":0,"l":2,"gf":4,"ga":10,"pts":3}],"H":[{"team":"SAU","w":2,"d":1,"l":0,"gf":4,"ga":1,"pts":7},{"team":"ESP","w":1,"d":1,"l":1,"gf":3,"ga":3,"pts":4},{"team":"URU","w":1,"d":1,"l":1,"gf":3,"ga":3,"pts":4},{"team":"CPV","w":0,"d":1,"l":2,"gf":2,"ga":5,"pts":1}],"I":[{"team":"FRA","w":3,"d":0,"l":0,"gf":6,"ga":1,"pts":9},{"team":"NOR","w":2,"d":0,"l":1,"gf":5,"ga":2,"pts":6},{"team":"SEN","w":1,"d":0,"l":2,"gf":6,"ga":5,"pts":3},{"team":"IRQ","w":0,"d":0,"l":3,"gf":2,"ga":11,"pts":0}],"J":[{"team":"ARG","w":2,"d":1,"l":0,"gf":5,"ga":0,"pts":7},{"team":"AUT","w":2,"d":0,"l":1,"gf":3,"ga":2,"pts":6},{"team":"ALG","w":1,"d":0,"l":2,"gf":1,"ga":5,"pts":3},{"team":"JOR","w":0,"d":1,"l":2,"gf":0,"ga":2,"pts":1}],"K":[{"team":"COL","w":3,"d":0,"l":0,"gf":6,"ga":1,"pts":9},{"team":"UZB","w":1,"d":1,"l":1,"gf":1,"ga":1,"pts":4},{"team":"COD","w":0,"d":2,"l":1,"gf":0,"ga":2,"pts":2},{"team":"POR","w":0,"d":1,"l":2,"gf":1,"ga":4,"pts":1}],"L":[{"team":"ENG","w":2,"d":1,"l":0,"gf":11,"ga":2,"pts":7},{"team":"CRO","w":1,"d":1,"l":1,"gf":2,"ga":2,"pts":4},{"team":"GHA","w":1,"d":1,"l":1,"gf":3,"ga":8,"pts":4},{"team":"PAN","w":0,"d":1,"l":2,"gf":1,"ga":5,"pts":1}]},"knockout":[{"stage":"R32","home":"MEX","away":"SUI","home_goals":3,"away_goals":4,"extra_time":false,"went_to_pens":false,"pen_winner":null,"winner":"SUI"},{"stage":"R32","home":"GER","away":"RSA","home_goals":2,"away_goals":0,"extra_time":false,"went_to_pens":false,"pen_winner":null,"winner":"GER"},{"stage":"R32","home":"NED","away":"HAI","home_goals":2,"away_goals":1,"extra_time":false,"went_to_pens":false,"pen_winner":null,"winner":"NED"},{"stage":"R32","home":"BRA","away":"JPN","home_goals":3,"away_goals":2,"extra_time":true,"went_to_pens":false,"pen_winner":null,"winner":"BRA"},{"stage":"R32","home":"FRA","away":"USA","home_goals":2,"away_goals":0,"extra_time":false,"went_to_pens":false,"pen_winner":null,"winner":"FRA"},{"stage":"R32","home":"CIV","away":"NOR","home_goals":1,"away_goals":2,"extra_time":false,"went_to_pens":false,"pen_winner":null,"winner":"NOR"},{"stage":"R32","home":"KOR","away":"SCO","home_goals":3,"away_goals":2,"extra_time":false,"went_to_pens":false,"pen_winner":null,"winner":"KOR"},{"stage":"R32","home":"ENG","away":"CUW","home_goals":3,"away_goals":2,"extra_time":true,"went_to_pens":false,"pen_winner":null,"winner":"ENG"},{"stage":"R32","home":"PAR","away":"TUN","home_goals":1,"away_goals":0,"extra_time":false,"went_to_pens":false,"pen_winner":null,"winner":"PAR"},{"stage":"R32","home":"BEL","away":"URU","home_goals":1,"away_goals":0,"extra_time":true,"went_to_pens":false,"pen_winner":null,"winner":"BEL"},{"stage":"R32","home":"UZB","away":"CRO","home_goals":3,"away_goals":1,"extra_time":false,"went_to_pens":false,"pen_winner":null,"winner":"UZB"},{"stage":"R32","home":"SAU","away":"AUT","home_goals":3,"away_goals":2,"extra_time":false,"went_to_pens":false,"pen_winner":null,"winner":"SAU"},{"stage":"R32","home":"CAN","away":"SEN","home_goals":2,"away_goals":2,"extra_time":true,"went_to_pens":true,"pen_winner":"CAN","winner":"CAN"},{"stage":"R32","home":"ARG","away":"ESP","home_goals":3,"away_goals":4,"extra_time":true,"went_to_pens":false,"pen_winner":null,"winner":"ESP"},{"stage":"R32","home":"COL","away":"GHA","home_goals":0,"away_goals":1,"extra_time":false,"went_to_pens":false,"pen_winner":null,"winner":"GHA"},{"stage":"R32","home":"AUS","away":"EGY","home_goals":1,"away_goals":1,"extra_time":true,"went_to_pens":true,"pen_winner":"AUS","winner":"AUS"},{"stage":"R16","home":"SUI","away":"GER","home_goals":0,"away_goals":1,"extra_time":true,"went_to_pens":false,"pen_winner":null,"winner":"GER"},{"stage":"R16","home":"NED","away":"BRA","home_goals":1,"away_goals":5,"extra_time":false,"went_to_pens":false,"pen_winner":null,"winner":"BRA"},{"stage":"R16","home":"FRA","away":"NOR","home_goals":1,"away_goals":2,"extra_time":false,"went_to_pens":false,"pen_winner":null,"winner":"NOR"},{"stage":"R16","home":"KOR","away":"ENG","home_goals":1,"away_goals":3,"extra_time":true,"went_to_pens":false,"pen_winner":null,"winner":"ENG"},{"stage":"R16","home":"PAR","away":"BEL","home_goals":0,"away_goals":1,"extra_time":false,"went_to_pens":false,"pen_winner":null,"winner":"BEL"},{"stage":"R16","home":"UZB","away":"SAU","home_goals":2,"away_goals":0,"extra_time":false,"went_to_pens":false,"pen_winner":null,"winner":"UZB"},{"stage":"R16","home":"CAN","away":"ESP","home_goals":0,"away_goals":4,"extra_time":false,"went_to_pens":false,"pen_winner":null,"winner":"ESP"},{"stage":"R16","home":"GHA","away":"AUS","home_goals":0,"away_goals":2,"extra_time":false,"went_to_pens":false,"pen_winner":null,"winner":"AUS"},{"stage":"QF","home":"GER","away":"BRA","home_goals":3,"away_goals":1,"extra_time":false,"went_to_pens":false,"pen_winner":null,"winner":"GER"},{"stage":"QF","home":"NOR","away":"ENG","home_goals":1,"away_goals":0,"extra_time":false,"went_to_pens":false,"pen_winner":null,"winner":"NOR"},{"stage":"QF","home":"BEL","away":"UZB","home_goals":2,"away_goals":1,"extra_time":true,"went_to_pens":false,"pen_winner":null,"winner":"BEL"},{"stage":"QF","home":"ESP","away":"AUS","home_goals":1,"away_goals":0,"extra_time":false,"went_to_pens":false,"pen_winner":null,"winner":"ESP"},{"stage":"SF","home":"GER","away":"NOR","home_goals":0,"away_goals":1,"extra_time":false,"went_to_pens":false,"pen_winner":null,"winner":"NOR"},{"stage":"SF","home":"BEL","away":"ESP","home_goals":0,"away_goals":2,"extra_time":false,"went_to_pens":false,"pen_winner":null,"winner":"ESP"},{"stage":"Final","home":"NOR","away":"ESP","home_goals":2,"away_goals":2,"extra_time":true,"went_to_pens":true,"pen_winner":"ESP","winner":"ESP"}],"champion":"ESP"};
+const FLAGS={"ALG":"🇩🇿","ARG":"🇦🇷","AUS":"🇦🇺","AUT":"🇦🇹","BEL":"🇧🇪","BIH":"🇧🇦","BRA":"🇧🇷","CAN":"🇨🇦","CIV":"🇨🇮","COD":"🇨🇩","COL":"🇨🇴","CPV":"🇨🇻","CRO":"🇭🇷","CUW":"🇨🇼","CZE":"🇨🇿","ECU":"🇪🇨","EGY":"🇪🇬","ENG":"🏴󠁧󠁢󠁥󠁮󠁧󠁿","ESP":"🇪🇸","FRA":"🇫🇷","GER":"🇩🇪","GHA":"🇬🇭","HAI":"🇭🇹","IRN":"🇮🇷","IRQ":"🇮🇶","JOR":"🇯🇴","JPN":"🇯🇵","KOR":"🇰🇷","MAR":"🇲🇦","MEX":"🇲🇽","NED":"🇳🇱","NOR":"🇳🇴","NZL":"🇳🇿","PAN":"🇵🇦","PAR":"🇵🇾","POR":"🇵🇹","QAT":"🇶🇦","RSA":"🇿🇦","SAU":"🇸🇦","SCO":"🏴󠁧󠁢󠁳󠁣󠁴󠁿","SEN":"🇸🇳","SUI":"🇨🇭","SWE":"🇸🇪","TUN":"🇹🇳","TUR":"🇹🇷","UKR":"🇺🇦","URU":"🇺🇾","USA":"🇺🇸","UZB":"🇺🇿"};
+const NAMES={"ALG":"Algeria","ARG":"Argentina","AUS":"Australia","AUT":"Austria","BEL":"Belgium","BIH":"Bosnia","BRA":"Brazil","CAN":"Canada","CIV":"Ivory Coast","COD":"DR Congo","COL":"Colombia","CPV":"Cape Verde","CRO":"Croatia","CUW":"Curacao","CZE":"Czechia","ECU":"Ecuador","EGY":"Egypt","ENG":"England","ESP":"Spain","FRA":"France","GER":"Germany","GHA":"Ghana","HAI":"Haiti","IRN":"Iran","IRQ":"Iraq","JOR":"Jordan","JPN":"Japan","KOR":"South Korea","MAR":"Morocco","MEX":"Mexico","NED":"Netherlands","NOR":"Norway","NZL":"New Zealand","PAN":"Panama","PAR":"Paraguay","POR":"Portugal","QAT":"Qatar","RSA":"South Africa","SAU":"Saudi Arabia","SCO":"Scotland","SEN":"Senegal","SUI":"Switzerland","SWE":"Sweden","TUN":"Tunisia","TUR":"Turkey","URU":"Uruguay","USA":"United States","UZB":"Uzbekistan"};
+
+const f=(iso)=>FLAGS[iso]||'';
+const n=(iso)=>NAMES[iso]||iso;
+const rows=[...PROBS.rows].sort((a,b)=>b.Win-a.Win);
+const champ=BRACKET.champion;
+
+// Champion reveal
+document.getElementById('champion-reveal').innerHTML=`
+  <div class="flag">${f(champ)}</div>
+  <div class="team">${n(champ)}</div>
+  <div class="context">${(rows.find(r=>r.team===champ).Win*100).toFixed(1)}% pre-tournament win probability (seed 42 outcome)</div>
+`;
+
+// Podium (top 6)
+const podiumEl=document.getElementById('podium-cards');
+const top6=rows.slice(0,6);
+podiumEl.innerHTML=top6.map((t,i)=>{
+  const cls=i===0?'pod first':'pod';
+  const rank=i===0?'1st':['2nd','3rd','4th','5th','6th'][i-1];
+  return `<div class="${cls}" tabindex="0" title="${n(t.team)}"><div class="rank">${rank}</div><div class="flag-name">${f(t.team)} ${t.team}</div><div class="pct">${(t.Win*100).toFixed(1)}%</div></div>`;
+}).join('');
+
+// Bar chart (show 12 initially, toggle all)
+const barEl=document.getElementById('bar-chart');
+let showAllBars=false;
+const maxWin=rows[0].Win;
+function renderBars(){
+  const visible=showAllBars?rows:rows.slice(0,12);
+  barEl.innerHTML=visible.map(t=>{
+    const pct=(t.Win/maxWin*100).toFixed(1);
+    const isTop=t.Win>0.05;
+    const color=isTop?'var(--terracotta)':'var(--slate-light)';
+    return `<div class="bar-row"><span class="bar-label">${f(t.team)} ${t.team}</span><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${color}"></div></div><span class="bar-value">${(t.Win*100).toFixed(1)}%</span></div>`;
+  }).join('');
+}
+renderBars();
+document.getElementById('bar-toggle').addEventListener('click',function(){
+  showAllBars=!showAllBars;
+  this.textContent=showAllBars?'Show top 12 only':'Show all 48 teams';
+  this.setAttribute('aria-expanded',showAllBars);
+  renderBars();
+});
+
+// Stage table (show 15 initially, toggle all)
+const stageEl=document.getElementById('stage-table');
+let showAllStages=false;
+const stages=['Win','Final','SF','QF','R16','R32','GroupOut'];
+function renderStages(){
+  const visible=showAllStages?rows:rows.slice(0,15);
+  let h='<thead><tr><th></th>'+stages.map(s=>`<th>${s}</th>`).join('')+'</tr></thead><tbody>';
+  visible.forEach(t=>{
+    h+='<tr><td>'+f(t.team)+' '+t.team+'</td>';
+    stages.forEach(s=>{
+      const v=t[s]||0;
+      const pct=(v*100).toFixed(1);
+      const a=Math.min(v*1.5,1);
+      const bg=`oklch(0.55 ${(a*0.14).toFixed(3)} 35 / ${(a*0.3).toFixed(2)})`;
+      h+=`<td><span class="stage-cell" style="background:${bg}">${pct}</span></td>`;
+    });
+    h+='</tr>';
+  });
+  h+='</tbody>';
+  stageEl.innerHTML=h;
+}
+renderStages();
+document.getElementById('stage-toggle').addEventListener('click',function(){
+  showAllStages=!showAllStages;
+  this.textContent=showAllStages?'Show top 15 only':'Show all teams';
+  this.setAttribute('aria-expanded',showAllStages);
+  renderStages();
+});
+
+// Groups
+const groupsEl=document.getElementById('groups-grid');
+const groupLetters=Object.keys(BRACKET.groups).sort();
+groupsEl.innerHTML=groupLetters.map(gl=>{
+  const teams=BRACKET.groups[gl];
+  const rws=teams.map((t,i)=>{
+    const gd=t.gf-t.ga;
+    const cls=i<3?'group-row adv':'group-row out';
+    const champMark=t.team===champ?' ◆':'';
+    return `<div class="${cls}"><span>${f(t.team)} ${t.team}${champMark}</span><span>${t.pts}pts</span></div>`;
+  }).join('');
+  return `<div class="group-card"><h4>Group ${gl}</h4>${rws}</div>`;
+}).join('');
+
+// Knockout with champion path highlighted
+const koEl=document.getElementById('knockout-bracket');
+const stageOrder=['R32','R16','QF','SF','Final'];
+const stageLabels={R32:'Round of 32',R16:'Round of 16',QF:'Quarter-finals',SF:'Semi-finals',Final:'Final'};
+
+// Find champion's path
+const champPath=new Set([champ]);
+BRACKET.knockout.filter(m=>m.winner===champ).forEach(m=>{
+  champPath.add(m.home);champPath.add(m.away);
+});
+
+let koHTML='';
+stageOrder.forEach(stage=>{
+  const matches=BRACKET.knockout.filter(m=>m.stage===stage);
+  if(!matches.length)return;
+  koHTML+=`<div class="ko-stage"><h4>${stageLabels[stage]}</h4><div>`;
+  matches.forEach(m=>{
+    const homeW=m.winner===m.home;
+    const wCls='w';const lCls='l';
+    let extra='';
+    if(m.went_to_pens)extra='<span class="ex">pens</span>';
+    else if(m.extra_time)extra='<span class="ex">aet</span>';
+    const isFinal=stage==='Final';
+    const matchCls=isFinal?'ko-match final-match':'ko-match';
+    const hc=homeW?wCls:lCls;
+    const ac=homeW?lCls:wCls;
+    koHTML+=`<span class="${matchCls}"><span class="${hc}">${f(m.home)}${m.home}</span><span class="sc">${m.home_goals}-${m.away_goals}</span><span class="${ac}">${f(m.away)}${m.away}</span>${extra}</span>`;
+  });
+  koHTML+='</div></div>';
+});
+koEl.innerHTML=koHTML;
+</script>
+</body>
+</html>
