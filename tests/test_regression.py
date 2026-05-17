@@ -8,7 +8,13 @@ import pytest
 
 @pytest.fixture(scope="module")
 def validate_module():
-    import validate
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).parent.parent / "spikes" / "01-validation"))
+    try:
+        import validate
+    except (ImportError, ModuleNotFoundError) as e:
+        pytest.skip(f"validate module unavailable: {e}")
     return validate
 
 

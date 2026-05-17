@@ -56,7 +56,12 @@ ET_LAMBDA_SCALE = 30.0 / 90.0
 
 
 def _sample_score(lam_a: float, lam_b: float, rho: float, rng: np.random.Generator) -> tuple[int, int]:
-    """Sample (home_goals, away_goals) from the τ-corrected joint Poisson grid."""
+    """Sample (home_goals, away_goals) from the τ-corrected joint Poisson grid.
+    When rho is ~0, uses fast independent Poisson sampling."""
+    if abs(rho) < 1e-15:
+        ha = int(min(rng.poisson(lam_a), SCORE_GRID_MAX))
+        hb = int(min(rng.poisson(lam_b), SCORE_GRID_MAX))
+        return ha, hb
     pa = _poisson_pmf(lam_a, SCORE_GRID_MAX)
     pb = _poisson_pmf(lam_b, SCORE_GRID_MAX)
     grid = _apply_tau(np.outer(pa, pb), lam_a, lam_b, rho)
