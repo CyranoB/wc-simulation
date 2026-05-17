@@ -57,6 +57,7 @@ POR         5.5%     10.5%     19.6%     35.8%     58.9%     90.8%      9.2%
 | Command | Description |
 |---|---|
 | `wcsim run` | Run N tournament simulations and output probability table |
+| `wcsim bracket` | Simulate one tournament and display full bracket with scores |
 | `wcsim match A B` | Single-match win/draw/loss probabilities |
 | `wcsim teams` | List loaded teams with Elo ratings |
 | `wcsim version` | Print version |
@@ -78,6 +79,49 @@ POR         5.5%     10.5%     19.6%     35.8%     58.9%     90.8%      9.2%
 | `--draw PATH` | bundled | Override draw JSON |
 | `-v, --verbose` | off | Show CIs in table output |
 | `-q, --quiet` | off | Suppress progress messages |
+
+### `wcsim bracket` flags
+
+| Flag | Default | Description |
+|---|---|---|
+| `--seed` | random | RNG seed for the single tournament |
+| `--rating` | elo | Rating mode: `elo`, `fifa`, `blend`, `player` |
+| `--blend-player` | 0.0 | Player-value weight in three-way blend |
+| `--shrinkage` | 1.0 | Rating regression to mean |
+
+### Bracket output example
+
+```
+$ wcsim bracket --seed 42 --rating blend --blend-player 0.5
+Seed: 42  Rating: blend
+
+═══ GROUP STAGE ═══
+  Group A: ●DEN(7pts) ●KOR(6pts) ●MEX(3pts) ○RSA(1pts)
+  Group B: ●CAN(9pts) ●ITA(4pts) ●SUI(4pts) ○QAT(0pts)
+  ...
+
+═══ KNOCKOUT BRACKET ═══
+  ── R32 ──
+    ECU 3-1 MEX  → ECU
+    NOR 1-1 BRA (pens: NOR)  → NOR
+    ENG 5-3 SAU  → ENG
+    ...
+
+  ── QF ──
+    ECU 1-0 MAR  → ECU
+    GER 1-0 ENG  → GER
+    SUI 3-1 UZB  → SUI
+    ESP 3-0 PAR  → ESP
+
+  ── SF ──
+    ECU 4-2 GER  → ECU
+    SUI 2-0 ESP  → SUI
+
+  ── Final ──
+    ECU 1-1 SUI (pens: SUI)  → SUI
+
+  ★ CHAMPION: SUI ★
+```
 
 ## Model
 
