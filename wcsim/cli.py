@@ -150,9 +150,107 @@ def teams(teams_path: Optional[Path] = typer.Option(None, "--teams")):
 
 
 @app.command()
+def bracket(
+    seed: Optional[int] = typer.Option(None, "--seed"),
+    rating_mode: str = typer.Option("elo", "--rating"),
+    blend_player: float = typer.Option(0.0, "--blend-player"),
+    shrinkage: float = typer.Option(1.0, "--shrinkage"),
+):
+    """Simulate one tournament and display the bracket."""
+    from .data import load_teams, load_draw, load_venues, DEFAULT_TEAMS_PATH, DEFAULT_DRAW_PATH
+    from .tournament import simulate_tournament
+    from .types import Params, MatchResult
+    import random as _random
+
+    teams = load_teams(DEFAULT_TEAMS_PATH)
+    draw = load_draw(DEFAULT_DRAW_PATH)
+    venues = load_venues()
+    hosts = {"USA", "MEX", "CAN"}
+    group_venues = venues.group_venues if venues else None
+    knockout_host_iso3 = venues.knockout_venue if venues else None
+    params = Params(shrinkage=shrinkage, blend_player=blend_player)
+    rating = _make_rating(rating_mode, params)
+
+    actual_seed = seed if seed is not None else _random.randint(0, 2**31)
+    result = simulate_tournament(
+        teams=teams, draw=draw, hosts=hosts,
+        rating=rating, params=params, seed=actual_seed,
+        group_venues=group_venues, knockout_host=knockout_host_iso3,
+    )
+
+    typer.echo(f"Seed: {actual_seed}  Rating: {rating_mode}")
+    typer.echo("")
+
+    # Group stage results
+    typer.echo("═══ GROUP STAGE ═══")
+    group_letters = sorted(draw.keys())
+    group_matches = [m for m in result.matches if m.stage == "group"]
+    for gl in group_letters:
+        group_teams = draw[gl]
+        standings = {t: {"w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0, "pts": 0} for t in group_teams}
+        for m in group_matches:
+            if m.home in group_teams and m.away in group_teams:
+                standings[m.home]["gf"] += m.home_goals
+                standings[m.home]["ga"] += m.away_goals
+                standings[m.away]["gf"] += m.away_goals
+                standings[m.away]["ga"] += m.home_goals
+                if m.home_goals > m.away_goals:
+                    standings[m.home]["w"] += 1; standings[m.home]["pts"] += 3
+                    standings[m.away]["l"] += 1
+                elif m.home_goals < m.away_goals:
+                    standings[m.away]["w"] += 1; standings[m.away]["pts"] += 3
+                    standings[m.home]["l"] += 1
+                else:
+                    standings[m.home]["d"] += 1; standings[m.home]["pts"] += 1
+                    standings[m.away]["d"] += 1; standings[m.away]["pts"] += 1
+        ranked = sorted(group_teams, key=lambda t: (-standings[t]["pts"], -(standings[t]["gf"]-standings[t]["ga"]), -standings[t]["gf"]))
+        typer.echo(f"  Group {gl}: ", nl=False)
+        for i, t in enumerate(ranked):
+            s = standings[t]
+            marker = "●" if result.placements.get(t) != "GroupOut" else "○"
+            typer.echo(f"{marker}{t}({s['pts']}pts) ", nl=False)
+        typer.echo("")
+    typer.echo("")
+
+    # Knockout bracket
+    ko_matches = [m for m in result.matches if m.stage != "group" and m.stage != "3rd"]
+    stages_order = ["R32", "R16", "QF", "SF", "Final"]
+    typer.echo("═══ KNOCKOUT BRACKET ═══")
+    for stage in stages_order:
+        stage_matches = [m for m in ko_matches if m.stage == stage]
+        if not stage_matches:
+            continue
+        typer.echo(f"  ── {stage} ──")
+        for m in stage_matches:
+            score = f"{m.home_goals}-{m.away_goals}"
+            suffix = ""
+            if m.went_to_pens:
+                suffix = f" (pens: {m.pen_winner})"
+            elif m.extra_time:
+                suffix = " (aet)"
+            winner = m.pen_winner if m.went_to_pens else (m.home if m.home_goals > m.away_goals else m.away)
+            typer.echo(f"    {m.home} {score} {m.away}{suffix}  → {winner}")
+        typer.echo("")
+
+    # Third place match
+    third_matches = [m for m in result.matches if m.stage == "3rd"]
+    if third_matches:
+        m = third_matches[0]
+        score = f"{m.home_goals}-{m.away_goals}"
+        suffix = " (pens)" if m.went_to_pens else (" (aet)" if m.extra_time else "")
+        typer.echo(f"  ── 3rd Place ──")
+        typer.echo(f"    {m.home} {score} {m.away}{suffix}")
+        typer.echo("")
+
+    # Champion
+    champion = next(iso for iso, stage in result.placements.items() if stage == "Champion")
+    typer.echo(f"  ★ CHAMPION: {champion} ★")
+
+
+@app.command()
 def version():
     """Print version."""
-    typer.echo("wcsim 0.3.0-dev (Spike 3)")
+    typer.echo("wcsim 0.4.0")
 
 
 if __name__ == "__main__":
