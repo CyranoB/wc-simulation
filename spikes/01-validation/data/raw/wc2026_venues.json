@@ -1,0 +1,18 @@
+{
+  "group_venues": {
+    "A": "MEX",
+    "B": "CAN",
+    "C": "USA",
+    "D": "USA",
+    "E": "USA",
+    "F": "USA",
+    "G": "CAN",
+    "H": "USA",
+    "I": "USA",
+    "J": "USA",
+    "K": "MEX",
+    "L": "USA"
+  },
+  "knockout_venue": "USA",
+  "notes": "Group B is split Toronto (CAN) + Inglewood (USA); assigned CAN as primary. Group K is split Houston (USA) + Mexico City (MEX); assigned MEX as primary. All knockout rounds are in USA. Source: ESPN/FIFA 2026 match schedule."
+}

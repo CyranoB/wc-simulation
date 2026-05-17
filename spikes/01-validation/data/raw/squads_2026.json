@@ -1,0 +1,6648 @@
+{
+  "provenance": {
+    "source": "Kaggle davidcariboo/player-scores",
+    "file": "players.csv",
+    "download_date": "2026-05-16",
+    "description": "Market values from Transfermarkt via Kaggle mirror",
+    "top_n": 23,
+    "teams": 48
+  },
+  "squads": {
+    "ALG": {
+      "total_value_eur": 247800000,
+      "player_count": 161,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Rayan A\u00eft-Nouri",
+          "position": "Defender",
+          "value_eur": 40000000,
+          "club": "Manchester City Football Club"
+        },
+        {
+          "name": "Mohamed Amoura",
+          "position": "Attack",
+          "value_eur": 32000000,
+          "club": "Verein f\u00fcr Leibes\u00fcbungen Wolfsburg"
+        },
+        {
+          "name": "Amine Gouiri",
+          "position": "Attack",
+          "value_eur": 28000000,
+          "club": "Olympique de Marseille"
+        },
+        {
+          "name": "Riyad Mahrez",
+          "position": "Attack",
+          "value_eur": 18000000,
+          "club": "Al-Ahli Saudi Football Club"
+        },
+        {
+          "name": "Far\u00e8s Cha\u00efbi",
+          "position": "Midfield",
+          "value_eur": 15000000,
+          "club": "Eintracht Frankfurt Fu\u00dfball AG"
+        },
+        {
+          "name": "Hicham Boudaoui",
+          "position": "Midfield",
+          "value_eur": 12000000,
+          "club": "Olympique Gymnaste Club Nice C\u00f4te d'Azur"
+        },
+        {
+          "name": "Badredine Bouanani",
+          "position": "Attack",
+          "value_eur": 12000000,
+          "club": "Verein f\u00fcr Bewegungsspiele Stuttgart 1893"
+        },
+        {
+          "name": "Houssem Aouar",
+          "position": "Midfield",
+          "value_eur": 10000000,
+          "club": "Al-Ittihad Football Club"
+        },
+        {
+          "name": "Sa\u00efd Benrahma",
+          "position": "Attack",
+          "value_eur": 9000000,
+          "club": "Neom Sports Club"
+        },
+        {
+          "name": "Isma\u00ebl Bennacer",
+          "position": "Midfield",
+          "value_eur": 9000000,
+          "club": "GNK Dinamo Zagreb"
+        },
+        {
+          "name": "Ramiz Zerrouki",
+          "position": "Midfield",
+          "value_eur": 9000000,
+          "club": "Football Club Twente"
+        },
+        {
+          "name": "Ramy Bensebaini",
+          "position": "Defender",
+          "value_eur": 7000000,
+          "club": "Borussia Dortmund"
+        },
+        {
+          "name": "Rafik Belghali",
+          "position": "Defender",
+          "value_eur": 7000000,
+          "club": "Verona Hellas Football Club"
+        },
+        {
+          "name": "Nabil Bentaleb",
+          "position": "Midfield",
+          "value_eur": 5000000,
+          "club": "Lille Olympique Sporting Club"
+        },
+        {
+          "name": "Adem Zorgane",
+          "position": "Midfield",
+          "value_eur": 5000000,
+          "club": "Royale Union Saint-Gilloise"
+        },
+        {
+          "name": "Yassine Titraoui",
+          "position": "Midfield",
+          "value_eur": 5000000,
+          "club": "Royal Charleroi Sporting Club"
+        },
+        {
+          "name": "Youcef Atal",
+          "position": "Defender",
+          "value_eur": 4300000,
+          "club": "Adana Demirspor"
+        },
+        {
+          "name": "Adam Ounas",
+          "position": "Attack",
+          "value_eur": 4000000,
+          "club": "Lille Olympique Sporting Club"
+        },
+        {
+          "name": "Mohamed Belloumi",
+          "position": "Attack",
+          "value_eur": 4000000,
+          "club": "SC Farense"
+        },
+        {
+          "name": "Rafik Guitane",
+          "position": "Attack",
+          "value_eur": 3500000,
+          "club": "Grupo Desportivo Estoril Praia"
+        },
+        {
+          "name": "Kevin Van Den Kerkhof",
+          "position": "Defender",
+          "value_eur": 3000000,
+          "club": "Royal Charleroi Sporting Club"
+        },
+        {
+          "name": "Yasser Larouci",
+          "position": "Defender",
+          "value_eur": 3000000,
+          "club": "Athlitiki Enosi Kifisias"
+        },
+        {
+          "name": "Himad Abdelli",
+          "position": "Midfield",
+          "value_eur": 3000000,
+          "club": "Olympique de Marseille"
+        }
+      ]
+    },
+    "ARG": {
+      "total_value_eur": 959000000,
+      "player_count": 608,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Juli\u00e1n Alvarez",
+          "position": "Attack",
+          "value_eur": 100000000,
+          "club": "Club Atl\u00e9tico de Madrid S.A.D."
+        },
+        {
+          "name": "Lautaro Mart\u00ednez",
+          "position": "Attack",
+          "value_eur": 85000000,
+          "club": "Football Club Internazionale Milano S.p.A."
+        },
+        {
+          "name": "Alexis Mac Allister",
+          "position": "Midfield",
+          "value_eur": 85000000,
+          "club": "Liverpool Football Club"
+        },
+        {
+          "name": "Enzo Fern\u00e1ndez",
+          "position": "Midfield",
+          "value_eur": 85000000,
+          "club": "Chelsea Football Club"
+        },
+        {
+          "name": "Nico Paz",
+          "position": "Midfield",
+          "value_eur": 65000000,
+          "club": "Calcio Como"
+        },
+        {
+          "name": "Cristian Romero",
+          "position": "Defender",
+          "value_eur": 60000000,
+          "club": "Tottenham Hotspur Football Club"
+        },
+        {
+          "name": "Lisandro Mart\u00ednez",
+          "position": "Defender",
+          "value_eur": 50000000,
+          "club": "Manchester United Football Club"
+        },
+        {
+          "name": "Alejandro Garnacho",
+          "position": "Attack",
+          "value_eur": 45000000,
+          "club": "Chelsea Football Club"
+        },
+        {
+          "name": "Giuliano Simeone",
+          "position": "Attack",
+          "value_eur": 40000000,
+          "club": "Club Atl\u00e9tico de Madrid S.A.D."
+        },
+        {
+          "name": "Lionel Messi",
+          "position": "Attack",
+          "value_eur": 35000000,
+          "club": "Club Internacional de F\u00fatbol Miami"
+        },
+        {
+          "name": "Nico Gonz\u00e1lez",
+          "position": "Attack",
+          "value_eur": 35000000,
+          "club": "Club Atl\u00e9tico de Madrid S.A.D."
+        },
+        {
+          "name": "Alan Varela",
+          "position": "Midfield",
+          "value_eur": 35000000,
+          "club": "Futebol Clube do Porto"
+        },
+        {
+          "name": "Exequiel Palacios",
+          "position": "Midfield",
+          "value_eur": 30000000,
+          "club": "Bayer 04 Leverkusen Fu\u00dfball"
+        },
+        {
+          "name": "Taty Castellanos",
+          "position": "Attack",
+          "value_eur": 25000000,
+          "club": "West Ham United Football Club"
+        },
+        {
+          "name": "M\u00e1ximo Perrone",
+          "position": "Midfield",
+          "value_eur": 25000000,
+          "club": "Calcio Como"
+        },
+        {
+          "name": "Mat\u00edas Soul\u00e9",
+          "position": "Attack",
+          "value_eur": 25000000,
+          "club": "Associazione Sportiva Roma"
+        },
+        {
+          "name": "Marcos Senesi",
+          "position": "Defender",
+          "value_eur": 22000000,
+          "club": "Association Football Club Bournemouth"
+        },
+        {
+          "name": "Facundo Medina",
+          "position": "Defender",
+          "value_eur": 20000000,
+          "club": "Olympique de Marseille"
+        },
+        {
+          "name": "Leonardo Balerdi",
+          "position": "Defender",
+          "value_eur": 20000000,
+          "club": "Olympique de Marseille"
+        },
+        {
+          "name": "Thiago Almada",
+          "position": "Attack",
+          "value_eur": 20000000,
+          "club": "Club Atl\u00e9tico de Madrid S.A.D."
+        },
+        {
+          "name": "Emiliano Buend\u00eda",
+          "position": "Midfield",
+          "value_eur": 18000000,
+          "club": "Aston Villa Football Club"
+        },
+        {
+          "name": "Facundo Buonanotte",
+          "position": "Midfield",
+          "value_eur": 18000000,
+          "club": "Leeds United Association Football Club"
+        },
+        {
+          "name": "Emiliano Sala",
+          "position": "Attack",
+          "value_eur": 16000000,
+          "club": "Football Club de Nantes"
+        }
+      ]
+    },
+    "AUS": {
+      "total_value_eur": 48050000,
+      "player_count": 129,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Harry Souttar",
+          "position": "Defender",
+          "value_eur": 6000000,
+          "club": "Leicester City"
+        },
+        {
+          "name": "Nestory Irankunda",
+          "position": "Attack",
+          "value_eur": 6000000,
+          "club": "Watford FC"
+        },
+        {
+          "name": "Jordan Bos",
+          "position": "Defender",
+          "value_eur": 5000000,
+          "club": "Feyenoord Rotterdam"
+        },
+        {
+          "name": "Riley McGree",
+          "position": "Midfield",
+          "value_eur": 4000000,
+          "club": "Middlesbrough FC"
+        },
+        {
+          "name": "Aaron Mooy",
+          "position": "Midfield",
+          "value_eur": 3500000,
+          "club": "The Celtic Football Club"
+        },
+        {
+          "name": "Mathew Ryan",
+          "position": "Goalkeeper",
+          "value_eur": 2000000,
+          "club": "Levante Uni\u00f3n Deportiva S.A.D."
+        },
+        {
+          "name": "Jamie Maclaren",
+          "position": "Attack",
+          "value_eur": 2000000,
+          "club": "Hibernian Football Club"
+        },
+        {
+          "name": "Mohamed Tour\u00e9",
+          "position": "Attack",
+          "value_eur": 1700000,
+          "club": "Norwich City"
+        },
+        {
+          "name": "Mile Jedinak",
+          "position": "Midfield",
+          "value_eur": 1500000,
+          "club": "Crystal Palace Football Club"
+        },
+        {
+          "name": "Jackson Irvine",
+          "position": "Midfield",
+          "value_eur": 1500000,
+          "club": "Fu\u00dfball-Club St. Pauli von 1910"
+        },
+        {
+          "name": "Craig Goodwin",
+          "position": "Attack",
+          "value_eur": 1500000,
+          "club": "Adelaide United Football Club"
+        },
+        {
+          "name": "Aiden O'Neill",
+          "position": "Midfield",
+          "value_eur": 1500000,
+          "club": "New York City Football Club"
+        },
+        {
+          "name": "Joe Gauci",
+          "position": "Goalkeeper",
+          "value_eur": 1400000,
+          "club": ""
+        },
+        {
+          "name": "Awer Mabil",
+          "position": "Attack",
+          "value_eur": 1300000,
+          "club": "C\u00e1diz CF"
+        },
+        {
+          "name": "Jason Cummings",
+          "position": "Attack",
+          "value_eur": 1200000,
+          "club": "Dundee Football Club"
+        },
+        {
+          "name": "Cammy Devlin",
+          "position": "Midfield",
+          "value_eur": 1200000,
+          "club": "Heart of Midlothian Football Club"
+        },
+        {
+          "name": "Kye Rowles",
+          "position": "Defender",
+          "value_eur": 1200000,
+          "club": "D.C. United"
+        },
+        {
+          "name": "Marco Tilio",
+          "position": "Attack",
+          "value_eur": 1200000,
+          "club": "Sportklub Rapid"
+        },
+        {
+          "name": "Lewis Miller",
+          "position": "Defender",
+          "value_eur": 1000000,
+          "club": ""
+        },
+        {
+          "name": "Keanu Baccus",
+          "position": "Midfield",
+          "value_eur": 900000,
+          "club": "Saint Mirren Football Club"
+        },
+        {
+          "name": "Brad Smith",
+          "position": "Defender",
+          "value_eur": 850000,
+          "club": "Football Club Cincinnati"
+        },
+        {
+          "name": "Tom Rogic",
+          "position": "Midfield",
+          "value_eur": 800000,
+          "club": "The Celtic Football Club"
+        },
+        {
+          "name": "Callum Elder",
+          "position": "Defender",
+          "value_eur": 800000,
+          "club": ""
+        }
+      ]
+    },
+    "AUT": {
+      "total_value_eur": 319500000,
+      "player_count": 169,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Konrad Laimer",
+          "position": "Defender",
+          "value_eur": 32000000,
+          "club": "FC Bayern M\u00fcnchen"
+        },
+        {
+          "name": "Xaver Schlager",
+          "position": "Midfield",
+          "value_eur": 28000000,
+          "club": "RasenBallsport Leipzig"
+        },
+        {
+          "name": "Carney Chukwuemeka",
+          "position": "Midfield",
+          "value_eur": 25000000,
+          "club": "Borussia Dortmund"
+        },
+        {
+          "name": "Kevin Danso",
+          "position": "Defender",
+          "value_eur": 22000000,
+          "club": "Tottenham Hotspur Football Club"
+        },
+        {
+          "name": "David Alaba",
+          "position": "Defender",
+          "value_eur": 20000000,
+          "club": "Real Madrid Club de F\u00fatbol"
+        },
+        {
+          "name": "Christoph Baumgartner",
+          "position": "Midfield",
+          "value_eur": 18000000,
+          "club": "RasenBallsport Leipzig"
+        },
+        {
+          "name": "Leopold Querfeld",
+          "position": "Defender",
+          "value_eur": 18000000,
+          "club": "1. Fu\u00dfballclub Union Berlin"
+        },
+        {
+          "name": "Romano Schmid",
+          "position": "Midfield",
+          "value_eur": 17000000,
+          "club": "Sportverein Werder Bremen von 1899"
+        },
+        {
+          "name": "Nicolas Seiwald",
+          "position": "Midfield",
+          "value_eur": 16000000,
+          "club": "RasenBallsport Leipzig"
+        },
+        {
+          "name": "Patrick Wimmer",
+          "position": "Attack",
+          "value_eur": 15000000,
+          "club": "Verein f\u00fcr Leibes\u00fcbungen Wolfsburg"
+        },
+        {
+          "name": "Stefan Posch",
+          "position": "Defender",
+          "value_eur": 14000000,
+          "club": "1. Fu\u00dfball- und Sportverein Mainz 05"
+        },
+        {
+          "name": "Paul Wanner",
+          "position": "Midfield",
+          "value_eur": 14000000,
+          "club": "Eindhovense Voetbalvereniging Philips Sport Vereniging"
+        },
+        {
+          "name": "Marco Friedl",
+          "position": "Defender",
+          "value_eur": 12000000,
+          "club": "Sportverein Werder Bremen von 1899"
+        },
+        {
+          "name": "Philipp Lienhart",
+          "position": "Defender",
+          "value_eur": 12000000,
+          "club": "Sport-Club Freiburg"
+        },
+        {
+          "name": "Maximilian W\u00f6ber",
+          "position": "Defender",
+          "value_eur": 10000000,
+          "club": "Sportverein Werder Bremen von 1899"
+        },
+        {
+          "name": "Martin Hinteregger",
+          "position": "Defender",
+          "value_eur": 9000000,
+          "club": "Eintracht Frankfurt Fu\u00dfball AG"
+        },
+        {
+          "name": "Marcel Sabitzer",
+          "position": "Midfield",
+          "value_eur": 7000000,
+          "club": "Borussia Dortmund"
+        },
+        {
+          "name": "Marco Gr\u00fcll",
+          "position": "Attack",
+          "value_eur": 6000000,
+          "club": "Sportverein Werder Bremen von 1899"
+        },
+        {
+          "name": "Dejan Ljubicic",
+          "position": "Midfield",
+          "value_eur": 5000000,
+          "club": "1. Fu\u00dfball-Club K\u00f6ln"
+        },
+        {
+          "name": "Muhammed Cham",
+          "position": "Midfield",
+          "value_eur": 5000000,
+          "club": "SK Slavia Praha, a.s."
+        },
+        {
+          "name": "Alexander Prass",
+          "position": "Midfield",
+          "value_eur": 5000000,
+          "club": "Turn- und Sportgemeinschaft 1899 Hoffenheim Fu\u00dfball-Spielbetriebs"
+        },
+        {
+          "name": "Junior Adamu",
+          "position": "Attack",
+          "value_eur": 5000000,
+          "club": "The Celtic Football Club"
+        },
+        {
+          "name": "Aleksandar Dragovic",
+          "position": "Defender",
+          "value_eur": 4500000,
+          "club": "Fu\u00dfballklub Austria Wien"
+        }
+      ]
+    },
+    "BEL": {
+      "total_value_eur": 633000000,
+      "player_count": 1002,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "J\u00e9r\u00e9my Doku",
+          "position": "Attack",
+          "value_eur": 65000000,
+          "club": "Manchester City Football Club"
+        },
+        {
+          "name": "Lo\u00efs Openda",
+          "position": "Attack",
+          "value_eur": 60000000,
+          "club": "Juventus Football Club"
+        },
+        {
+          "name": "Amadou Onana",
+          "position": "Midfield",
+          "value_eur": 42000000,
+          "club": "Aston Villa Football Club"
+        },
+        {
+          "name": "Youri Tielemans",
+          "position": "Midfield",
+          "value_eur": 35000000,
+          "club": "Aston Villa Football Club"
+        },
+        {
+          "name": "Charles De Ketelaere",
+          "position": "Midfield",
+          "value_eur": 34000000,
+          "club": "Atalanta Bergamasca Calcio S.p.a."
+        },
+        {
+          "name": "Zeno Debast",
+          "position": "Defender",
+          "value_eur": 30000000,
+          "club": "Sporting Clube de Portugal"
+        },
+        {
+          "name": "Rom\u00e9o Lavia",
+          "position": "Midfield",
+          "value_eur": 30000000,
+          "club": "Chelsea Football Club"
+        },
+        {
+          "name": "Malick Fofana",
+          "position": "Attack",
+          "value_eur": 30000000,
+          "club": "Olympique Lyonnais"
+        },
+        {
+          "name": "Thibaut Courtois",
+          "position": "Goalkeeper",
+          "value_eur": 28000000,
+          "club": "Real Madrid Club de F\u00fatbol"
+        },
+        {
+          "name": "Arthur Vermeeren",
+          "position": "Midfield",
+          "value_eur": 28000000,
+          "club": "Olympique de Marseille"
+        },
+        {
+          "name": "Senne Lammens",
+          "position": "Goalkeeper",
+          "value_eur": 25000000,
+          "club": "Manchester United Football Club"
+        },
+        {
+          "name": "Johan Bakayoko",
+          "position": "Attack",
+          "value_eur": 25000000,
+          "club": "RasenBallsport Leipzig"
+        },
+        {
+          "name": "Arthur Theate",
+          "position": "Defender",
+          "value_eur": 24000000,
+          "club": "Eintracht Frankfurt Fu\u00dfball AG"
+        },
+        {
+          "name": "Maxim De Cuyper",
+          "position": "Defender",
+          "value_eur": 22000000,
+          "club": "Brighton and Hove Albion Football Club"
+        },
+        {
+          "name": "Leandro Trossard",
+          "position": "Attack",
+          "value_eur": 20000000,
+          "club": "Arsenal Football Club"
+        },
+        {
+          "name": "Orel Mangala",
+          "position": "Midfield",
+          "value_eur": 20000000,
+          "club": "Olympique Lyonnais"
+        },
+        {
+          "name": "Dodi Luk\u00e9bakio",
+          "position": "Attack",
+          "value_eur": 20000000,
+          "club": "Sport Lisboa e Benfica"
+        },
+        {
+          "name": "Diego Moreira",
+          "position": "Midfield",
+          "value_eur": 18000000,
+          "club": "Racing Club de Strasbourg Alsace"
+        },
+        {
+          "name": "Nathan De Cat",
+          "position": "Midfield",
+          "value_eur": 17000000,
+          "club": "Royal Sporting Club Anderlecht"
+        },
+        {
+          "name": "Kevin De Bruyne",
+          "position": "Midfield",
+          "value_eur": 15000000,
+          "club": "Societ\u00e0 Sportiva Calcio Napoli"
+        },
+        {
+          "name": "Romelu Lukaku",
+          "position": "Attack",
+          "value_eur": 15000000,
+          "club": "Societ\u00e0 Sportiva Calcio Napoli"
+        },
+        {
+          "name": "Albert Sambi Lokonga",
+          "position": "Midfield",
+          "value_eur": 15000000,
+          "club": "Hamburger Sport Verein"
+        },
+        {
+          "name": "Lucas Stassin",
+          "position": "Attack",
+          "value_eur": 15000000,
+          "club": "AS Saint-\u00c9tienne"
+        }
+      ]
+    },
+    "BOL": {
+      "total_value_eur": 5800000,
+      "player_count": 14,
+      "top_n_used": 14,
+      "players": [
+        {
+          "name": "Roberto Fern\u00e1ndez",
+          "position": "Defender",
+          "value_eur": 1500000,
+          "club": "Akron Togliatti"
+        },
+        {
+          "name": "Ramiro Vaca",
+          "position": "Midfield",
+          "value_eur": 650000,
+          "club": ""
+        },
+        {
+          "name": "Jaume Cu\u00e9llar",
+          "position": "Attack",
+          "value_eur": 600000,
+          "club": "SPAL"
+        },
+        {
+          "name": "Adri\u00e1n Jusino",
+          "position": "Defender",
+          "value_eur": 600000,
+          "club": "Athlitiki Enosi Larisas"
+        },
+        {
+          "name": "Diego Arroyo",
+          "position": "Defender",
+          "value_eur": 500000,
+          "club": "FC Shakhtar Donetsk"
+        },
+        {
+          "name": "Diego Bejarano",
+          "position": "Defender",
+          "value_eur": 450000,
+          "club": "Panetolikos Agrinio"
+        },
+        {
+          "name": "Danny Bejarano",
+          "position": "Midfield",
+          "value_eur": 350000,
+          "club": "PAS Lamia 1964"
+        },
+        {
+          "name": "Vicente Arze",
+          "position": "Midfield",
+          "value_eur": 300000,
+          "club": "Goverla Uzhgorod (- 2016)"
+        },
+        {
+          "name": "Bol\u00edvia",
+          "position": "Midfield",
+          "value_eur": 250000,
+          "club": "Moreirense Futebol Clube"
+        },
+        {
+          "name": "Jos\u00e9 Flores",
+          "position": "Attack",
+          "value_eur": 200000,
+          "club": "FK Kryvbas Kryvyi Rig"
+        },
+        {
+          "name": "Rodrigo Vargas",
+          "position": "Attack",
+          "value_eur": 175000,
+          "club": "Karpaty Lviv (-2021)"
+        },
+        {
+          "name": "Sebastian Joffre",
+          "position": "Attack",
+          "value_eur": 100000,
+          "club": "RWD Molenbeek"
+        },
+        {
+          "name": "Sebasti\u00e1n Gamarra",
+          "position": "Midfield",
+          "value_eur": 75000,
+          "club": "Associazione Calcio Milan"
+        },
+        {
+          "name": "Ricardo Pedriel",
+          "position": "Attack",
+          "value_eur": 50000,
+          "club": "Mersin Talimyurdu SK"
+        }
+      ]
+    },
+    "BRA": {
+      "total_value_eur": 1243000000,
+      "player_count": 1615,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Vinicius Junior",
+          "position": "Attack",
+          "value_eur": 180000000,
+          "club": "Real Madrid Club de F\u00fatbol"
+        },
+        {
+          "name": "Rodrygo",
+          "position": "Attack",
+          "value_eur": 110000000,
+          "club": "Real Madrid Club de F\u00fatbol"
+        },
+        {
+          "name": "Gabriel",
+          "position": "Defender",
+          "value_eur": 75000000,
+          "club": "Arsenal Football Club"
+        },
+        {
+          "name": "Bruno Guimar\u00e3es",
+          "position": "Midfield",
+          "value_eur": 75000000,
+          "club": "Newcastle United Football Club"
+        },
+        {
+          "name": "Jo\u00e3o Pedro",
+          "position": "Attack",
+          "value_eur": 65000000,
+          "club": "Chelsea Football Club"
+        },
+        {
+          "name": "\u00c9der Milit\u00e3o",
+          "position": "Defender",
+          "value_eur": 60000000,
+          "club": "Real Madrid Club de F\u00fatbol"
+        },
+        {
+          "name": "Murillo",
+          "position": "Defender",
+          "value_eur": 55000000,
+          "club": "Nottingham Forest Football Club"
+        },
+        {
+          "name": "Neymar",
+          "position": "Midfield",
+          "value_eur": 50000000,
+          "club": "Santos Futebol Clube"
+        },
+        {
+          "name": "Raphinha",
+          "position": "Attack",
+          "value_eur": 50000000,
+          "club": "Futbol Club Barcelona"
+        },
+        {
+          "name": "Matheus Cunha",
+          "position": "Attack",
+          "value_eur": 45000000,
+          "club": "Manchester United Football Club"
+        },
+        {
+          "name": "Gabriel Martinelli",
+          "position": "Attack",
+          "value_eur": 45000000,
+          "club": "Arsenal Football Club"
+        },
+        {
+          "name": "Savinho",
+          "position": "Attack",
+          "value_eur": 45000000,
+          "club": "Manchester City Football Club"
+        },
+        {
+          "name": "\u00c9derson",
+          "position": "Midfield",
+          "value_eur": 40000000,
+          "club": "Atalanta Bergamasca Calcio S.p.a."
+        },
+        {
+          "name": "Evanilson",
+          "position": "Attack",
+          "value_eur": 40000000,
+          "club": "Association Football Club Bournemouth"
+        },
+        {
+          "name": "Andrey Santos",
+          "position": "Midfield",
+          "value_eur": 40000000,
+          "club": "Chelsea Football Club"
+        },
+        {
+          "name": "Fabinho",
+          "position": "Midfield",
+          "value_eur": 38000000,
+          "club": "Al-Ittihad Football Club"
+        },
+        {
+          "name": "Lucas Paquet\u00e1",
+          "position": "Midfield",
+          "value_eur": 35000000,
+          "club": "Clube de Regatas do Flamengo"
+        },
+        {
+          "name": "Bremer",
+          "position": "Defender",
+          "value_eur": 35000000,
+          "club": "Juventus Football Club"
+        },
+        {
+          "name": "Jo\u00e3o Gomes",
+          "position": "Midfield",
+          "value_eur": 35000000,
+          "club": "Wolverhampton Wanderers Football Club"
+        },
+        {
+          "name": "Vitor Roque",
+          "position": "Attack",
+          "value_eur": 35000000,
+          "club": "Sociedade Esportiva Palmeiras"
+        },
+        {
+          "name": "Marquinhos",
+          "position": "Defender",
+          "value_eur": 30000000,
+          "club": "Paris Saint-Germain Football Club"
+        },
+        {
+          "name": "Joelinton",
+          "position": "Midfield",
+          "value_eur": 30000000,
+          "club": "Newcastle United Football Club"
+        },
+        {
+          "name": "Pep\u00ea",
+          "position": "Attack",
+          "value_eur": 30000000,
+          "club": "Futebol Clube do Porto"
+        }
+      ]
+    },
+    "CAN": {
+      "total_value_eur": 175550000,
+      "player_count": 64,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Alphonso Davies",
+          "position": "Defender",
+          "value_eur": 50000000,
+          "club": "FC Bayern M\u00fcnchen"
+        },
+        {
+          "name": "Jonathan David",
+          "position": "Attack",
+          "value_eur": 35000000,
+          "club": "Juventus Football Club"
+        },
+        {
+          "name": "Isma\u00ebl Kon\u00e9",
+          "position": "Midfield",
+          "value_eur": 14000000,
+          "club": "Unione Sportiva Sassuolo Calcio"
+        },
+        {
+          "name": "Promise David",
+          "position": "Attack",
+          "value_eur": 13000000,
+          "club": "Royale Union Saint-Gilloise"
+        },
+        {
+          "name": "Stephen Eustaquio",
+          "position": "Midfield",
+          "value_eur": 11000000,
+          "club": "Los Angeles Football Club"
+        },
+        {
+          "name": "Alistair Johnston",
+          "position": "Defender",
+          "value_eur": 8000000,
+          "club": "The Celtic Football Club"
+        },
+        {
+          "name": "Tajon Buchanan",
+          "position": "Attack",
+          "value_eur": 8000000,
+          "club": "Villarreal Club de F\u00fatbol S.A.D."
+        },
+        {
+          "name": "Mo\u00efse Bombito",
+          "position": "Defender",
+          "value_eur": 8000000,
+          "club": "Olympique Gymnaste Club Nice C\u00f4te d'Azur"
+        },
+        {
+          "name": "Derek Cornelius",
+          "position": "Defender",
+          "value_eur": 4000000,
+          "club": "Rangers Football Club"
+        },
+        {
+          "name": "Daniel Jebbison",
+          "position": "Attack",
+          "value_eur": 4000000,
+          "club": ""
+        },
+        {
+          "name": "Cyle Larin",
+          "position": "Attack",
+          "value_eur": 3500000,
+          "club": "Real Club Deportivo Mallorca S.A.D."
+        },
+        {
+          "name": "Ik\u00e9 Ugbo",
+          "position": "Attack",
+          "value_eur": 3000000,
+          "club": "ESTAC Troyes"
+        },
+        {
+          "name": "Alfie Jones",
+          "position": "Defender",
+          "value_eur": 2500000,
+          "club": "Middlesbrough FC"
+        },
+        {
+          "name": "Sam Adekugbe",
+          "position": "Defender",
+          "value_eur": 1800000,
+          "club": "Vancouver Whitecaps FC"
+        },
+        {
+          "name": "Theo Bair",
+          "position": "Attack",
+          "value_eur": 1800000,
+          "club": "Football Club Lausanne-Sport"
+        },
+        {
+          "name": "Liam Millar",
+          "position": "Attack",
+          "value_eur": 1700000,
+          "club": "Kilmarnock Football Club"
+        },
+        {
+          "name": "Theo Corbeanu",
+          "position": "Attack",
+          "value_eur": 1500000,
+          "club": "Toronto FC"
+        },
+        {
+          "name": "Milan Borjan",
+          "position": "Goalkeeper",
+          "value_eur": 1000000,
+          "club": "Al-Riyadh Saudi Club"
+        },
+        {
+          "name": "Zachary Brault-Guillard",
+          "position": "Defender",
+          "value_eur": 1000000,
+          "club": "FC Lugano"
+        },
+        {
+          "name": "Marcelo Flores",
+          "position": "Attack",
+          "value_eur": 800000,
+          "club": "Club Tigres UANL Sinergia Deportiva S.A. de C.V."
+        },
+        {
+          "name": "Victor Loturi",
+          "position": "Midfield",
+          "value_eur": 800000,
+          "club": "Club de Foot Montr\u00e9al"
+        },
+        {
+          "name": "S\u00e9bastian Breza",
+          "position": "Goalkeeper",
+          "value_eur": 600000,
+          "club": "Club de Foot Montr\u00e9al"
+        },
+        {
+          "name": "Charles-Andreas Brym",
+          "position": "Attack",
+          "value_eur": 550000,
+          "club": "Nooit Opgeven Altijd Doorzetten Aangenaam Door Vermaak En Nuttig Door Ontspanning Combinatie Breda"
+        }
+      ]
+    },
+    "CIV": {
+      "total_value_eur": 467500000,
+      "player_count": 255,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Amad Diallo",
+          "position": "Attack",
+          "value_eur": 50000000,
+          "club": "Manchester United Football Club"
+        },
+        {
+          "name": "Ousmane Diomande",
+          "position": "Defender",
+          "value_eur": 45000000,
+          "club": "Sporting Clube de Portugal"
+        },
+        {
+          "name": "Yan Diomande",
+          "position": "Attack",
+          "value_eur": 45000000,
+          "club": "RasenBallsport Leipzig"
+        },
+        {
+          "name": "Evan Ndicka",
+          "position": "Defender",
+          "value_eur": 30000000,
+          "club": "Associazione Sportiva Roma"
+        },
+        {
+          "name": "Evann Guessand",
+          "position": "Attack",
+          "value_eur": 28000000,
+          "club": "Crystal Palace Football Club"
+        },
+        {
+          "name": "Wilfried Singo",
+          "position": "Defender",
+          "value_eur": 28000000,
+          "club": "Galatasaray Spor Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Bazoumana Tour\u00e9",
+          "position": "Attack",
+          "value_eur": 25000000,
+          "club": "Turn- und Sportgemeinschaft 1899 Hoffenheim Fu\u00dfball-Spielbetriebs"
+        },
+        {
+          "name": "Ibrahim Sangar\u00e9",
+          "position": "Midfield",
+          "value_eur": 22000000,
+          "club": "Nottingham Forest Football Club"
+        },
+        {
+          "name": "Odilon Kossounou",
+          "position": "Defender",
+          "value_eur": 22000000,
+          "club": "Atalanta Bergamasca Calcio S.p.a."
+        },
+        {
+          "name": "Simon Adingra",
+          "position": "Attack",
+          "value_eur": 22000000,
+          "club": "Association sportive de Monaco Football Club"
+        },
+        {
+          "name": "Franck Kessi\u00e9",
+          "position": "Midfield",
+          "value_eur": 20000000,
+          "club": "Al-Ahli Saudi Football Club"
+        },
+        {
+          "name": "Gu\u00e9la Dou\u00e9",
+          "position": "Defender",
+          "value_eur": 18000000,
+          "club": "Racing Club de Strasbourg Alsace"
+        },
+        {
+          "name": "Hamed Traor\u00e9",
+          "position": "Attack",
+          "value_eur": 17000000,
+          "club": "Olympique de Marseille"
+        },
+        {
+          "name": "Malick Yalcouy\u00e9",
+          "position": "Midfield",
+          "value_eur": 14000000,
+          "club": "Sportklub Puntigamer Sturm Graz"
+        },
+        {
+          "name": "Elye Wahi",
+          "position": "Attack",
+          "value_eur": 12000000,
+          "club": "Olympique Gymnaste Club Nice C\u00f4te d'Azur"
+        },
+        {
+          "name": "Kader Me\u00eft\u00e9",
+          "position": "Attack",
+          "value_eur": 10000000,
+          "club": "Al-Hilal Saudi Football Club"
+        },
+        {
+          "name": "Jonathan Bamba",
+          "position": "Attack",
+          "value_eur": 9000000,
+          "club": "Chicago Fire Soccer Club"
+        },
+        {
+          "name": "Emmanuel Agbadou",
+          "position": "Defender",
+          "value_eur": 9000000,
+          "club": "Be\u015fikta\u015f Jimnastik Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Abdoul Ouattara",
+          "position": "Defender",
+          "value_eur": 9000000,
+          "club": "Racing Club de Strasbourg Alsace"
+        },
+        {
+          "name": "Nicolas P\u00e9p\u00e9",
+          "position": "Attack",
+          "value_eur": 8500000,
+          "club": "Villarreal Club de F\u00fatbol S.A.D."
+        },
+        {
+          "name": "Seko Fofana",
+          "position": "Midfield",
+          "value_eur": 8000000,
+          "club": "Futebol Clube do Porto"
+        },
+        {
+          "name": "J\u00e9r\u00e9mie Boga",
+          "position": "Attack",
+          "value_eur": 8000000,
+          "club": "Juventus Football Club"
+        },
+        {
+          "name": "Cl\u00e9ment Akpa",
+          "position": "Defender",
+          "value_eur": 8000000,
+          "club": "Association de la Jeunesse auxerroise"
+        }
+      ]
+    },
+    "COL": {
+      "total_value_eur": 317500000,
+      "player_count": 177,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Luis D\u00edaz",
+          "position": "Attack",
+          "value_eur": 70000000,
+          "club": "FC Bayern M\u00fcnchen"
+        },
+        {
+          "name": "Jhon Dur\u00e1n",
+          "position": "Attack",
+          "value_eur": 32000000,
+          "club": "AO FK Zenit Sankt-Peterburg"
+        },
+        {
+          "name": "Daniel Mu\u00f1oz",
+          "position": "Defender",
+          "value_eur": 27000000,
+          "club": "Crystal Palace Football Club"
+        },
+        {
+          "name": "Davinson S\u00e1nchez",
+          "position": "Defender",
+          "value_eur": 18000000,
+          "club": "Galatasaray Spor Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Cucho Hern\u00e1ndez",
+          "position": "Attack",
+          "value_eur": 18000000,
+          "club": "Real Betis Balompi\u00e9 S.A.D."
+        },
+        {
+          "name": "Jhon Lucum\u00ed",
+          "position": "Defender",
+          "value_eur": 17000000,
+          "club": "Bologna Football Club 1909"
+        },
+        {
+          "name": "Luis Sinisterra",
+          "position": "Attack",
+          "value_eur": 12000000,
+          "club": "Cruzeiro Esporte Clube"
+        },
+        {
+          "name": "Y\u00e1ser Asprilla",
+          "position": "Attack",
+          "value_eur": 12000000,
+          "club": "Galatasaray Spor Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Jhon C\u00f3rdoba",
+          "position": "Attack",
+          "value_eur": 10000000,
+          "club": "FK Krasnodar"
+        },
+        {
+          "name": "Yerson Mosquera",
+          "position": "Defender",
+          "value_eur": 10000000,
+          "club": "Wolverhampton Wanderers Football Club"
+        },
+        {
+          "name": "Jorge Carrascal",
+          "position": "Midfield",
+          "value_eur": 9000000,
+          "club": "Clube de Regatas do Flamengo"
+        },
+        {
+          "name": "Mateo Cassierra",
+          "position": "Attack",
+          "value_eur": 9000000,
+          "club": "Clube Atl\u00e9tico Mineiro"
+        },
+        {
+          "name": "Juan Cabal",
+          "position": "Defender",
+          "value_eur": 9000000,
+          "club": "Juventus Football Club"
+        },
+        {
+          "name": "Duv\u00e1n Zapata",
+          "position": "Attack",
+          "value_eur": 8000000,
+          "club": "Torino Calcio"
+        },
+        {
+          "name": "Jefferson Lerma",
+          "position": "Midfield",
+          "value_eur": 8000000,
+          "club": "Crystal Palace Football Club"
+        },
+        {
+          "name": "Rafael Borr\u00e9",
+          "position": "Attack",
+          "value_eur": 8000000,
+          "club": "Sport Club Internacional"
+        },
+        {
+          "name": "Wilmar Barrios",
+          "position": "Midfield",
+          "value_eur": 7000000,
+          "club": "AO FK Zenit Sankt-Peterburg"
+        },
+        {
+          "name": "James Rodr\u00edguez",
+          "position": "Midfield",
+          "value_eur": 6000000,
+          "club": "Minnesota United FC"
+        },
+        {
+          "name": "Alfredo Morelos",
+          "position": "Attack",
+          "value_eur": 6000000,
+          "club": "Atl\u00e9tico Nacional"
+        },
+        {
+          "name": "Carlos Cuesta",
+          "position": "Defender",
+          "value_eur": 6000000,
+          "club": "Club de Regatas Vasco da Gama"
+        },
+        {
+          "name": "Cristian Arango",
+          "position": "Attack",
+          "value_eur": 5500000,
+          "club": "Atl\u00e9tico Nacional"
+        },
+        {
+          "name": "Matheus Uribe",
+          "position": "Midfield",
+          "value_eur": 5000000,
+          "club": "Atl\u00e9tico Nacional"
+        },
+        {
+          "name": "Kevin Casta\u00f1o",
+          "position": "Midfield",
+          "value_eur": 5000000,
+          "club": "Club Atl\u00e9tico River Plate"
+        }
+      ]
+    },
+    "CPV": {
+      "total_value_eur": 63150000,
+      "player_count": 96,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Logan Costa",
+          "position": "Defender",
+          "value_eur": 18000000,
+          "club": "Villarreal Club de F\u00fatbol S.A.D."
+        },
+        {
+          "name": "Wagner Pina",
+          "position": "Defender",
+          "value_eur": 7000000,
+          "club": "Trabzonspor Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Ricardo Gomes",
+          "position": "Attack",
+          "value_eur": 4500000,
+          "club": "Erzurumspor FK"
+        },
+        {
+          "name": "Kevin Lenini",
+          "position": "Midfield",
+          "value_eur": 4500000,
+          "club": "FK Krasnodar"
+        },
+        {
+          "name": "Djaniny",
+          "position": "Attack",
+          "value_eur": 4000000,
+          "club": "Al-Fateh Club"
+        },
+        {
+          "name": "Serginho",
+          "position": "Attack",
+          "value_eur": 3000000,
+          "club": "Viborg Fodsports Forening"
+        },
+        {
+          "name": "Telmo Arcanjo",
+          "position": "Attack",
+          "value_eur": 3000000,
+          "club": "Vit\u00f3ria Sport Clube"
+        },
+        {
+          "name": "Duk",
+          "position": "Attack",
+          "value_eur": 2500000,
+          "club": "Aberdeen Football Club"
+        },
+        {
+          "name": "Bruno Varela",
+          "position": "Goalkeeper",
+          "value_eur": 2000000,
+          "club": "Al-Hazem Sport Club"
+        },
+        {
+          "name": "Sidnei Tavares",
+          "position": "Midfield",
+          "value_eur": 2000000,
+          "club": "Moreirense Futebol Clube"
+        },
+        {
+          "name": "Steven Moreira",
+          "position": "Defender",
+          "value_eur": 1500000,
+          "club": "Columbus Crew"
+        },
+        {
+          "name": "H\u00e9ldon",
+          "position": "Attack",
+          "value_eur": 1200000,
+          "club": "Vit\u00f3ria Sport Clube"
+        },
+        {
+          "name": "Bryan Teixeira",
+          "position": "Attack",
+          "value_eur": 1200000,
+          "club": "Clermont Foot 63"
+        },
+        {
+          "name": "H\u00e9lio Varela",
+          "position": "Attack",
+          "value_eur": 1200000,
+          "club": "Koninklijke Atletiek Associatie Gent"
+        },
+        {
+          "name": "Laros Duarte",
+          "position": "Midfield",
+          "value_eur": 1000000,
+          "club": "Football Club Groningen"
+        },
+        {
+          "name": "Diney Borges",
+          "position": "Defender",
+          "value_eur": 1000000,
+          "club": "CS Mar\u00edtimo"
+        },
+        {
+          "name": "Deroy Duarte",
+          "position": "Midfield",
+          "value_eur": 1000000,
+          "club": "Fortuna Sittardia Combinatie"
+        },
+        {
+          "name": "Nuno Da Costa",
+          "position": "Attack",
+          "value_eur": 800000,
+          "club": "\u0130stanbul Ba\u015fak\u015fehir Futbol Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Jovane Cabral",
+          "position": "Attack",
+          "value_eur": 800000,
+          "club": "Club Football Estrela da Amadora"
+        },
+        {
+          "name": "David Moreira",
+          "position": "Defender",
+          "value_eur": 800000,
+          "club": "Sporting Clube de Portugal"
+        },
+        {
+          "name": "Jamiro Monteiro",
+          "position": "Midfield",
+          "value_eur": 750000,
+          "club": "Prins Hendrik Ende Desespereert Nimmer Combinatie Zwolle"
+        },
+        {
+          "name": "Ryan Mendes",
+          "position": "Attack",
+          "value_eur": 700000,
+          "club": "Fatih Karag\u00fcmr\u00fck Sportif Faaliyetler San. Tic. A.\u015e."
+        },
+        {
+          "name": "Willy Semedo",
+          "position": "Attack",
+          "value_eur": 700000,
+          "club": "Royal Charleroi Sporting Club"
+        }
+      ]
+    },
+    "CRO": {
+      "total_value_eur": 365500000,
+      "player_count": 313,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Josko Gvardiol",
+          "position": "Defender",
+          "value_eur": 70000000,
+          "club": "Manchester City Football Club"
+        },
+        {
+          "name": "Luka Vuskovic",
+          "position": "Defender",
+          "value_eur": 40000000,
+          "club": "Hamburger Sport Verein"
+        },
+        {
+          "name": "Josip Stanisic",
+          "position": "Defender",
+          "value_eur": 32000000,
+          "club": "FC Bayern M\u00fcnchen"
+        },
+        {
+          "name": "Petar Su\u010di\u0107",
+          "position": "Midfield",
+          "value_eur": 30000000,
+          "club": "Football Club Internazionale Milano S.p.A."
+        },
+        {
+          "name": "Marcelo Brozovi\u0107",
+          "position": "Midfield",
+          "value_eur": 20000000,
+          "club": "Al-Nassr Football Club"
+        },
+        {
+          "name": "Franjo Ivanovi\u0107",
+          "position": "Attack",
+          "value_eur": 20000000,
+          "club": "Sport Lisboa e Benfica"
+        },
+        {
+          "name": "Josip Sutalo",
+          "position": "Defender",
+          "value_eur": 17000000,
+          "club": "AFC Ajax Amsterdam"
+        },
+        {
+          "name": "Mateo Kovacic",
+          "position": "Midfield",
+          "value_eur": 15000000,
+          "club": "Manchester City Football Club"
+        },
+        {
+          "name": "Lovro Majer",
+          "position": "Midfield",
+          "value_eur": 15000000,
+          "club": "Verein f\u00fcr Leibes\u00fcbungen Wolfsburg"
+        },
+        {
+          "name": "Dominik Livakovic",
+          "position": "Goalkeeper",
+          "value_eur": 11000000,
+          "club": "GNK Dinamo Zagreb"
+        },
+        {
+          "name": "Nikola Vla\u0161i\u0107",
+          "position": "Midfield",
+          "value_eur": 10000000,
+          "club": "Torino Calcio"
+        },
+        {
+          "name": "Luka Sucic",
+          "position": "Midfield",
+          "value_eur": 10000000,
+          "club": "Real Sociedad de F\u00fatbol S.A.D."
+        },
+        {
+          "name": "Marko Livaja",
+          "position": "Attack",
+          "value_eur": 8000000,
+          "club": "HNK Hajduk Split"
+        },
+        {
+          "name": "Petar Musa",
+          "position": "Attack",
+          "value_eur": 8000000,
+          "club": "FC Dallas"
+        },
+        {
+          "name": "Marin Pongracic",
+          "position": "Defender",
+          "value_eur": 7500000,
+          "club": "Associazione Calcio Fiorentina"
+        },
+        {
+          "name": "Matija Frigan",
+          "position": "Attack",
+          "value_eur": 7500000,
+          "club": "Parma Calcio 1913"
+        },
+        {
+          "name": "Mario Pa\u0161ali\u0107",
+          "position": "Midfield",
+          "value_eur": 7000000,
+          "club": "Atalanta Bergamasca Calcio S.p.a."
+        },
+        {
+          "name": "Duje Caleta-Car",
+          "position": "Defender",
+          "value_eur": 7000000,
+          "club": "Real Sociedad de F\u00fatbol S.A.D."
+        },
+        {
+          "name": "Igor Matanovic",
+          "position": "Attack",
+          "value_eur": 7000000,
+          "club": "Sport-Club Freiburg"
+        },
+        {
+          "name": "Nikola Moro",
+          "position": "Midfield",
+          "value_eur": 6500000,
+          "club": "Bologna Football Club 1909"
+        },
+        {
+          "name": "Dominik Kotarski",
+          "position": "Goalkeeper",
+          "value_eur": 6000000,
+          "club": "Football Club K\u00f8benhavn"
+        },
+        {
+          "name": "Kristijan Jakic",
+          "position": "Midfield",
+          "value_eur": 6000000,
+          "club": "Fu\u00dfball-Club Augsburg 1907"
+        },
+        {
+          "name": "Bruno Petkovic",
+          "position": "Attack",
+          "value_eur": 5000000,
+          "club": "Kocaelispor Kul\u00fcb\u00fc"
+        }
+      ]
+    },
+    "CUW": {
+      "total_value_eur": 30975000,
+      "player_count": 71,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Juninho Bacuna",
+          "position": "Midfield",
+          "value_eur": 4500000,
+          "club": "Football Club Volendam"
+        },
+        {
+          "name": "Joshua Brenet",
+          "position": "Defender",
+          "value_eur": 3500000,
+          "club": "Kayserispor Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Armando Obispo",
+          "position": "Defender",
+          "value_eur": 3000000,
+          "club": "Eindhovense Voetbalvereniging Philips Sport Vereniging"
+        },
+        {
+          "name": "Sontje Hansen",
+          "position": "Attack",
+          "value_eur": 3000000,
+          "club": "Nijmegen Eendracht Combinatie"
+        },
+        {
+          "name": "Riechedly Bazoer",
+          "position": "Defender",
+          "value_eur": 2800000,
+          "club": "Konyaspor"
+        },
+        {
+          "name": "Shurandy Sambo",
+          "position": "Defender",
+          "value_eur": 2000000,
+          "club": "Sparta Rotterdam"
+        },
+        {
+          "name": "Tommy St. Jago",
+          "position": "Defender",
+          "value_eur": 1200000,
+          "club": "Yellow-Red Koninklijke Voetbalclub Mechelen"
+        },
+        {
+          "name": "Ar'jany Martha",
+          "position": "Attack",
+          "value_eur": 1200000,
+          "club": "Beerschot VA"
+        },
+        {
+          "name": "Nigel Robertha",
+          "position": "Attack",
+          "value_eur": 1000000,
+          "club": "Fudbalski Klub Spartak \u017ddrep\u010deva krv"
+        },
+        {
+          "name": "Rangelo Janga",
+          "position": "Attack",
+          "value_eur": 900000,
+          "club": "Koninklijke Atletiek Associatie Gent"
+        },
+        {
+          "name": "Leandro Bacuna",
+          "position": "Midfield",
+          "value_eur": 900000,
+          "club": "Football Club Groningen"
+        },
+        {
+          "name": "Sherel Floranus",
+          "position": "Defender",
+          "value_eur": 800000,
+          "club": "Prins Hendrik Ende Desespereert Nimmer Combinatie Zwolle"
+        },
+        {
+          "name": "Kenji Gorr\u00e9",
+          "position": "Attack",
+          "value_eur": 800000,
+          "club": "Boavista FC"
+        },
+        {
+          "name": "Jeremy Antonisse",
+          "position": "Attack",
+          "value_eur": 800000,
+          "club": "Athlitiki Enosi Kifisias"
+        },
+        {
+          "name": "Livano Comenencia",
+          "position": "Defender",
+          "value_eur": 800000,
+          "club": "FC Z\u00fcrich"
+        },
+        {
+          "name": "Darryl Lachman",
+          "position": "Defender",
+          "value_eur": 500000,
+          "club": "Prins Hendrik Ende Desespereert Nimmer Combinatie Zwolle"
+        },
+        {
+          "name": "Richairo Zivkovic",
+          "position": "Attack",
+          "value_eur": 500000,
+          "club": "FC Emmen"
+        },
+        {
+          "name": "Xander Severina",
+          "position": "Attack",
+          "value_eur": 500000,
+          "club": "Casa Pia Atl\u00e9tico Clube"
+        },
+        {
+          "name": "Jordi Paulina",
+          "position": "Attack",
+          "value_eur": 500000,
+          "club": "Borussia Dortmund"
+        },
+        {
+          "name": "Elson Hooi",
+          "position": "Attack",
+          "value_eur": 475000,
+          "club": "ADO Den Haag"
+        },
+        {
+          "name": "Brandley Kuwas",
+          "position": "Attack",
+          "value_eur": 450000,
+          "club": "Football Club Volendam"
+        },
+        {
+          "name": "Juri\u00ebn Gaari",
+          "position": "Defender",
+          "value_eur": 450000,
+          "club": "RKC Waalwijk"
+        },
+        {
+          "name": "Anthony van den Hurk",
+          "position": "Attack",
+          "value_eur": 400000,
+          "club": "De Graafschap Doetinchem"
+        }
+      ]
+    },
+    "DEN": {
+      "total_value_eur": 498000000,
+      "player_count": 1056,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Morten Hjulmand",
+          "position": "Midfield",
+          "value_eur": 50000000,
+          "club": "Sporting Clube de Portugal"
+        },
+        {
+          "name": "Rasmus H\u00f8jlund",
+          "position": "Attack",
+          "value_eur": 45000000,
+          "club": "Societ\u00e0 Sportiva Calcio Napoli"
+        },
+        {
+          "name": "Andreas Christensen",
+          "position": "Defender",
+          "value_eur": 40000000,
+          "club": "Futbol Club Barcelona"
+        },
+        {
+          "name": "Patrick Dorgu",
+          "position": "Defender",
+          "value_eur": 30000000,
+          "club": "Manchester United Football Club"
+        },
+        {
+          "name": "Mathias Jensen",
+          "position": "Midfield",
+          "value_eur": 28000000,
+          "club": "Brentford Football Club"
+        },
+        {
+          "name": "Joachim Andersen",
+          "position": "Defender",
+          "value_eur": 25000000,
+          "club": "Fulham Football Club"
+        },
+        {
+          "name": "Conrad Harder",
+          "position": "Attack",
+          "value_eur": 24000000,
+          "club": "RasenBallsport Leipzig"
+        },
+        {
+          "name": "Jesper Lindstr\u00f8m",
+          "position": "Attack",
+          "value_eur": 22000000,
+          "club": "Verein f\u00fcr Leibes\u00fcbungen Wolfsburg"
+        },
+        {
+          "name": "Mika Biereth",
+          "position": "Attack",
+          "value_eur": 22000000,
+          "club": "Association sportive de Monaco Football Club"
+        },
+        {
+          "name": "Matt O'Riley",
+          "position": "Midfield",
+          "value_eur": 20000000,
+          "club": "Brighton and Hove Albion Football Club"
+        },
+        {
+          "name": "Christian N\u00f8rgaard",
+          "position": "Midfield",
+          "value_eur": 18000000,
+          "club": "Arsenal Football Club"
+        },
+        {
+          "name": "Pierre-Emile H\u00f8jbjerg",
+          "position": "Midfield",
+          "value_eur": 18000000,
+          "club": "Olympique de Marseille"
+        },
+        {
+          "name": "Gustav Isaksen",
+          "position": "Attack",
+          "value_eur": 17000000,
+          "club": "Societ\u00e0 Sportiva Lazio S.p.A."
+        },
+        {
+          "name": "Anders Dreyer",
+          "position": "Attack",
+          "value_eur": 15000000,
+          "club": "San Diego Football Club"
+        },
+        {
+          "name": "Jens Odgaard",
+          "position": "Midfield",
+          "value_eur": 15000000,
+          "club": "Bologna Football Club 1909"
+        },
+        {
+          "name": "Mads Hermansen",
+          "position": "Goalkeeper",
+          "value_eur": 15000000,
+          "club": "West Ham United Football Club"
+        },
+        {
+          "name": "Morten Frendrup",
+          "position": "Midfield",
+          "value_eur": 15000000,
+          "club": "Genoa Cricket and Football Club"
+        },
+        {
+          "name": "Filip J\u00f8rgensen",
+          "position": "Goalkeeper",
+          "value_eur": 15000000,
+          "club": "Chelsea Football Club"
+        },
+        {
+          "name": "Jens Stage",
+          "position": "Midfield",
+          "value_eur": 14000000,
+          "club": "Sportverein Werder Bremen von 1899"
+        },
+        {
+          "name": "Rasmus Kristensen",
+          "position": "Defender",
+          "value_eur": 14000000,
+          "club": "Eintracht Frankfurt Fu\u00dfball AG"
+        },
+        {
+          "name": "Victor Kristiansen",
+          "position": "Defender",
+          "value_eur": 14000000,
+          "club": "Leicester City"
+        },
+        {
+          "name": "Kasper Dolberg",
+          "position": "Attack",
+          "value_eur": 12000000,
+          "club": "AFC Ajax Amsterdam"
+        },
+        {
+          "name": "Andreas Skov Olsen",
+          "position": "Attack",
+          "value_eur": 10000000,
+          "club": "Rangers Football Club"
+        }
+      ]
+    },
+    "ECU": {
+      "total_value_eur": 334100000,
+      "player_count": 57,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Mois\u00e9s Caicedo",
+          "position": "Midfield",
+          "value_eur": 110000000,
+          "club": "Chelsea Football Club"
+        },
+        {
+          "name": "Willian Pacho",
+          "position": "Defender",
+          "value_eur": 70000000,
+          "club": "Paris Saint-Germain Football Club"
+        },
+        {
+          "name": "Piero Hincapi\u00e9",
+          "position": "Defender",
+          "value_eur": 50000000,
+          "club": "Arsenal Football Club"
+        },
+        {
+          "name": "Pervis Estupi\u00f1\u00e1n",
+          "position": "Defender",
+          "value_eur": 14000000,
+          "club": "Associazione Calcio Milan"
+        },
+        {
+          "name": "Keny Arroyo",
+          "position": "Attack",
+          "value_eur": 9000000,
+          "club": "Cruzeiro Esporte Clube"
+        },
+        {
+          "name": "Nilson Angulo",
+          "position": "Attack",
+          "value_eur": 7000000,
+          "club": "Sunderland Association Football Club"
+        },
+        {
+          "name": "Joel Ord\u00f3\u00f1ez",
+          "position": "Defender",
+          "value_eur": 6000000,
+          "club": "Club Brugge Koninklijke Voetbalvereniging"
+        },
+        {
+          "name": "Denil Castillo",
+          "position": "Midfield",
+          "value_eur": 5500000,
+          "club": "Fodbold Club Midtjylland"
+        },
+        {
+          "name": "Cristian Ram\u00edrez",
+          "position": "Defender",
+          "value_eur": 5000000,
+          "club": "\u0424\u0443\u0442\u0431\u043e\u043b\u044c\u043d\u044b\u0439 \u043a\u043b\u0443\u0431 \"\u041b\u043e\u043a\u043e\u043c\u043e\u0442\u0438\u0432\" \u041c\u043e\u0441\u043a\u0432\u0430"
+        },
+        {
+          "name": "Angelo Preciado",
+          "position": "Defender",
+          "value_eur": 5000000,
+          "club": "Clube Atl\u00e9tico Mineiro"
+        },
+        {
+          "name": "Jeremy Sarmiento",
+          "position": "Attack",
+          "value_eur": 5000000,
+          "club": "Brighton and Hove Albion Football Club"
+        },
+        {
+          "name": "Gonzalo Plata",
+          "position": "Attack",
+          "value_eur": 5000000,
+          "club": "Clube de Regatas do Flamengo"
+        },
+        {
+          "name": "Kevin Rodr\u00edguez",
+          "position": "Attack",
+          "value_eur": 5000000,
+          "club": "Royale Union Saint-Gilloise"
+        },
+        {
+          "name": "Jos\u00e9 Cifuentes",
+          "position": "Midfield",
+          "value_eur": 4500000,
+          "club": "Toronto FC"
+        },
+        {
+          "name": "Diego Palacios",
+          "position": "Defender",
+          "value_eur": 4000000,
+          "club": "Sport Club Corinthians Paulista"
+        },
+        {
+          "name": "L\u00e9o Realpe",
+          "position": "Defender",
+          "value_eur": 4000000,
+          "club": "Futebol Clube de Famalic\u00e3o"
+        },
+        {
+          "name": "John Mercado",
+          "position": "Attack",
+          "value_eur": 4000000,
+          "club": "AC Sparta Praha, a. s."
+        },
+        {
+          "name": "Yaimar Medina",
+          "position": "Defender",
+          "value_eur": 4000000,
+          "club": "Koninklijke Racing Club Genk"
+        },
+        {
+          "name": "Enner Valencia",
+          "position": "Attack",
+          "value_eur": 3800000,
+          "club": "Promotora del Club Pachuca S. A. de C. V."
+        },
+        {
+          "name": "Jordy Caicedo",
+          "position": "Attack",
+          "value_eur": 3500000,
+          "club": "Club Atl\u00e9tico Hurac\u00e1n"
+        },
+        {
+          "name": "Leonardo Campana",
+          "position": "Attack",
+          "value_eur": 3500000,
+          "club": "New England Revolution"
+        },
+        {
+          "name": "Jackson Porozo",
+          "position": "Defender",
+          "value_eur": 3300000,
+          "club": "Club Tijuana Xoloitzcuintles de Caliente"
+        },
+        {
+          "name": "Carlos Gruezo",
+          "position": "Midfield",
+          "value_eur": 3000000,
+          "club": "Club Santos Laguna S. A. de C. V."
+        }
+      ]
+    },
+    "EGY": {
+      "total_value_eur": 133400000,
+      "player_count": 53,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Omar Marmoush",
+          "position": "Attack",
+          "value_eur": 65000000,
+          "club": "Manchester City Football Club"
+        },
+        {
+          "name": "Mohamed Salah",
+          "position": "Attack",
+          "value_eur": 30000000,
+          "club": "Liverpool Football Club"
+        },
+        {
+          "name": "Zizo",
+          "position": "Attack",
+          "value_eur": 5000000,
+          "club": "Moreirense Futebol Clube"
+        },
+        {
+          "name": "Trezeguet",
+          "position": "Attack",
+          "value_eur": 4500000,
+          "club": ""
+        },
+        {
+          "name": "Mostafa Mohamed",
+          "position": "Attack",
+          "value_eur": 4000000,
+          "club": "Football Club de Nantes"
+        },
+        {
+          "name": "Mohamed Elneny",
+          "position": "Midfield",
+          "value_eur": 3500000,
+          "club": ""
+        },
+        {
+          "name": "Ramadan Sobhi",
+          "position": "Attack",
+          "value_eur": 3000000,
+          "club": "Huddersfield Town"
+        },
+        {
+          "name": "Mohamed Abdelmonem",
+          "position": "Defender",
+          "value_eur": 3000000,
+          "club": "Olympique Gymnaste Club Nice C\u00f4te d'Azur"
+        },
+        {
+          "name": "Ahmed Hegazy",
+          "position": "Defender",
+          "value_eur": 2500000,
+          "club": "Neom Sports Club"
+        },
+        {
+          "name": "Emam Ashour",
+          "position": "Midfield",
+          "value_eur": 2000000,
+          "club": "Fodbold Club Midtjylland"
+        },
+        {
+          "name": "Ahmed Elmohamady",
+          "position": "Defender",
+          "value_eur": 1500000,
+          "club": "Aston Villa Football Club"
+        },
+        {
+          "name": "Haissem Hassan",
+          "position": "Attack",
+          "value_eur": 1500000,
+          "club": "Real Oviedo S.A.D."
+        },
+        {
+          "name": "Ahmed Hassan",
+          "position": "Attack",
+          "value_eur": 1200000,
+          "club": "Al-Ettifaq Football Club"
+        },
+        {
+          "name": "Ahmed Yasser Rayan",
+          "position": "Attack",
+          "value_eur": 1200000,
+          "club": "Altay SK"
+        },
+        {
+          "name": "Kahraba",
+          "position": "Attack",
+          "value_eur": 800000,
+          "club": "Hatayspor"
+        },
+        {
+          "name": "Mohamed Helal",
+          "position": "Midfield",
+          "value_eur": 800000,
+          "club": "Lierse SK (- 2018)"
+        },
+        {
+          "name": "Ali Gabr",
+          "position": "Defender",
+          "value_eur": 700000,
+          "club": "West Bromwich Albion"
+        },
+        {
+          "name": "Amr Warda",
+          "position": "Attack",
+          "value_eur": 700000,
+          "club": "APS Atromitos Athinon"
+        },
+        {
+          "name": "Mohamed Ibrahim",
+          "position": "Midfield",
+          "value_eur": 600000,
+          "club": "CS Mar\u00edtimo"
+        },
+        {
+          "name": "Karim Hafez",
+          "position": "Defender",
+          "value_eur": 600000,
+          "club": "Yeni Malatyaspor"
+        },
+        {
+          "name": "Eyad El Askalany",
+          "position": "Defender",
+          "value_eur": 500000,
+          "club": "FK Rostov"
+        },
+        {
+          "name": "Sam Morsy",
+          "position": "Midfield",
+          "value_eur": 400000,
+          "club": "Ipswich Town"
+        },
+        {
+          "name": "Marwan Mohsen",
+          "position": "Attack",
+          "value_eur": 400000,
+          "club": "Gil Vicente Futebol Clube"
+        }
+      ]
+    },
+    "ENG": {
+      "total_value_eur": 1665000000,
+      "player_count": 1470,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Jude Bellingham",
+          "position": "Midfield",
+          "value_eur": 160000000,
+          "club": "Real Madrid Club de F\u00fatbol"
+        },
+        {
+          "name": "Phil Foden",
+          "position": "Midfield",
+          "value_eur": 150000000,
+          "club": "Manchester City Football Club"
+        },
+        {
+          "name": "Bukayo Saka",
+          "position": "Attack",
+          "value_eur": 130000000,
+          "club": "Arsenal Football Club"
+        },
+        {
+          "name": "Declan Rice",
+          "position": "Midfield",
+          "value_eur": 120000000,
+          "club": "Arsenal Football Club"
+        },
+        {
+          "name": "Cole Palmer",
+          "position": "Midfield",
+          "value_eur": 120000000,
+          "club": "Chelsea Football Club"
+        },
+        {
+          "name": "Trent Alexander-Arnold",
+          "position": "Defender",
+          "value_eur": 70000000,
+          "club": "Real Madrid Club de F\u00fatbol"
+        },
+        {
+          "name": "Morgan Rogers",
+          "position": "Midfield",
+          "value_eur": 70000000,
+          "club": "Aston Villa Football Club"
+        },
+        {
+          "name": "Harry Kane",
+          "position": "Attack",
+          "value_eur": 65000000,
+          "club": "FC Bayern M\u00fcnchen"
+        },
+        {
+          "name": "Morgan Gibbs-White",
+          "position": "Midfield",
+          "value_eur": 65000000,
+          "club": "Nottingham Forest Football Club"
+        },
+        {
+          "name": "Eberechi Eze",
+          "position": "Midfield",
+          "value_eur": 65000000,
+          "club": "Arsenal Football Club"
+        },
+        {
+          "name": "Anthony Gordon",
+          "position": "Attack",
+          "value_eur": 60000000,
+          "club": "Newcastle United Football Club"
+        },
+        {
+          "name": "Elliot Anderson",
+          "position": "Midfield",
+          "value_eur": 60000000,
+          "club": "Nottingham Forest Football Club"
+        },
+        {
+          "name": "Adam Wharton",
+          "position": "Midfield",
+          "value_eur": 60000000,
+          "club": "Crystal Palace Football Club"
+        },
+        {
+          "name": "Marc Gu\u00e9hi",
+          "position": "Defender",
+          "value_eur": 55000000,
+          "club": "Manchester City Football Club"
+        },
+        {
+          "name": "Ivan Toney",
+          "position": "Attack",
+          "value_eur": 50000000,
+          "club": "Al-Ahli Saudi Football Club"
+        },
+        {
+          "name": "Reece James",
+          "position": "Defender",
+          "value_eur": 50000000,
+          "club": "Chelsea Football Club"
+        },
+        {
+          "name": "Noni Madueke",
+          "position": "Attack",
+          "value_eur": 50000000,
+          "club": "Arsenal Football Club"
+        },
+        {
+          "name": "Mason Greenwood",
+          "position": "Attack",
+          "value_eur": 50000000,
+          "club": "Olympique de Marseille"
+        },
+        {
+          "name": "Levi Colwill",
+          "position": "Defender",
+          "value_eur": 50000000,
+          "club": "Chelsea Football Club"
+        },
+        {
+          "name": "Jarrad Branthwaite",
+          "position": "Defender",
+          "value_eur": 45000000,
+          "club": "Everton Football Club"
+        },
+        {
+          "name": "Dominic Solanke",
+          "position": "Attack",
+          "value_eur": 40000000,
+          "club": "Tottenham Hotspur Football Club"
+        },
+        {
+          "name": "Marcus Rashford",
+          "position": "Attack",
+          "value_eur": 40000000,
+          "club": "Futbol Club Barcelona"
+        },
+        {
+          "name": "Fikayo Tomori",
+          "position": "Defender",
+          "value_eur": 40000000,
+          "club": "Associazione Calcio Milan"
+        }
+      ]
+    },
+    "ESP": {
+      "total_value_eur": 1165000000,
+      "player_count": 1953,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Lamine Yamal",
+          "position": "Attack",
+          "value_eur": 120000000,
+          "club": "Futbol Club Barcelona"
+        },
+        {
+          "name": "Pedri",
+          "position": "Midfield",
+          "value_eur": 80000000,
+          "club": "Futbol Club Barcelona"
+        },
+        {
+          "name": "Rodri",
+          "position": "Midfield",
+          "value_eur": 75000000,
+          "club": "Manchester City Football Club"
+        },
+        {
+          "name": "Dani Olmo",
+          "position": "Midfield",
+          "value_eur": 60000000,
+          "club": "Futbol Club Barcelona"
+        },
+        {
+          "name": "Alejandro Balde",
+          "position": "Defender",
+          "value_eur": 60000000,
+          "club": "Futbol Club Barcelona"
+        },
+        {
+          "name": "Nico Williams",
+          "position": "Attack",
+          "value_eur": 60000000,
+          "club": "Athletic Club Bilbao"
+        },
+        {
+          "name": "Pablo Barrios",
+          "position": "Midfield",
+          "value_eur": 60000000,
+          "club": "Club Atl\u00e9tico de Madrid S.A.D."
+        },
+        {
+          "name": "\u00c1lvaro Carreras",
+          "position": "Defender",
+          "value_eur": 60000000,
+          "club": "Real Madrid Club de F\u00fatbol"
+        },
+        {
+          "name": "Marc Cucurella",
+          "position": "Defender",
+          "value_eur": 50000000,
+          "club": "Chelsea Football Club"
+        },
+        {
+          "name": "Mart\u00edn Zubimendi",
+          "position": "Midfield",
+          "value_eur": 50000000,
+          "club": "Arsenal Football Club"
+        },
+        {
+          "name": "Nico Gonz\u00e1lez",
+          "position": "Midfield",
+          "value_eur": 45000000,
+          "club": "Manchester City Football Club"
+        },
+        {
+          "name": "Brais M\u00e9ndez",
+          "position": "Midfield",
+          "value_eur": 40000000,
+          "club": "Real Sociedad de F\u00fatbol S.A.D."
+        },
+        {
+          "name": "Fabi\u00e1n Ruiz",
+          "position": "Midfield",
+          "value_eur": 40000000,
+          "club": "Paris Saint-Germain Football Club"
+        },
+        {
+          "name": "Robin Le Normand",
+          "position": "Defender",
+          "value_eur": 40000000,
+          "club": "Club Atl\u00e9tico de Madrid S.A.D."
+        },
+        {
+          "name": "\u00c1lex Baena",
+          "position": "Attack",
+          "value_eur": 40000000,
+          "club": "Club Atl\u00e9tico de Madrid S.A.D."
+        },
+        {
+          "name": "Pedro Porro",
+          "position": "Defender",
+          "value_eur": 40000000,
+          "club": "Tottenham Hotspur Football Club"
+        },
+        {
+          "name": "Oihan Sancet",
+          "position": "Midfield",
+          "value_eur": 40000000,
+          "club": "Athletic Club Bilbao"
+        },
+        {
+          "name": "Gavi",
+          "position": "Midfield",
+          "value_eur": 40000000,
+          "club": "Futbol Club Barcelona"
+        },
+        {
+          "name": "David Raya",
+          "position": "Goalkeeper",
+          "value_eur": 35000000,
+          "club": "Arsenal Football Club"
+        },
+        {
+          "name": "Cristhian Mosquera",
+          "position": "Defender",
+          "value_eur": 35000000,
+          "club": "Arsenal Football Club"
+        },
+        {
+          "name": "Samu Aghehowa",
+          "position": "Attack",
+          "value_eur": 35000000,
+          "club": "Futebol Clube do Porto"
+        },
+        {
+          "name": "Unai Sim\u00f3n",
+          "position": "Goalkeeper",
+          "value_eur": 30000000,
+          "club": "Athletic Club Bilbao"
+        },
+        {
+          "name": "Mikel Merino",
+          "position": "Midfield",
+          "value_eur": 30000000,
+          "club": "Arsenal Football Club"
+        }
+      ]
+    },
+    "FRA": {
+      "total_value_eur": 1630000000,
+      "player_count": 1639,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Kylian Mbapp\u00e9",
+          "position": "Attack",
+          "value_eur": 180000000,
+          "club": "Real Madrid Club de F\u00fatbol"
+        },
+        {
+          "name": "Michael Olise",
+          "position": "Attack",
+          "value_eur": 130000000,
+          "club": "FC Bayern M\u00fcnchen"
+        },
+        {
+          "name": "Ousmane Demb\u00e9l\u00e9",
+          "position": "Attack",
+          "value_eur": 100000000,
+          "club": "Paris Saint-Germain Football Club"
+        },
+        {
+          "name": "Aur\u00e9lien Tchouam\u00e9ni",
+          "position": "Midfield",
+          "value_eur": 100000000,
+          "club": "Real Madrid Club de F\u00fatbol"
+        },
+        {
+          "name": "William Saliba",
+          "position": "Defender",
+          "value_eur": 90000000,
+          "club": "Arsenal Football Club"
+        },
+        {
+          "name": "D\u00e9sir\u00e9 Dou\u00e9",
+          "position": "Attack",
+          "value_eur": 90000000,
+          "club": "Paris Saint-Germain Football Club"
+        },
+        {
+          "name": "Hugo Ekitik\u00e9",
+          "position": "Attack",
+          "value_eur": 85000000,
+          "club": "Liverpool Football Club"
+        },
+        {
+          "name": "Dayot Upamecano",
+          "position": "Defender",
+          "value_eur": 70000000,
+          "club": "FC Bayern M\u00fcnchen"
+        },
+        {
+          "name": "Bradley Barcola",
+          "position": "Attack",
+          "value_eur": 70000000,
+          "club": "Paris Saint-Germain Football Club"
+        },
+        {
+          "name": "Christopher Nkunku",
+          "position": "Attack",
+          "value_eur": 65000000,
+          "club": "Associazione Calcio Milan"
+        },
+        {
+          "name": "Marcus Thuram",
+          "position": "Attack",
+          "value_eur": 60000000,
+          "club": "Football Club Internazionale Milano S.p.A."
+        },
+        {
+          "name": "Theo Hern\u00e1ndez",
+          "position": "Defender",
+          "value_eur": 60000000,
+          "club": "Al-Hilal Saudi Football Club"
+        },
+        {
+          "name": "Moussa Diaby",
+          "position": "Attack",
+          "value_eur": 55000000,
+          "club": "Al-Ittihad Football Club"
+        },
+        {
+          "name": "Leny Yoro",
+          "position": "Defender",
+          "value_eur": 55000000,
+          "club": "Manchester United Football Club"
+        },
+        {
+          "name": "Rayan Cherki",
+          "position": "Midfield",
+          "value_eur": 50000000,
+          "club": "Manchester City Football Club"
+        },
+        {
+          "name": "Manu Kon\u00e9",
+          "position": "Midfield",
+          "value_eur": 50000000,
+          "club": "Associazione Sportiva Roma"
+        },
+        {
+          "name": "Eduardo Camavinga",
+          "position": "Midfield",
+          "value_eur": 50000000,
+          "club": "Real Madrid Club de F\u00fatbol"
+        },
+        {
+          "name": "Warren Za\u00efre-Emery",
+          "position": "Midfield",
+          "value_eur": 50000000,
+          "club": "Paris Saint-Germain Football Club"
+        },
+        {
+          "name": "Ibrahima Konat\u00e9",
+          "position": "Defender",
+          "value_eur": 45000000,
+          "club": "Liverpool Football Club"
+        },
+        {
+          "name": "Jules Kound\u00e9",
+          "position": "Defender",
+          "value_eur": 45000000,
+          "club": "Futbol Club Barcelona"
+        },
+        {
+          "name": "Castello Lukeba",
+          "position": "Defender",
+          "value_eur": 45000000,
+          "club": "RasenBallsport Leipzig"
+        },
+        {
+          "name": "Maghnes Akliouche",
+          "position": "Attack",
+          "value_eur": 45000000,
+          "club": "Association sportive de Monaco Football Club"
+        },
+        {
+          "name": "Boubacar Kamara",
+          "position": "Midfield",
+          "value_eur": 40000000,
+          "club": "Aston Villa Football Club"
+        }
+      ]
+    },
+    "GER": {
+      "total_value_eur": 1096000000,
+      "player_count": 1332,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Jamal Musiala",
+          "position": "Midfield",
+          "value_eur": 130000000,
+          "club": "FC Bayern M\u00fcnchen"
+        },
+        {
+          "name": "Florian Wirtz",
+          "position": "Midfield",
+          "value_eur": 110000000,
+          "club": "Liverpool Football Club"
+        },
+        {
+          "name": "Nick Woltemade",
+          "position": "Attack",
+          "value_eur": 70000000,
+          "club": "Newcastle United Football Club"
+        },
+        {
+          "name": "Aleksandar Pavlovic",
+          "position": "Midfield",
+          "value_eur": 65000000,
+          "club": "FC Bayern M\u00fcnchen"
+        },
+        {
+          "name": "Karim Adeyemi",
+          "position": "Attack",
+          "value_eur": 60000000,
+          "club": "Borussia Dortmund"
+        },
+        {
+          "name": "Lennart Karl",
+          "position": "Midfield",
+          "value_eur": 60000000,
+          "club": "FC Bayern M\u00fcnchen"
+        },
+        {
+          "name": "Kai Havertz",
+          "position": "Attack",
+          "value_eur": 55000000,
+          "club": "Arsenal Football Club"
+        },
+        {
+          "name": "Nico Schlotterbeck",
+          "position": "Defender",
+          "value_eur": 55000000,
+          "club": "Borussia Dortmund"
+        },
+        {
+          "name": "Felix Nmecha",
+          "position": "Midfield",
+          "value_eur": 45000000,
+          "club": "Borussia Dortmund"
+        },
+        {
+          "name": "Angelo Stiller",
+          "position": "Midfield",
+          "value_eur": 45000000,
+          "club": "Verein f\u00fcr Bewegungsspiele Stuttgart 1893"
+        },
+        {
+          "name": "Joshua Kimmich",
+          "position": "Midfield",
+          "value_eur": 40000000,
+          "club": "FC Bayern M\u00fcnchen"
+        },
+        {
+          "name": "Tom Bischof",
+          "position": "Midfield",
+          "value_eur": 40000000,
+          "club": "FC Bayern M\u00fcnchen"
+        },
+        {
+          "name": "Jonathan Burkardt",
+          "position": "Attack",
+          "value_eur": 35000000,
+          "club": "Eintracht Frankfurt Fu\u00dfball AG"
+        },
+        {
+          "name": "Yann Bisseck",
+          "position": "Defender",
+          "value_eur": 35000000,
+          "club": "Football Club Internazionale Milano S.p.A."
+        },
+        {
+          "name": "Nathaniel Brown",
+          "position": "Defender",
+          "value_eur": 35000000,
+          "club": "Eintracht Frankfurt Fu\u00dfball AG"
+        },
+        {
+          "name": "Jonathan Tah",
+          "position": "Defender",
+          "value_eur": 30000000,
+          "club": "FC Bayern M\u00fcnchen"
+        },
+        {
+          "name": "Maximilian Beier",
+          "position": "Attack",
+          "value_eur": 30000000,
+          "club": "Borussia Dortmund"
+        },
+        {
+          "name": "Marc-Andr\u00e9 ter Stegen",
+          "position": "Goalkeeper",
+          "value_eur": 28000000,
+          "club": "Girona F\u00fatbol Club S. A. D."
+        },
+        {
+          "name": "Brajan Gruda",
+          "position": "Midfield",
+          "value_eur": 28000000,
+          "club": "RasenBallsport Leipzig"
+        },
+        {
+          "name": "Antonio R\u00fcdiger",
+          "position": "Defender",
+          "value_eur": 25000000,
+          "club": "Real Madrid Club de F\u00fatbol"
+        },
+        {
+          "name": "Deniz Undav",
+          "position": "Attack",
+          "value_eur": 25000000,
+          "club": "Verein f\u00fcr Bewegungsspiele Stuttgart 1893"
+        },
+        {
+          "name": "Jamie Leweling",
+          "position": "Attack",
+          "value_eur": 25000000,
+          "club": "Verein f\u00fcr Bewegungsspiele Stuttgart 1893"
+        },
+        {
+          "name": "Malick Thiaw",
+          "position": "Defender",
+          "value_eur": 25000000,
+          "club": "Newcastle United Football Club"
+        }
+      ]
+    },
+    "GHA": {
+      "total_value_eur": 306700000,
+      "player_count": 268,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Antoine Semenyo",
+          "position": "Attack",
+          "value_eur": 65000000,
+          "club": "Manchester City Football Club"
+        },
+        {
+          "name": "Mohammed Kudus",
+          "position": "Attack",
+          "value_eur": 55000000,
+          "club": "Tottenham Hotspur Football Club"
+        },
+        {
+          "name": "I\u00f1aki Williams",
+          "position": "Attack",
+          "value_eur": 25000000,
+          "club": "Athletic Club Bilbao"
+        },
+        {
+          "name": "Abdul Fatawu",
+          "position": "Attack",
+          "value_eur": 20000000,
+          "club": "Leicester City"
+        },
+        {
+          "name": "Kamaldeen Sulemana",
+          "position": "Attack",
+          "value_eur": 18000000,
+          "club": "Atalanta Bergamasca Calcio S.p.a."
+        },
+        {
+          "name": "Ernest Nuamah",
+          "position": "Attack",
+          "value_eur": 12000000,
+          "club": "Olympique Lyonnais"
+        },
+        {
+          "name": "Ibrahim Osman",
+          "position": "Attack",
+          "value_eur": 12000000,
+          "club": "Feyenoord Rotterdam"
+        },
+        {
+          "name": "Mohammed Salisu",
+          "position": "Defender",
+          "value_eur": 10000000,
+          "club": "Association sportive de Monaco Football Club"
+        },
+        {
+          "name": "Joseph Paintsil",
+          "position": "Attack",
+          "value_eur": 9500000,
+          "club": "Los Angeles Galaxy"
+        },
+        {
+          "name": "Alexander Djiku",
+          "position": "Defender",
+          "value_eur": 9000000,
+          "club": "FK Spartak Moskva"
+        },
+        {
+          "name": "Tariq Lamptey",
+          "position": "Defender",
+          "value_eur": 8000000,
+          "club": "Associazione Calcio Fiorentina"
+        },
+        {
+          "name": "Salis Abdul Samed",
+          "position": "Midfield",
+          "value_eur": 8000000,
+          "club": "Olympique Gymnaste Club Nice C\u00f4te d'Azur"
+        },
+        {
+          "name": "Osman Bukari",
+          "position": "Attack",
+          "value_eur": 6500000,
+          "club": "Widzew \u0141\u00f3d\u017a Sp\u00f3\u0142ka Akcyjna"
+        },
+        {
+          "name": "Alidu Seidu",
+          "position": "Defender",
+          "value_eur": 6000000,
+          "club": "Stade Rennais Football Club"
+        },
+        {
+          "name": "Ibrahim Sulemana",
+          "position": "Midfield",
+          "value_eur": 6000000,
+          "club": "Cagliari Calcio"
+        },
+        {
+          "name": "Bernard Tekpetey",
+          "position": "Attack",
+          "value_eur": 5500000,
+          "club": "Fortuna D\u00fcsseldorf"
+        },
+        {
+          "name": "Daniel Amartey",
+          "position": "Defender",
+          "value_eur": 5000000,
+          "club": "Be\u015fikta\u015f Jimnastik Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Thomas Partey",
+          "position": "Midfield",
+          "value_eur": 5000000,
+          "club": "Villarreal Club de F\u00fatbol S.A.D."
+        },
+        {
+          "name": "Francis Amuzu",
+          "position": "Attack",
+          "value_eur": 5000000,
+          "club": "Gr\u00eamio Foot-Ball Porto Alegrense"
+        },
+        {
+          "name": "Felix Afena-Gyan",
+          "position": "Attack",
+          "value_eur": 4200000,
+          "club": "Unione Sportiva Cremonese S.p.A."
+        },
+        {
+          "name": "Alfred Duncan",
+          "position": "Midfield",
+          "value_eur": 4000000,
+          "club": "Venezia FC"
+        },
+        {
+          "name": "Joseph Aidoo",
+          "position": "Defender",
+          "value_eur": 4000000,
+          "club": "Real Club Celta de Vigo S. A. D."
+        },
+        {
+          "name": "Derrick K\u00f6hn",
+          "position": "Defender",
+          "value_eur": 4000000,
+          "club": "1. Fu\u00dfballclub Union Berlin"
+        }
+      ]
+    },
+    "HAI": {
+      "total_value_eur": 56300000,
+      "player_count": 33,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Wilson Isidor",
+          "position": "Attack",
+          "value_eur": 18000000,
+          "club": "Sunderland Association Football Club"
+        },
+        {
+          "name": "Jean-Ricner Bellegarde",
+          "position": "Midfield",
+          "value_eur": 15000000,
+          "club": "Wolverhampton Wanderers Football Club"
+        },
+        {
+          "name": "Hannes Delcroix",
+          "position": "Defender",
+          "value_eur": 4000000,
+          "club": "FC Lugano"
+        },
+        {
+          "name": "Jean-K\u00e9vin Duverne",
+          "position": "Defender",
+          "value_eur": 3500000,
+          "club": "Koninklijke Atletiek Associatie Gent"
+        },
+        {
+          "name": "Josu\u00e9 Casimir",
+          "position": "Attack",
+          "value_eur": 3500000,
+          "club": "Association de la Jeunesse auxerroise"
+        },
+        {
+          "name": "Frantzdy Pierrot",
+          "position": "Attack",
+          "value_eur": 3000000,
+          "club": "\u00c7aykur Rizespor Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Danley Jean Jacques",
+          "position": "Midfield",
+          "value_eur": 2000000,
+          "club": "Philadelphia Union"
+        },
+        {
+          "name": "Duckens Nazon",
+          "position": "Attack",
+          "value_eur": 1600000,
+          "club": "Kayserispor Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Louicius Deedson",
+          "position": "Attack",
+          "value_eur": 1200000,
+          "club": "FC Dallas"
+        },
+        {
+          "name": "Romain Genevois",
+          "position": "Defender",
+          "value_eur": 1000000,
+          "club": "SM Caen"
+        },
+        {
+          "name": "Carlens Arcus",
+          "position": "Defender",
+          "value_eur": 700000,
+          "club": "Angers Sporting Club de l'Ouest"
+        },
+        {
+          "name": "Yoann Etienne",
+          "position": "Defender",
+          "value_eur": 650000,
+          "club": "Football Club Lorient-Bretagne Sud"
+        },
+        {
+          "name": "R\u00e9ginal Goreux",
+          "position": "Defender",
+          "value_eur": 350000,
+          "club": "Royal Standard Club de Li\u00e8ge"
+        },
+        {
+          "name": "Ruben Providence",
+          "position": "Attack",
+          "value_eur": 300000,
+          "club": "Turn- und Sportverein Egger Glas Hartberg"
+        },
+        {
+          "name": "Johny Placide",
+          "position": "Goalkeeper",
+          "value_eur": 250000,
+          "club": "EA Guingamp"
+        },
+        {
+          "name": "Jean Sony Alc\u00e9nat",
+          "position": "Defender",
+          "value_eur": 200000,
+          "club": "CD Feirense"
+        },
+        {
+          "name": "Carnejy Antoine",
+          "position": "Attack",
+          "value_eur": 200000,
+          "club": "Casa Pia Atl\u00e9tico Clube"
+        },
+        {
+          "name": "Alex J\u00fanior",
+          "position": "Defender",
+          "value_eur": 175000,
+          "club": "Boavista FC"
+        },
+        {
+          "name": "Frantz Bertin",
+          "position": "Defender",
+          "value_eur": 150000,
+          "club": "Veria NPS"
+        },
+        {
+          "name": "Jeppe Simonsen",
+          "position": "Defender",
+          "value_eur": 150000,
+          "club": "S\u00f8nderjyske Fodbold"
+        },
+        {
+          "name": "Dany Jean",
+          "position": "Midfield",
+          "value_eur": 150000,
+          "club": "Racing Club de Strasbourg Alsace"
+        },
+        {
+          "name": "Richelor Sprangers",
+          "position": "Attack",
+          "value_eur": 125000,
+          "club": "Nooit Opgeven Altijd Doorzetten Aangenaam Door Vermaak En Nuttig Door Ontspanning Combinatie Breda"
+        },
+        {
+          "name": "Jean-Jacques Pierre",
+          "position": "Defender",
+          "value_eur": 100000,
+          "club": "SM Caen"
+        }
+      ]
+    },
+    "IRN": {
+      "total_value_eur": 41750000,
+      "player_count": 47,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Sardar Azmoun",
+          "position": "Attack",
+          "value_eur": 8000000,
+          "club": ""
+        },
+        {
+          "name": "Mohammad Mohebi",
+          "position": "Attack",
+          "value_eur": 3500000,
+          "club": "FK Rostov"
+        },
+        {
+          "name": "Alireza Jahanbakhsh",
+          "position": "Attack",
+          "value_eur": 3000000,
+          "club": "FC Verbroedering Denderhoutem Denderleeuw Eendracht Hekelgem"
+        },
+        {
+          "name": "Mehdi Taremi",
+          "position": "Attack",
+          "value_eur": 2500000,
+          "club": "Olympiakos Syndesmos Filathlon Peiraios"
+        },
+        {
+          "name": "Allahyar Sayyadmanesh",
+          "position": "Attack",
+          "value_eur": 2500000,
+          "club": "Koninklijke Voetbal Club Westerlo"
+        },
+        {
+          "name": "Majid Hosseini",
+          "position": "Defender",
+          "value_eur": 2200000,
+          "club": "Kayserispor Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Saman Ghoddos",
+          "position": "Midfield",
+          "value_eur": 2000000,
+          "club": "Brentford Football Club"
+        },
+        {
+          "name": "Dennis Eckert Ayensa",
+          "position": "Attack",
+          "value_eur": 2000000,
+          "club": "Royal Standard Club de Li\u00e8ge"
+        },
+        {
+          "name": "Mehrdad Mohammadi",
+          "position": "Attack",
+          "value_eur": 1600000,
+          "club": "Desportivo Aves (- 2020)"
+        },
+        {
+          "name": "Amir Abedzadeh",
+          "position": "Goalkeeper",
+          "value_eur": 1500000,
+          "club": "CS Mar\u00edtimo"
+        },
+        {
+          "name": "Ali Gholizadeh",
+          "position": "Attack",
+          "value_eur": 1500000,
+          "club": "KKS Lech Pozna\u0144 Sp\u00f3\u0142ka Akcyjna"
+        },
+        {
+          "name": "Milad Mohammadi",
+          "position": "Defender",
+          "value_eur": 1300000,
+          "club": "Adana Demirspor"
+        },
+        {
+          "name": "Alireza Beiranvand",
+          "position": "Goalkeeper",
+          "value_eur": 1200000,
+          "club": "Boavista FC"
+        },
+        {
+          "name": "Mohammadjavad Hosseinnejad",
+          "position": "Midfield",
+          "value_eur": 1200000,
+          "club": "Dinamo Makhachkala"
+        },
+        {
+          "name": "Ali Alipour",
+          "position": "Attack",
+          "value_eur": 1000000,
+          "club": ""
+        },
+        {
+          "name": "Omid Noorafkan",
+          "position": "Defender",
+          "value_eur": 1000000,
+          "club": "Royal Charleroi Sporting Club"
+        },
+        {
+          "name": "Saeid Ezatolahi",
+          "position": "Midfield",
+          "value_eur": 900000,
+          "club": "Vejle Boldklub"
+        },
+        {
+          "name": "Shahriar Moghanlou",
+          "position": "Attack",
+          "value_eur": 900000,
+          "club": "Clube Desportivo Santa Clara"
+        },
+        {
+          "name": "Mohammadmehdi Zare",
+          "position": "Defender",
+          "value_eur": 900000,
+          "club": "RFK Akhmat Grozny"
+        },
+        {
+          "name": "Ali Karimi",
+          "position": "Midfield",
+          "value_eur": 800000,
+          "club": "Kayserispor Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Mohammad Ghorbani",
+          "position": "Midfield",
+          "value_eur": 800000,
+          "club": "FC Orenburg"
+        },
+        {
+          "name": "Payam Niazmand",
+          "position": "Goalkeeper",
+          "value_eur": 750000,
+          "club": "Portimonense SC"
+        },
+        {
+          "name": "Morteza Pouraliganji",
+          "position": "Defender",
+          "value_eur": 700000,
+          "club": "KAS Eupen"
+        }
+      ]
+    },
+    "ITA": {
+      "total_value_eur": 909000000,
+      "player_count": 1912,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Alessandro Bastoni",
+          "position": "Defender",
+          "value_eur": 80000000,
+          "club": "Football Club Internazionale Milano S.p.A."
+        },
+        {
+          "name": "Sandro Tonali",
+          "position": "Midfield",
+          "value_eur": 75000000,
+          "club": "Newcastle United Football Club"
+        },
+        {
+          "name": "Nicol\u00f2 Barella",
+          "position": "Midfield",
+          "value_eur": 60000000,
+          "club": "Football Club Internazionale Milano S.p.A."
+        },
+        {
+          "name": "Federico Dimarco",
+          "position": "Defender",
+          "value_eur": 50000000,
+          "club": "Football Club Internazionale Milano S.p.A."
+        },
+        {
+          "name": "Riccardo Calafiori",
+          "position": "Defender",
+          "value_eur": 50000000,
+          "club": "Arsenal Football Club"
+        },
+        {
+          "name": "Gianluigi Donnarumma",
+          "position": "Goalkeeper",
+          "value_eur": 45000000,
+          "club": "Manchester City Football Club"
+        },
+        {
+          "name": "Moise Kean",
+          "position": "Attack",
+          "value_eur": 45000000,
+          "club": "Associazione Calcio Fiorentina"
+        },
+        {
+          "name": "Alessandro Buongiorno",
+          "position": "Defender",
+          "value_eur": 45000000,
+          "club": "Societ\u00e0 Sportiva Calcio Napoli"
+        },
+        {
+          "name": "Giorgio Scalvini",
+          "position": "Defender",
+          "value_eur": 45000000,
+          "club": "Atalanta Bergamasca Calcio S.p.a."
+        },
+        {
+          "name": "Mateo Retegui",
+          "position": "Attack",
+          "value_eur": 40000000,
+          "club": "Al-Qadsiah Saudi Football Club"
+        },
+        {
+          "name": "Destiny Udogie",
+          "position": "Defender",
+          "value_eur": 40000000,
+          "club": "Tottenham Hotspur Football Club"
+        },
+        {
+          "name": "Gianluca Scamacca",
+          "position": "Attack",
+          "value_eur": 35000000,
+          "club": "Atalanta Bergamasca Calcio S.p.a."
+        },
+        {
+          "name": "Pio Esposito",
+          "position": "Attack",
+          "value_eur": 35000000,
+          "club": "Football Club Internazionale Milano S.p.A."
+        },
+        {
+          "name": "Guglielmo Vicario",
+          "position": "Goalkeeper",
+          "value_eur": 30000000,
+          "club": "Tottenham Hotspur Football Club"
+        },
+        {
+          "name": "Andrea Cambiaso",
+          "position": "Defender",
+          "value_eur": 30000000,
+          "club": "Juventus Football Club"
+        },
+        {
+          "name": "Davide Frattesi",
+          "position": "Midfield",
+          "value_eur": 28000000,
+          "club": "Football Club Internazionale Milano S.p.A."
+        },
+        {
+          "name": "Nicol\u00f2 Rovella",
+          "position": "Midfield",
+          "value_eur": 28000000,
+          "club": "Societ\u00e0 Sportiva Lazio S.p.A."
+        },
+        {
+          "name": "Marco Verratti",
+          "position": "Midfield",
+          "value_eur": 25000000,
+          "club": "Paris Saint-Germain Football Club"
+        },
+        {
+          "name": "Manuel Locatelli",
+          "position": "Midfield",
+          "value_eur": 25000000,
+          "club": "Juventus Football Club"
+        },
+        {
+          "name": "Riccardo Orsolini",
+          "position": "Attack",
+          "value_eur": 25000000,
+          "club": "Bologna Football Club 1909"
+        },
+        {
+          "name": "Lorenzo Lucca",
+          "position": "Attack",
+          "value_eur": 25000000,
+          "club": "Nottingham Forest Football Club"
+        },
+        {
+          "name": "Michael Kayode",
+          "position": "Defender",
+          "value_eur": 25000000,
+          "club": "Brentford Football Club"
+        },
+        {
+          "name": "Pietro Comuzzo",
+          "position": "Defender",
+          "value_eur": 23000000,
+          "club": "Associazione Calcio Fiorentina"
+        }
+      ]
+    },
+    "JAM": {
+      "total_value_eur": 79950000,
+      "player_count": 52,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Leon Bailey",
+          "position": "Attack",
+          "value_eur": 18000000,
+          "club": "Aston Villa Football Club"
+        },
+        {
+          "name": "Rico Henry",
+          "position": "Defender",
+          "value_eur": 15000000,
+          "club": "Brentford Football Club"
+        },
+        {
+          "name": "Demarai Gray",
+          "position": "Attack",
+          "value_eur": 12000000,
+          "club": ""
+        },
+        {
+          "name": "Bobby De Cordova-Reid",
+          "position": "Midfield",
+          "value_eur": 5000000,
+          "club": "Leicester City"
+        },
+        {
+          "name": "Ethan Pinnock",
+          "position": "Defender",
+          "value_eur": 4000000,
+          "club": "Brentford Football Club"
+        },
+        {
+          "name": "Shamar Nicholson",
+          "position": "Attack",
+          "value_eur": 3200000,
+          "club": ""
+        },
+        {
+          "name": "Mason Holgate",
+          "position": "Defender",
+          "value_eur": 3000000,
+          "club": ""
+        },
+        {
+          "name": "Dexter Lembikisa",
+          "position": "Defender",
+          "value_eur": 3000000,
+          "club": ""
+        },
+        {
+          "name": "Amari'i Bell",
+          "position": "Defender",
+          "value_eur": 2500000,
+          "club": ""
+        },
+        {
+          "name": "Jamal Lowe",
+          "position": "Attack",
+          "value_eur": 1500000,
+          "club": "Association Football Club Bournemouth"
+        },
+        {
+          "name": "Kyle Duncan",
+          "position": "Defender",
+          "value_eur": 1500000,
+          "club": "Minnesota United FC"
+        },
+        {
+          "name": "Andre Gray",
+          "position": "Attack",
+          "value_eur": 1300000,
+          "club": "Aris Thessalonikis"
+        },
+        {
+          "name": "Renaldo Cephas",
+          "position": "Attack",
+          "value_eur": 1300000,
+          "club": "FK Nizhny Novgorod"
+        },
+        {
+          "name": "Kasey Palmer",
+          "position": "Midfield",
+          "value_eur": 1200000,
+          "club": "Luton Town"
+        },
+        {
+          "name": "Kemar Roofe",
+          "position": "Attack",
+          "value_eur": 1000000,
+          "club": "Rangers Football Club"
+        },
+        {
+          "name": "Joel Latibeaudiere",
+          "position": "Defender",
+          "value_eur": 1000000,
+          "club": ""
+        },
+        {
+          "name": "Norman Campbell",
+          "position": "Attack",
+          "value_eur": 1000000,
+          "club": "V-Varen Nagasaki"
+        },
+        {
+          "name": "Daniel Johnson",
+          "position": "Midfield",
+          "value_eur": 900000,
+          "club": "Fatih Karag\u00fcmr\u00fck Sportif Faaliyetler San. Tic. A.\u015e."
+        },
+        {
+          "name": "Myles Peart-Harris",
+          "position": "Midfield",
+          "value_eur": 900000,
+          "club": "Brentford Football Club"
+        },
+        {
+          "name": "Michail Antonio",
+          "position": "Attack",
+          "value_eur": 700000,
+          "club": ""
+        },
+        {
+          "name": "Liam Moore",
+          "position": "Defender",
+          "value_eur": 700000,
+          "club": "Leicester City"
+        },
+        {
+          "name": "Kaheem Parris",
+          "position": "Attack",
+          "value_eur": 650000,
+          "club": "Futbolniy Klub Dynamo Kyiv"
+        },
+        {
+          "name": "Blair Turgott",
+          "position": "Attack",
+          "value_eur": 600000,
+          "club": "Halmstads BK"
+        }
+      ]
+    },
+    "JOR": {
+      "total_value_eur": 6600000,
+      "player_count": 4,
+      "top_n_used": 4,
+      "players": [
+        {
+          "name": "Mousa Tamari",
+          "position": "Attack",
+          "value_eur": 6000000,
+          "club": "Stade Rennais Football Club"
+        },
+        {
+          "name": "Tammer Bany",
+          "position": "Attack",
+          "value_eur": 250000,
+          "club": "West Bromwich Albion"
+        },
+        {
+          "name": "Alaa Bakir",
+          "position": "Midfield",
+          "value_eur": 200000,
+          "club": "Borussia Dortmund"
+        },
+        {
+          "name": "Angelos Chanti",
+          "position": "Midfield",
+          "value_eur": 150000,
+          "club": "Iraklis Thessaloniki"
+        }
+      ]
+    },
+    "JPN": {
+      "total_value_eur": 304500000,
+      "player_count": 144,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Takefusa Kubo",
+          "position": "Attack",
+          "value_eur": 30000000,
+          "club": "Real Sociedad de F\u00fatbol S.A.D."
+        },
+        {
+          "name": "Kaoru Mitoma",
+          "position": "Attack",
+          "value_eur": 30000000,
+          "club": "Brighton and Hove Albion Football Club"
+        },
+        {
+          "name": "Kaishu Sano",
+          "position": "Midfield",
+          "value_eur": 25000000,
+          "club": "1. Fu\u00dfball- und Sportverein Mainz 05"
+        },
+        {
+          "name": "Zion Suzuki",
+          "position": "Goalkeeper",
+          "value_eur": 20000000,
+          "club": "Parma Calcio 1913"
+        },
+        {
+          "name": "Hiroki Ito",
+          "position": "Defender",
+          "value_eur": 18000000,
+          "club": "FC Bayern M\u00fcnchen"
+        },
+        {
+          "name": "Ritsu Doan",
+          "position": "Attack",
+          "value_eur": 18000000,
+          "club": "Eintracht Frankfurt Fu\u00dfball AG"
+        },
+        {
+          "name": "Yuito Suzuki",
+          "position": "Attack",
+          "value_eur": 15000000,
+          "club": "Sport-Club Freiburg"
+        },
+        {
+          "name": "Daizen Maeda",
+          "position": "Attack",
+          "value_eur": 14000000,
+          "club": "The Celtic Football Club"
+        },
+        {
+          "name": "Takumi Minamino",
+          "position": "Attack",
+          "value_eur": 12000000,
+          "club": "Association sportive de Monaco Football Club"
+        },
+        {
+          "name": "Takehiro Tomiyasu",
+          "position": "Defender",
+          "value_eur": 12000000,
+          "club": "AFC Ajax Amsterdam"
+        },
+        {
+          "name": "Daichi Kamada",
+          "position": "Midfield",
+          "value_eur": 12000000,
+          "club": "Crystal Palace Football Club"
+        },
+        {
+          "name": "Reo Hatate",
+          "position": "Midfield",
+          "value_eur": 12000000,
+          "club": "The Celtic Football Club"
+        },
+        {
+          "name": "Ko Itakura",
+          "position": "Defender",
+          "value_eur": 10000000,
+          "club": "AFC Ajax Amsterdam"
+        },
+        {
+          "name": "Tsuyoshi Watanabe",
+          "position": "Defender",
+          "value_eur": 10000000,
+          "club": "Feyenoord Rotterdam"
+        },
+        {
+          "name": "Hidemasa Morita",
+          "position": "Midfield",
+          "value_eur": 9000000,
+          "club": "Sporting Clube de Portugal"
+        },
+        {
+          "name": "Keito Nakamura",
+          "position": "Attack",
+          "value_eur": 8000000,
+          "club": "Stade Reims"
+        },
+        {
+          "name": "Ayase Ueda",
+          "position": "Attack",
+          "value_eur": 8000000,
+          "club": "Feyenoord Rotterdam"
+        },
+        {
+          "name": "Joel Chima Fujita",
+          "position": "Midfield",
+          "value_eur": 8000000,
+          "club": "Fu\u00dfball-Club St. Pauli von 1910"
+        },
+        {
+          "name": "Yukinari Sugawara",
+          "position": "Defender",
+          "value_eur": 7500000,
+          "club": "Sportverein Werder Bremen von 1899"
+        },
+        {
+          "name": "Koki Machida",
+          "position": "Defender",
+          "value_eur": 7000000,
+          "club": "Turn- und Sportgemeinschaft 1899 Hoffenheim Fu\u00dfball-Spielbetriebs"
+        },
+        {
+          "name": "Shuto Machino",
+          "position": "Attack",
+          "value_eur": 7000000,
+          "club": "Borussia Verein f\u00fcr Leibes\u00fcbungen 1900 M\u00f6nchengladbach"
+        },
+        {
+          "name": "Kyogo Furuhashi",
+          "position": "Attack",
+          "value_eur": 6000000,
+          "club": ""
+        },
+        {
+          "name": "Kodai Sano",
+          "position": "Midfield",
+          "value_eur": 6000000,
+          "club": "Nijmegen Eendracht Combinatie"
+        }
+      ]
+    },
+    "KOR": {
+      "total_value_eur": 115575000,
+      "player_count": 49,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Min-jae Kim",
+          "position": "Defender",
+          "value_eur": 25000000,
+          "club": "FC Bayern M\u00fcnchen"
+        },
+        {
+          "name": "Kang-in Lee",
+          "position": "Midfield",
+          "value_eur": 25000000,
+          "club": "Paris Saint-Germain Football Club"
+        },
+        {
+          "name": "Heung-min Son",
+          "position": "Attack",
+          "value_eur": 17000000,
+          "club": "Los Angeles Football Club"
+        },
+        {
+          "name": "Hee-chan Hwang",
+          "position": "Attack",
+          "value_eur": 10000000,
+          "club": "Wolverhampton Wanderers Football Club"
+        },
+        {
+          "name": "In-beom Hwang",
+          "position": "Midfield",
+          "value_eur": 4500000,
+          "club": "Feyenoord Rotterdam"
+        },
+        {
+          "name": "Gue-sung Cho",
+          "position": "Attack",
+          "value_eur": 4500000,
+          "club": "Fodbold Club Midtjylland"
+        },
+        {
+          "name": "Woo-yeong Jeong",
+          "position": "Midfield",
+          "value_eur": 3500000,
+          "club": "1. Fu\u00dfballclub Union Berlin"
+        },
+        {
+          "name": "Hyun-seok Hong",
+          "position": "Midfield",
+          "value_eur": 3000000,
+          "club": "Koninklijke Atletiek Associatie Gent"
+        },
+        {
+          "name": "Min-hyeok Yang",
+          "position": "Attack",
+          "value_eur": 3000000,
+          "club": ""
+        },
+        {
+          "name": "Ji-sung Park",
+          "position": "Midfield",
+          "value_eur": 2000000,
+          "club": "Eindhovense Voetbalvereniging Philips Sport Vereniging"
+        },
+        {
+          "name": "Jae-sung Lee",
+          "position": "Midfield",
+          "value_eur": 2000000,
+          "club": "1. Fu\u00dfball- und Sportverein Mainz 05"
+        },
+        {
+          "name": "Hyun-jun Yang",
+          "position": "Attack",
+          "value_eur": 2000000,
+          "club": "The Celtic Football Club"
+        },
+        {
+          "name": "Min-su Kim",
+          "position": "Attack",
+          "value_eur": 2000000,
+          "club": "Girona F\u00fatbol Club S. A. D."
+        },
+        {
+          "name": "Ui-jo Hwang",
+          "position": "Midfield",
+          "value_eur": 1800000,
+          "club": "Alanyaspor"
+        },
+        {
+          "name": "Hyeon-gyu Oh",
+          "position": "Attack",
+          "value_eur": 1800000,
+          "club": "Be\u015fikta\u015f Jimnastik Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Han-beom Lee",
+          "position": "Defender",
+          "value_eur": 1800000,
+          "club": "Fodbold Club Midtjylland"
+        },
+        {
+          "name": "Jens Castrop",
+          "position": "Midfield",
+          "value_eur": 1500000,
+          "club": "Borussia Verein f\u00fcr Leibes\u00fcbungen 1900 M\u00f6nchengladbach"
+        },
+        {
+          "name": "Hyeok-kyu Kwon",
+          "position": "Midfield",
+          "value_eur": 1000000,
+          "club": ""
+        },
+        {
+          "name": "Seung-ho Paik",
+          "position": "Midfield",
+          "value_eur": 900000,
+          "club": ""
+        },
+        {
+          "name": "Jeong-ho Hong",
+          "position": "Defender",
+          "value_eur": 850000,
+          "club": "Fu\u00dfball-Club Augsburg 1907"
+        },
+        {
+          "name": "Du-ri Cha",
+          "position": "Defender",
+          "value_eur": 825000,
+          "club": "Fortuna D\u00fcsseldorf"
+        },
+        {
+          "name": "Chang-hoon Kwon",
+          "position": "Attack",
+          "value_eur": 800000,
+          "club": "Jeju SK Football Club"
+        },
+        {
+          "name": "Ji-su Park",
+          "position": "Defender",
+          "value_eur": 800000,
+          "club": "Jeonbuk Hyundai Motors"
+        }
+      ]
+    },
+    "MAR": {
+      "total_value_eur": 488000000,
+      "player_count": 284,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Achraf Hakimi",
+          "position": "Defender",
+          "value_eur": 80000000,
+          "club": "Paris Saint-Germain Football Club"
+        },
+        {
+          "name": "Brahim D\u00edaz",
+          "position": "Attack",
+          "value_eur": 40000000,
+          "club": "Real Madrid Club de F\u00fatbol"
+        },
+        {
+          "name": "Ismael Saibari",
+          "position": "Midfield",
+          "value_eur": 32000000,
+          "club": "Eindhovense Voetbalvereniging Philips Sport Vereniging"
+        },
+        {
+          "name": "Bilal El Khannouss",
+          "position": "Midfield",
+          "value_eur": 30000000,
+          "club": "Verein f\u00fcr Bewegungsspiele Stuttgart 1893"
+        },
+        {
+          "name": "Eliesse Ben Seghir",
+          "position": "Attack",
+          "value_eur": 24000000,
+          "club": "Bayer 04 Leverkusen Fu\u00dfball"
+        },
+        {
+          "name": "Sofyan Amrabat",
+          "position": "Midfield",
+          "value_eur": 22000000,
+          "club": "Real Betis Balompi\u00e9 S.A.D."
+        },
+        {
+          "name": "Noussair Mazraoui",
+          "position": "Defender",
+          "value_eur": 22000000,
+          "club": "Manchester United Football Club"
+        },
+        {
+          "name": "Nayef Aguerd",
+          "position": "Defender",
+          "value_eur": 22000000,
+          "club": "Olympique de Marseille"
+        },
+        {
+          "name": "Chemsdine Talbi",
+          "position": "Attack",
+          "value_eur": 22000000,
+          "club": "Sunderland Association Football Club"
+        },
+        {
+          "name": "Youssef En-Nesyri",
+          "position": "Attack",
+          "value_eur": 20000000,
+          "club": "Al-Ittihad Football Club"
+        },
+        {
+          "name": "Amine Adli",
+          "position": "Attack",
+          "value_eur": 20000000,
+          "club": "Association Football Club Bournemouth"
+        },
+        {
+          "name": "Abde Ezzalzouli",
+          "position": "Attack",
+          "value_eur": 20000000,
+          "club": "Real Betis Balompi\u00e9 S.A.D."
+        },
+        {
+          "name": "Amine Harit",
+          "position": "Attack",
+          "value_eur": 15000000,
+          "club": "\u0130stanbul Ba\u015fak\u015fehir Futbol Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Souffian El Karouani",
+          "position": "Defender",
+          "value_eur": 15000000,
+          "club": "Football Club Utrecht"
+        },
+        {
+          "name": "Ilias Akhomach",
+          "position": "Attack",
+          "value_eur": 15000000,
+          "club": "Rayo Vallecano de Madrid S. A. D."
+        },
+        {
+          "name": "Omar El Hilali",
+          "position": "Defender",
+          "value_eur": 15000000,
+          "club": "Reial Club Deportiu Espanyol de Barcelona S.A.D."
+        },
+        {
+          "name": "Anass Salah-Eddine",
+          "position": "Defender",
+          "value_eur": 12000000,
+          "club": "Eindhovense Voetbalvereniging Philips Sport Vereniging"
+        },
+        {
+          "name": "Chadi Riad",
+          "position": "Defender",
+          "value_eur": 12000000,
+          "club": "Crystal Palace Football Club"
+        },
+        {
+          "name": "Issa Diop",
+          "position": "Defender",
+          "value_eur": 10000000,
+          "club": "Fulham Football Club"
+        },
+        {
+          "name": "Sofiane Diop",
+          "position": "Attack",
+          "value_eur": 10000000,
+          "club": "Olympique Gymnaste Club Nice C\u00f4te d'Azur"
+        },
+        {
+          "name": "Osame Sahraoui",
+          "position": "Attack",
+          "value_eur": 10000000,
+          "club": "Lille Olympique Sporting Club"
+        },
+        {
+          "name": "Azzedine Ounahi",
+          "position": "Midfield",
+          "value_eur": 10000000,
+          "club": "Girona F\u00fatbol Club S. A. D."
+        },
+        {
+          "name": "Abdelhamid Ait Boudlal",
+          "position": "Defender",
+          "value_eur": 10000000,
+          "club": "Stade Rennais Football Club"
+        }
+      ]
+    },
+    "MEX": {
+      "total_value_eur": 177500000,
+      "player_count": 60,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Santiago Gimenez",
+          "position": "Attack",
+          "value_eur": 40000000,
+          "club": "Associazione Calcio Milan"
+        },
+        {
+          "name": "Edson \u00c1lvarez",
+          "position": "Midfield",
+          "value_eur": 22000000,
+          "club": "Fenerbah\u00e7e Spor Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Juli\u00e1n Araujo",
+          "position": "Defender",
+          "value_eur": 10000000,
+          "club": "The Celtic Football Club"
+        },
+        {
+          "name": "Johan V\u00e1squez",
+          "position": "Defender",
+          "value_eur": 10000000,
+          "club": "Genoa Cricket and Football Club"
+        },
+        {
+          "name": "Luis Ch\u00e1vez",
+          "position": "Midfield",
+          "value_eur": 9000000,
+          "club": "FK Dinamo Moskva"
+        },
+        {
+          "name": "Hirving Lozano",
+          "position": "Attack",
+          "value_eur": 8000000,
+          "club": "San Diego Football Club"
+        },
+        {
+          "name": "\u00c1lvaro Fidalgo",
+          "position": "Midfield",
+          "value_eur": 7000000,
+          "club": "Real Betis Balompi\u00e9 S.A.D."
+        },
+        {
+          "name": "Orbel\u00edn Pineda",
+          "position": "Midfield",
+          "value_eur": 7000000,
+          "club": "Athlitiki Enosi Konstantinoupoleos"
+        },
+        {
+          "name": "C\u00e9sar Montes",
+          "position": "Defender",
+          "value_eur": 7000000,
+          "club": "\u0424\u0443\u0442\u0431\u043e\u043b\u044c\u043d\u044b\u0439 \u043a\u043b\u0443\u0431 \"\u041b\u043e\u043a\u043e\u043c\u043e\u0442\u0438\u0432\" \u041c\u043e\u0441\u043a\u0432\u0430"
+        },
+        {
+          "name": "\u00c9rick Guti\u00e9rrez",
+          "position": "Midfield",
+          "value_eur": 6000000,
+          "club": "Club Deportivo Guadalajara S. A. de C. V."
+        },
+        {
+          "name": "Gerardo Arteaga",
+          "position": "Defender",
+          "value_eur": 6000000,
+          "club": "Club de F\u00fatbol Monterrey Rayados A.C."
+        },
+        {
+          "name": "Rodrigo Huescas",
+          "position": "Defender",
+          "value_eur": 6000000,
+          "club": "Football Club K\u00f8benhavn"
+        },
+        {
+          "name": "C\u00e9sar Huerta",
+          "position": "Attack",
+          "value_eur": 5000000,
+          "club": "Royal Sporting Club Anderlecht"
+        },
+        {
+          "name": "Ra\u00fal Jim\u00e9nez",
+          "position": "Attack",
+          "value_eur": 4000000,
+          "club": "Fulham Football Club"
+        },
+        {
+          "name": "Carlos Salcedo",
+          "position": "Defender",
+          "value_eur": 4000000,
+          "club": "Club de F\u00fatbol Monterrey Rayados A.C."
+        },
+        {
+          "name": "Uriel Antuna",
+          "position": "Attack",
+          "value_eur": 4000000,
+          "club": "Club Universidad Nacional A. C."
+        },
+        {
+          "name": "Richard Ledezma",
+          "position": "Defender",
+          "value_eur": 4000000,
+          "club": "Club Deportivo Guadalajara S. A. de C. V."
+        },
+        {
+          "name": "Jes\u00fas Corona",
+          "position": "Attack",
+          "value_eur": 3500000,
+          "club": "Club de F\u00fatbol Monterrey Rayados A.C."
+        },
+        {
+          "name": "Jorge S\u00e1nchez",
+          "position": "Defender",
+          "value_eur": 3500000,
+          "club": "Panthessalonikios Athlitikos Omilos Konstantinoupoliton"
+        },
+        {
+          "name": "Rogelio Funes Mori",
+          "position": "Attack",
+          "value_eur": 3000000,
+          "club": "Club Le\u00f3n F\u00fatbol Club"
+        },
+        {
+          "name": "Alan Pulido",
+          "position": "Attack",
+          "value_eur": 3000000,
+          "club": "Club Deportivo Guadalajara S. A. de C. V."
+        },
+        {
+          "name": "Jos\u00e9 Juan Mac\u00edas",
+          "position": "Attack",
+          "value_eur": 3000000,
+          "club": "Club Universidad Nacional A. C."
+        },
+        {
+          "name": "Carlos Vela",
+          "position": "Attack",
+          "value_eur": 2500000,
+          "club": "Real Sociedad de F\u00fatbol S.A.D."
+        }
+      ]
+    },
+    "NED": {
+      "total_value_eur": 1024000000,
+      "player_count": 1350,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Ryan Gravenberch",
+          "position": "Midfield",
+          "value_eur": 90000000,
+          "club": "Liverpool Football Club"
+        },
+        {
+          "name": "Xavi Simons",
+          "position": "Midfield",
+          "value_eur": 80000000,
+          "club": "Tottenham Hotspur Football Club"
+        },
+        {
+          "name": "Frenkie de Jong",
+          "position": "Midfield",
+          "value_eur": 70000000,
+          "club": "Futbol Club Barcelona"
+        },
+        {
+          "name": "Jurri\u00ebn Timber",
+          "position": "Defender",
+          "value_eur": 70000000,
+          "club": "Arsenal Football Club"
+        },
+        {
+          "name": "Cody Gakpo",
+          "position": "Attack",
+          "value_eur": 70000000,
+          "club": "Liverpool Football Club"
+        },
+        {
+          "name": "Matthijs de Ligt",
+          "position": "Defender",
+          "value_eur": 65000000,
+          "club": "Manchester United Football Club"
+        },
+        {
+          "name": "Tijjani Reijnders",
+          "position": "Midfield",
+          "value_eur": 65000000,
+          "club": "Manchester City Football Club"
+        },
+        {
+          "name": "Micky van de Ven",
+          "position": "Defender",
+          "value_eur": 55000000,
+          "club": "Tottenham Hotspur Football Club"
+        },
+        {
+          "name": "Jeremie Frimpong",
+          "position": "Defender",
+          "value_eur": 38000000,
+          "club": "Liverpool Football Club"
+        },
+        {
+          "name": "Sven Botman",
+          "position": "Defender",
+          "value_eur": 35000000,
+          "club": "Newcastle United Football Club"
+        },
+        {
+          "name": "Bart Verbruggen",
+          "position": "Goalkeeper",
+          "value_eur": 35000000,
+          "club": "Brighton and Hove Albion Football Club"
+        },
+        {
+          "name": "Jan Paul van Hecke",
+          "position": "Defender",
+          "value_eur": 35000000,
+          "club": "Brighton and Hove Albion Football Club"
+        },
+        {
+          "name": "Jorrel Hato",
+          "position": "Defender",
+          "value_eur": 35000000,
+          "club": "Chelsea Football Club"
+        },
+        {
+          "name": "Justin Kluivert",
+          "position": "Midfield",
+          "value_eur": 32000000,
+          "club": "Association Football Club Bournemouth"
+        },
+        {
+          "name": "Lutsharel Geertruida",
+          "position": "Defender",
+          "value_eur": 32000000,
+          "club": "Sunderland Association Football Club"
+        },
+        {
+          "name": "Teun Koopmeiners",
+          "position": "Midfield",
+          "value_eur": 28000000,
+          "club": "Juventus Football Club"
+        },
+        {
+          "name": "Quinten Timber",
+          "position": "Midfield",
+          "value_eur": 28000000,
+          "club": "Olympique de Marseille"
+        },
+        {
+          "name": "Sam Beukema",
+          "position": "Defender",
+          "value_eur": 28000000,
+          "club": "Societ\u00e0 Sportiva Calcio Napoli"
+        },
+        {
+          "name": "Sepp van den Berg",
+          "position": "Defender",
+          "value_eur": 28000000,
+          "club": "Brentford Football Club"
+        },
+        {
+          "name": "Emmanuel Emegha",
+          "position": "Attack",
+          "value_eur": 28000000,
+          "club": "Racing Club de Strasbourg Alsace"
+        },
+        {
+          "name": "Joey Veerman",
+          "position": "Midfield",
+          "value_eur": 27000000,
+          "club": "Eindhovense Voetbalvereniging Philips Sport Vereniging"
+        },
+        {
+          "name": "Denzel Dumfries",
+          "position": "Defender",
+          "value_eur": 25000000,
+          "club": "Football Club Internazionale Milano S.p.A."
+        },
+        {
+          "name": "Donyell Malen",
+          "position": "Attack",
+          "value_eur": 25000000,
+          "club": "Associazione Sportiva Roma"
+        }
+      ]
+    },
+    "NOR": {
+      "total_value_eur": 550000000,
+      "player_count": 196,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Erling Haaland",
+          "position": "Attack",
+          "value_eur": 200000000,
+          "club": "Manchester City Football Club"
+        },
+        {
+          "name": "Martin \u00d8degaard",
+          "position": "Midfield",
+          "value_eur": 75000000,
+          "club": "Arsenal Football Club"
+        },
+        {
+          "name": "J\u00f8rgen Strand Larsen",
+          "position": "Attack",
+          "value_eur": 40000000,
+          "club": "Crystal Palace Football Club"
+        },
+        {
+          "name": "Antonio Nusa",
+          "position": "Attack",
+          "value_eur": 32000000,
+          "club": "RasenBallsport Leipzig"
+        },
+        {
+          "name": "Sander Berge",
+          "position": "Midfield",
+          "value_eur": 25000000,
+          "club": "Fulham Football Club"
+        },
+        {
+          "name": "Oscar Bobb",
+          "position": "Attack",
+          "value_eur": 25000000,
+          "club": "Fulham Football Club"
+        },
+        {
+          "name": "Alexander S\u00f8rloth",
+          "position": "Attack",
+          "value_eur": 20000000,
+          "club": "Club Atl\u00e9tico de Madrid S.A.D."
+        },
+        {
+          "name": "Julian Ryerson",
+          "position": "Defender",
+          "value_eur": 20000000,
+          "club": "Borussia Dortmund"
+        },
+        {
+          "name": "Fredrik Aursnes",
+          "position": "Midfield",
+          "value_eur": 17000000,
+          "club": "Sport Lisboa e Benfica"
+        },
+        {
+          "name": "Kristoffer Ajer",
+          "position": "Defender",
+          "value_eur": 16000000,
+          "club": "Brentford Football Club"
+        },
+        {
+          "name": "Andreas Schjelderup",
+          "position": "Attack",
+          "value_eur": 14000000,
+          "club": "Sport Lisboa e Benfica"
+        },
+        {
+          "name": "Leo \u00d8stig\u00e5rd",
+          "position": "Defender",
+          "value_eur": 10000000,
+          "club": "Genoa Cricket and Football Club"
+        },
+        {
+          "name": "Kristian Thorstvedt",
+          "position": "Midfield",
+          "value_eur": 8000000,
+          "club": "Unione Sportiva Sassuolo Calcio"
+        },
+        {
+          "name": "Sebastian Sebulonsen",
+          "position": "Defender",
+          "value_eur": 5500000,
+          "club": "1. Fu\u00dfball-Club K\u00f6ln"
+        },
+        {
+          "name": "Tobias Lauritsen",
+          "position": "Attack",
+          "value_eur": 5000000,
+          "club": "Sparta Rotterdam"
+        },
+        {
+          "name": "Andreas Hanche-Olsen",
+          "position": "Defender",
+          "value_eur": 5000000,
+          "club": "1. Fu\u00dfball- und Sportverein Mainz 05"
+        },
+        {
+          "name": "Mathias Kj\u00f8l\u00f8",
+          "position": "Midfield",
+          "value_eur": 5000000,
+          "club": "Football Club Twente"
+        },
+        {
+          "name": "Kristian Arnstad",
+          "position": "Attack",
+          "value_eur": 5000000,
+          "club": "Aarhus Gymnastik Forening"
+        },
+        {
+          "name": "Mohamed Elyounoussi",
+          "position": "Attack",
+          "value_eur": 4500000,
+          "club": "Football Club K\u00f8benhavn"
+        },
+        {
+          "name": "Patrick Berg",
+          "position": "Midfield",
+          "value_eur": 4500000,
+          "club": "Fotballklubben Bod\u00f8/Glimt"
+        },
+        {
+          "name": "Kristoffer Velde",
+          "position": "Attack",
+          "value_eur": 4500000,
+          "club": "Portland Timbers"
+        },
+        {
+          "name": "David M\u00f8ller Wolfe",
+          "position": "Defender",
+          "value_eur": 4500000,
+          "club": "Wolverhampton Wanderers Football Club"
+        },
+        {
+          "name": "Oliver Braude",
+          "position": "Defender",
+          "value_eur": 4500000,
+          "club": "Sportclub Heerenveen"
+        }
+      ]
+    },
+    "NZL": {
+      "total_value_eur": 28825000,
+      "player_count": 29,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Chris Wood",
+          "position": "Attack",
+          "value_eur": 8000000,
+          "club": "Nottingham Forest Football Club"
+        },
+        {
+          "name": "Liberato Cacace",
+          "position": "Defender",
+          "value_eur": 3000000,
+          "club": ""
+        },
+        {
+          "name": "Marko Stameni\u0107",
+          "position": "Midfield",
+          "value_eur": 3000000,
+          "club": "Swansea City"
+        },
+        {
+          "name": "Bill Tuiloma",
+          "position": "Defender",
+          "value_eur": 2500000,
+          "club": "Wellington Phoenix Football Club"
+        },
+        {
+          "name": "Callum McCowatt",
+          "position": "Midfield",
+          "value_eur": 2000000,
+          "club": "Silkeborg Idr\u00e6tsforening"
+        },
+        {
+          "name": "Tyler Bindon",
+          "position": "Defender",
+          "value_eur": 1500000,
+          "club": "Sheffield United"
+        },
+        {
+          "name": "Joe Bell",
+          "position": "Midfield",
+          "value_eur": 1200000,
+          "club": "Viking Fotballklubb"
+        },
+        {
+          "name": "Ryan Thomas",
+          "position": "Midfield",
+          "value_eur": 900000,
+          "club": "Prins Hendrik Ende Desespereert Nimmer Combinatie Zwolle"
+        },
+        {
+          "name": "Ryan Nelsen",
+          "position": "Defender",
+          "value_eur": 750000,
+          "club": "Queens Park Rangers"
+        },
+        {
+          "name": "Winston Reid",
+          "position": "Defender",
+          "value_eur": 600000,
+          "club": "West Ham United Football Club"
+        },
+        {
+          "name": "Sarpreet Singh",
+          "position": "Midfield",
+          "value_eur": 600000,
+          "club": "Wellington Phoenix Football Club"
+        },
+        {
+          "name": "Ben Old",
+          "position": "Defender",
+          "value_eur": 600000,
+          "club": "AS Saint-\u00c9tienne"
+        },
+        {
+          "name": "Kosta Barbarouses",
+          "position": "Attack",
+          "value_eur": 500000,
+          "club": "Western Sydney Wanderers"
+        },
+        {
+          "name": "Marco Rojas",
+          "position": "Attack",
+          "value_eur": 500000,
+          "club": "Wellington Phoenix Football Club"
+        },
+        {
+          "name": "Matthew Garbett",
+          "position": "Midfield",
+          "value_eur": 500000,
+          "club": ""
+        },
+        {
+          "name": "Matt Dibley-Dias",
+          "position": "Midfield",
+          "value_eur": 500000,
+          "club": "Fulham Football Club"
+        },
+        {
+          "name": "James McGarry",
+          "position": "Defender",
+          "value_eur": 400000,
+          "club": "Brisbane Roar FC"
+        },
+        {
+          "name": "Elijah Just",
+          "position": "Attack",
+          "value_eur": 350000,
+          "club": "Motherwell Football Club"
+        },
+        {
+          "name": "Alex Greive",
+          "position": "Attack",
+          "value_eur": 350000,
+          "club": "Saint Mirren Football Club"
+        },
+        {
+          "name": "Callan Elliot",
+          "position": "Defender",
+          "value_eur": 300000,
+          "club": "Auckland Football Club"
+        },
+        {
+          "name": "Joe Champness",
+          "position": "Attack",
+          "value_eur": 275000,
+          "club": "Giresunspor"
+        },
+        {
+          "name": "Scott Basalaj",
+          "position": "Goalkeeper",
+          "value_eur": 250000,
+          "club": "Partick Thistle FC"
+        },
+        {
+          "name": "Michael Woud",
+          "position": "Goalkeeper",
+          "value_eur": 250000,
+          "club": "Auckland Football Club"
+        }
+      ]
+    },
+    "PAN": {
+      "total_value_eur": 19875000,
+      "player_count": 15,
+      "top_n_used": 15,
+      "players": [
+        {
+          "name": "Amir Murillo",
+          "position": "Defender",
+          "value_eur": 10000000,
+          "club": "Be\u015fikta\u015f Jimnastik Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Eduardo Guerrero",
+          "position": "Attack",
+          "value_eur": 3000000,
+          "club": "Futbolniy Klub Dynamo Kyiv"
+        },
+        {
+          "name": "Jos\u00e9 Luis Rodr\u00edguez",
+          "position": "Attack",
+          "value_eur": 2000000,
+          "club": "F\u00fatbol Club Ju\u00e1rez"
+        },
+        {
+          "name": "Ismael D\u00edaz",
+          "position": "Attack",
+          "value_eur": 1000000,
+          "club": "Club Le\u00f3n F\u00fatbol Club"
+        },
+        {
+          "name": "Andr\u00e9s Andrade",
+          "position": "Defender",
+          "value_eur": 1000000,
+          "club": "Linzer Athletik-Sport-Klub"
+        },
+        {
+          "name": "Edgardo Fari\u00f1a",
+          "position": "Defender",
+          "value_eur": 1000000,
+          "club": "FK Nizhny Novgorod"
+        },
+        {
+          "name": "Jorman Aguilar",
+          "position": "Attack",
+          "value_eur": 350000,
+          "club": "Grupo Desportivo Estoril Praia"
+        },
+        {
+          "name": "Alfredo Stephens",
+          "position": "Attack",
+          "value_eur": 350000,
+          "club": "S-Pulse"
+        },
+        {
+          "name": "Abdiel Arroyo",
+          "position": "Attack",
+          "value_eur": 275000,
+          "club": "Clube Desportivo Santa Clara"
+        },
+        {
+          "name": "Julio Segundo",
+          "position": "Midfield",
+          "value_eur": 200000,
+          "club": "Veria NPS"
+        },
+        {
+          "name": "Roderick Miller",
+          "position": "Defender",
+          "value_eur": 200000,
+          "club": "CD Feirense"
+        },
+        {
+          "name": "Tony Taylor",
+          "position": "Attack",
+          "value_eur": 175000,
+          "club": "FC Pa\u00e7os de Ferreira"
+        },
+        {
+          "name": "Ricardo Clarke",
+          "position": "Attack",
+          "value_eur": 125000,
+          "club": "Boavista FC"
+        },
+        {
+          "name": "Roberto Chen",
+          "position": "Defender",
+          "value_eur": 100000,
+          "club": "M\u00e1laga CF"
+        },
+        {
+          "name": "Anel Ryce",
+          "position": "Midfield",
+          "value_eur": 100000,
+          "club": "Chornomorets Odesa"
+        }
+      ]
+    },
+    "PAR": {
+      "total_value_eur": 145000000,
+      "player_count": 64,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Diego G\u00f3mez",
+          "position": "Midfield",
+          "value_eur": 25000000,
+          "club": "Brighton and Hove Albion Football Club"
+        },
+        {
+          "name": "Julio Enciso",
+          "position": "Midfield",
+          "value_eur": 20000000,
+          "club": "Racing Club de Strasbourg Alsace"
+        },
+        {
+          "name": "Omar Alderete",
+          "position": "Defender",
+          "value_eur": 12000000,
+          "club": "Sunderland Association Football Club"
+        },
+        {
+          "name": "Ram\u00f3n Sosa",
+          "position": "Attack",
+          "value_eur": 11000000,
+          "club": "Sociedade Esportiva Palmeiras"
+        },
+        {
+          "name": "Miguel Almir\u00f3n",
+          "position": "Attack",
+          "value_eur": 9000000,
+          "club": "Atlanta United Football Club"
+        },
+        {
+          "name": "Gustavo G\u00f3mez",
+          "position": "Defender",
+          "value_eur": 8500000,
+          "club": "Sociedade Esportiva Palmeiras"
+        },
+        {
+          "name": "J\u00fanior Alonso",
+          "position": "Defender",
+          "value_eur": 8000000,
+          "club": "Clube Atl\u00e9tico Mineiro"
+        },
+        {
+          "name": "Antonio Sanabria",
+          "position": "Attack",
+          "value_eur": 7000000,
+          "club": "Unione Sportiva Cremonese S.p.A."
+        },
+        {
+          "name": "Adam Bareiro",
+          "position": "Attack",
+          "value_eur": 5000000,
+          "club": "Club Atl\u00e9tico Boca Juniors"
+        },
+        {
+          "name": "Andr\u00e9s Cubas",
+          "position": "Midfield",
+          "value_eur": 4500000,
+          "club": "Vancouver Whitecaps FC"
+        },
+        {
+          "name": "Juan Jos\u00e9 C\u00e1ceres",
+          "position": "Defender",
+          "value_eur": 4000000,
+          "club": "FK Dinamo Moskva"
+        },
+        {
+          "name": "Enso Gonz\u00e1lez",
+          "position": "Attack",
+          "value_eur": 4000000,
+          "club": "Wolverhampton Wanderers Football Club"
+        },
+        {
+          "name": "Roberto Fern\u00e1ndez",
+          "position": "Defender",
+          "value_eur": 3500000,
+          "club": "FK Dinamo Moskva"
+        },
+        {
+          "name": "Fernando Cardozo",
+          "position": "Attack",
+          "value_eur": 3500000,
+          "club": "Club Atl\u00e9tico Newell\u2019s Old Boys"
+        },
+        {
+          "name": "Derlis Gonz\u00e1lez",
+          "position": "Attack",
+          "value_eur": 3300000,
+          "club": "Futbolniy Klub Dynamo Kyiv"
+        },
+        {
+          "name": "Jorge Morel",
+          "position": "Defender",
+          "value_eur": 3000000,
+          "club": "Adana Demirspor"
+        },
+        {
+          "name": "Mat\u00edas Segovia",
+          "position": "Attack",
+          "value_eur": 3000000,
+          "club": "RWD Molenbeek"
+        },
+        {
+          "name": "Jes\u00fas Medina",
+          "position": "Attack",
+          "value_eur": 2500000,
+          "club": "Club Atl\u00e9tico de San Luis"
+        },
+        {
+          "name": "\u00d3scar Romero",
+          "position": "Midfield",
+          "value_eur": 2000000,
+          "club": "Club Atl\u00e9tico Hurac\u00e1n"
+        },
+        {
+          "name": "Alexis Duarte",
+          "position": "Defender",
+          "value_eur": 2000000,
+          "club": "Santos Futebol Clube"
+        },
+        {
+          "name": "Lorenzo Melgarejo",
+          "position": "Attack",
+          "value_eur": 1500000,
+          "club": "FK Spartak Moskva"
+        },
+        {
+          "name": "Fabi\u00e1n Balbuena",
+          "position": "Defender",
+          "value_eur": 1500000,
+          "club": "Gr\u00eamio Foot-Ball Porto Alegrense"
+        },
+        {
+          "name": "Celso Ortiz",
+          "position": "Midfield",
+          "value_eur": 1200000,
+          "club": "Alkmaar Zaanstreek"
+        }
+      ]
+    },
+    "POR": {
+      "total_value_eur": 1109000000,
+      "player_count": 1107,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Vitinha",
+          "position": "Midfield",
+          "value_eur": 110000000,
+          "club": "Paris Saint-Germain Football Club"
+        },
+        {
+          "name": "Jo\u00e3o Neves",
+          "position": "Midfield",
+          "value_eur": 110000000,
+          "club": "Paris Saint-Germain Football Club"
+        },
+        {
+          "name": "Rafael Le\u00e3o",
+          "position": "Attack",
+          "value_eur": 90000000,
+          "club": "Associazione Calcio Milan"
+        },
+        {
+          "name": "Nuno Mendes",
+          "position": "Defender",
+          "value_eur": 75000000,
+          "club": "Paris Saint-Germain Football Club"
+        },
+        {
+          "name": "R\u00faben Dias",
+          "position": "Defender",
+          "value_eur": 60000000,
+          "club": "Manchester City Football Club"
+        },
+        {
+          "name": "Pedro Neto",
+          "position": "Attack",
+          "value_eur": 60000000,
+          "club": "Chelsea Football Club"
+        },
+        {
+          "name": "Gon\u00e7alo In\u00e1cio",
+          "position": "Defender",
+          "value_eur": 45000000,
+          "club": "Sporting Clube de Portugal"
+        },
+        {
+          "name": "Geovany Quenda",
+          "position": "Attack",
+          "value_eur": 45000000,
+          "club": "Sporting Clube de Portugal"
+        },
+        {
+          "name": "R\u00faben Neves",
+          "position": "Midfield",
+          "value_eur": 40000000,
+          "club": "Al-Hilal Saudi Football Club"
+        },
+        {
+          "name": "Bruno Fernandes",
+          "position": "Midfield",
+          "value_eur": 40000000,
+          "club": "Manchester United Football Club"
+        },
+        {
+          "name": "Diogo Jota",
+          "position": "Attack",
+          "value_eur": 40000000,
+          "club": ""
+        },
+        {
+          "name": "Diogo Costa",
+          "position": "Goalkeeper",
+          "value_eur": 40000000,
+          "club": "Futebol Clube do Porto"
+        },
+        {
+          "name": "Rodrigo Mora",
+          "position": "Midfield",
+          "value_eur": 40000000,
+          "club": "Futebol Clube do Porto"
+        },
+        {
+          "name": "Matheus Nunes",
+          "position": "Defender",
+          "value_eur": 38000000,
+          "club": "Manchester City Football Club"
+        },
+        {
+          "name": "Francisco Trinc\u00e3o",
+          "position": "Midfield",
+          "value_eur": 35000000,
+          "club": "Sporting Clube de Portugal"
+        },
+        {
+          "name": "Gon\u00e7alo Ramos",
+          "position": "Attack",
+          "value_eur": 35000000,
+          "club": "Paris Saint-Germain Football Club"
+        },
+        {
+          "name": "Mateus Fernandes",
+          "position": "Midfield",
+          "value_eur": 32000000,
+          "club": "West Ham United Football Club"
+        },
+        {
+          "name": "Pedro Gon\u00e7alves",
+          "position": "Attack",
+          "value_eur": 30000000,
+          "club": "Sporting Clube de Portugal"
+        },
+        {
+          "name": "Francisco Concei\u00e7\u00e3o",
+          "position": "Attack",
+          "value_eur": 30000000,
+          "club": "Juventus Football Club"
+        },
+        {
+          "name": "Ant\u00f3nio Silva",
+          "position": "Defender",
+          "value_eur": 30000000,
+          "club": "Sport Lisboa e Benfica"
+        },
+        {
+          "name": "Diogo Dalot",
+          "position": "Defender",
+          "value_eur": 28000000,
+          "club": "Manchester United Football Club"
+        },
+        {
+          "name": "Tom\u00e1s Ara\u00fajo",
+          "position": "Defender",
+          "value_eur": 28000000,
+          "club": "Sport Lisboa e Benfica"
+        },
+        {
+          "name": "F\u00e1bio Silva",
+          "position": "Attack",
+          "value_eur": 28000000,
+          "club": "Borussia Dortmund"
+        }
+      ]
+    },
+    "QAT": {
+      "total_value_eur": 12075000,
+      "player_count": 11,
+      "top_n_used": 11,
+      "players": [
+        {
+          "name": "Akram Afif",
+          "position": "Attack",
+          "value_eur": 4500000,
+          "club": ""
+        },
+        {
+          "name": "Edm\u00edlson Junior",
+          "position": "Attack",
+          "value_eur": 3000000,
+          "club": ""
+        },
+        {
+          "name": "Guilherme",
+          "position": "Midfield",
+          "value_eur": 2000000,
+          "club": ""
+        },
+        {
+          "name": "Abdelkarim Hassan",
+          "position": "Defender",
+          "value_eur": 650000,
+          "club": ""
+        },
+        {
+          "name": "Lucas Mendes",
+          "position": "Defender",
+          "value_eur": 500000,
+          "club": ""
+        },
+        {
+          "name": "Homam Al-Amin",
+          "position": "Defender",
+          "value_eur": 500000,
+          "club": ""
+        },
+        {
+          "name": "Youssef Ayman",
+          "position": "Defender",
+          "value_eur": 375000,
+          "club": ""
+        },
+        {
+          "name": "Assim Madibo",
+          "position": "Midfield",
+          "value_eur": 300000,
+          "club": ""
+        },
+        {
+          "name": "Fahad Al-Abdulrahman",
+          "position": "Defender",
+          "value_eur": 100000,
+          "club": "KAS Eupen"
+        },
+        {
+          "name": "Mohammed Adi Monkez",
+          "position": "Defender",
+          "value_eur": 100000,
+          "club": "KAS Eupen"
+        },
+        {
+          "name": "Hussein Yasser",
+          "position": "Midfield",
+          "value_eur": 50000,
+          "club": "Lierse SK (- 2018)"
+        }
+      ]
+    },
+    "RSA": {
+      "total_value_eur": 31275000,
+      "player_count": 51,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Lyle Foster",
+          "position": "Attack",
+          "value_eur": 13000000,
+          "club": "Burnley Football Club"
+        },
+        {
+          "name": "Percy Tau",
+          "position": "Attack",
+          "value_eur": 1500000,
+          "club": ""
+        },
+        {
+          "name": "Kobamelo Kodisang",
+          "position": "Attack",
+          "value_eur": 1500000,
+          "club": "Moreirense Futebol Clube"
+        },
+        {
+          "name": "Lebo Mothiba",
+          "position": "Attack",
+          "value_eur": 1500000,
+          "club": "Racing Club de Strasbourg Alsace"
+        },
+        {
+          "name": "Gift Links",
+          "position": "Midfield",
+          "value_eur": 1500000,
+          "club": "Aarhus Gymnastik Forening"
+        },
+        {
+          "name": "Keagan Dolly",
+          "position": "Attack",
+          "value_eur": 1400000,
+          "club": ""
+        },
+        {
+          "name": "Thulani Serero",
+          "position": "Midfield",
+          "value_eur": 1000000,
+          "club": "Vitesse Arnhem"
+        },
+        {
+          "name": "Shandre Campbell",
+          "position": "Attack",
+          "value_eur": 1000000,
+          "club": "Club Brugge Koninklijke Voetbalvereniging"
+        },
+        {
+          "name": "Anele Ngcongca",
+          "position": "Defender",
+          "value_eur": 900000,
+          "club": "Koninklijke Racing Club Genk"
+        },
+        {
+          "name": "Kagisho Dikgacoi",
+          "position": "Midfield",
+          "value_eur": 850000,
+          "club": "Crystal Palace Football Club"
+        },
+        {
+          "name": "Luther Singh",
+          "position": "Attack",
+          "value_eur": 800000,
+          "club": "GD Chaves"
+        },
+        {
+          "name": "Bongani Zungu",
+          "position": "Midfield",
+          "value_eur": 650000,
+          "club": "Rangers Football Club"
+        },
+        {
+          "name": "Haashim Domingo",
+          "position": "Midfield",
+          "value_eur": 650000,
+          "club": "Vit\u00f3ria Sport Clube"
+        },
+        {
+          "name": "Kgaogelo Sekgota",
+          "position": "Attack",
+          "value_eur": 650000,
+          "club": "Vit\u00f3ria Set\u00fabal FC"
+        },
+        {
+          "name": "Yaya Sithole",
+          "position": "Midfield",
+          "value_eur": 600000,
+          "club": "Clube Desportivo de Tondela"
+        },
+        {
+          "name": "Luke Le Roux",
+          "position": "Midfield",
+          "value_eur": 600000,
+          "club": ""
+        },
+        {
+          "name": "Andile Jali",
+          "position": "Midfield",
+          "value_eur": 550000,
+          "club": "KV Oostende"
+        },
+        {
+          "name": "Steven Pienaar",
+          "position": "Midfield",
+          "value_eur": 500000,
+          "club": "Sunderland Association Football Club"
+        },
+        {
+          "name": "Lars Veldwijk",
+          "position": "Attack",
+          "value_eur": 500000,
+          "club": "Sparta Rotterdam"
+        },
+        {
+          "name": "Tercious Malepe",
+          "position": "Midfield",
+          "value_eur": 450000,
+          "club": "FC Minaj"
+        },
+        {
+          "name": "Daylon Claasen",
+          "position": "Attack",
+          "value_eur": 425000,
+          "club": "Lierse SK (- 2018)"
+        },
+        {
+          "name": "Thabo Cele",
+          "position": "Midfield",
+          "value_eur": 400000,
+          "club": "Fakel Voronezh"
+        },
+        {
+          "name": "Kermit Erasmus",
+          "position": "Attack",
+          "value_eur": 350000,
+          "club": "Vit\u00f3ria Set\u00fabal FC"
+        }
+      ]
+    },
+    "SAU": {
+      "total_value_eur": 9075000,
+      "player_count": 17,
+      "top_n_used": 17,
+      "players": [
+        {
+          "name": "Saud Abdulhamid",
+          "position": "Defender",
+          "value_eur": 3000000,
+          "club": "Racing Club de Lens"
+        },
+        {
+          "name": "Salem Al-Dawsari",
+          "position": "Attack",
+          "value_eur": 2000000,
+          "club": "Al-Hilal Saudi Football Club"
+        },
+        {
+          "name": "Marwan Al-Sahafi",
+          "position": "Attack",
+          "value_eur": 1000000,
+          "club": "Royal Antwerp Football Club"
+        },
+        {
+          "name": "Osama Hawsawi",
+          "position": "Defender",
+          "value_eur": 675000,
+          "club": "Royal Sporting Club Anderlecht"
+        },
+        {
+          "name": "Saleh Al-Shehri",
+          "position": "Attack",
+          "value_eur": 650000,
+          "club": "Al-Ittihad Football Club"
+        },
+        {
+          "name": "Fahad Al-Muwallad",
+          "position": "Attack",
+          "value_eur": 350000,
+          "club": "Al-Shabab Club"
+        },
+        {
+          "name": "Mukhtar Ali",
+          "position": "Midfield",
+          "value_eur": 325000,
+          "club": "Al-Ettifaq Football Club"
+        },
+        {
+          "name": "Abdullah Al-Jawaey",
+          "position": "Attack",
+          "value_eur": 200000,
+          "club": "Al-Fayha FC"
+        },
+        {
+          "name": "Abdullah Al-Hafith",
+          "position": "Defender",
+          "value_eur": 200000,
+          "club": "Al-Khaleej Club (Saihat)"
+        },
+        {
+          "name": "Hamad Al-Yami",
+          "position": "Defender",
+          "value_eur": 150000,
+          "club": "Al-Hilal Saudi Football Club"
+        },
+        {
+          "name": "Amiri Kurdi",
+          "position": "Defender",
+          "value_eur": 125000,
+          "club": "Panionios Athens"
+        },
+        {
+          "name": "Mazin Ahmed Al-Huthayfi",
+          "position": "Attack",
+          "value_eur": 100000,
+          "club": "Oud-Heverlee Leuven"
+        },
+        {
+          "name": "Shaher Mansour",
+          "position": "Midfield",
+          "value_eur": 100000,
+          "club": "CS Mar\u00edtimo"
+        },
+        {
+          "name": "Yahya Al-Shehri",
+          "position": "Midfield",
+          "value_eur": 75000,
+          "club": "Al-Riyadh Saudi Club"
+        },
+        {
+          "name": "Mohammed Al-Rashidi",
+          "position": "Midfield",
+          "value_eur": 50000,
+          "club": "Panserraikos Serres"
+        },
+        {
+          "name": "Rayan Edrees Fallatah",
+          "position": "Missing",
+          "value_eur": 50000,
+          "club": "Omilos Filathlon Irakliou FC"
+        },
+        {
+          "name": "Samer Al-Mohaimeed",
+          "position": "Midfield",
+          "value_eur": 25000,
+          "club": "Omilos Filathlon Irakliou FC"
+        }
+      ]
+    },
+    "SCO": {
+      "total_value_eur": 281500000,
+      "player_count": 810,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Scott McTominay",
+          "position": "Midfield",
+          "value_eur": 45000000,
+          "club": "Societ\u00e0 Sportiva Calcio Napoli"
+        },
+        {
+          "name": "Andrew Robertson",
+          "position": "Defender",
+          "value_eur": 30000000,
+          "club": "Liverpool Football Club"
+        },
+        {
+          "name": "Aaron Hickey",
+          "position": "Defender",
+          "value_eur": 28000000,
+          "club": "Brentford Football Club"
+        },
+        {
+          "name": "Billy Gilmour",
+          "position": "Midfield",
+          "value_eur": 20000000,
+          "club": "Societ\u00e0 Sportiva Calcio Napoli"
+        },
+        {
+          "name": "Lewis Ferguson",
+          "position": "Midfield",
+          "value_eur": 20000000,
+          "club": "Bologna Football Club 1909"
+        },
+        {
+          "name": "Ch\u00e9 Adams",
+          "position": "Attack",
+          "value_eur": 18000000,
+          "club": "Torino Calcio"
+        },
+        {
+          "name": "John McGinn",
+          "position": "Midfield",
+          "value_eur": 15000000,
+          "club": "Aston Villa Football Club"
+        },
+        {
+          "name": "Nathan Patterson",
+          "position": "Defender",
+          "value_eur": 10000000,
+          "club": "Everton Football Club"
+        },
+        {
+          "name": "Ben Gannon-Doak",
+          "position": "Attack",
+          "value_eur": 10000000,
+          "club": "Association Football Club Bournemouth"
+        },
+        {
+          "name": "Ryan Christie",
+          "position": "Midfield",
+          "value_eur": 9000000,
+          "club": "Association Football Club Bournemouth"
+        },
+        {
+          "name": "Scott McKenna",
+          "position": "Defender",
+          "value_eur": 9000000,
+          "club": "GNK Dinamo Zagreb"
+        },
+        {
+          "name": "Kieran Tierney",
+          "position": "Defender",
+          "value_eur": 8000000,
+          "club": "The Celtic Football Club"
+        },
+        {
+          "name": "George Hirst",
+          "position": "Attack",
+          "value_eur": 8000000,
+          "club": "Ipswich Town"
+        },
+        {
+          "name": "Lennon Miller",
+          "position": "Midfield",
+          "value_eur": 8000000,
+          "club": "Udinese Calcio"
+        },
+        {
+          "name": "Ryan Gauld",
+          "position": "Midfield",
+          "value_eur": 7000000,
+          "club": "Vancouver Whitecaps FC"
+        },
+        {
+          "name": "Josh Doig",
+          "position": "Defender",
+          "value_eur": 6000000,
+          "club": "Unione Sportiva Sassuolo Calcio"
+        },
+        {
+          "name": "Greg Taylor",
+          "position": "Defender",
+          "value_eur": 5000000,
+          "club": "Panthessalonikios Athlitikos Omilos Konstantinoupoliton"
+        },
+        {
+          "name": "Andrew Irving",
+          "position": "Midfield",
+          "value_eur": 5000000,
+          "club": "AC Sparta Praha, a. s."
+        },
+        {
+          "name": "Callum McGregor",
+          "position": "Midfield",
+          "value_eur": 4500000,
+          "club": "The Celtic Football Club"
+        },
+        {
+          "name": "Lewis Morgan",
+          "position": "Attack",
+          "value_eur": 4000000,
+          "club": "San Diego Football Club"
+        },
+        {
+          "name": "Oliver Burke",
+          "position": "Attack",
+          "value_eur": 4000000,
+          "club": "1. Fu\u00dfballclub Union Berlin"
+        },
+        {
+          "name": "Jacob Brown",
+          "position": "Attack",
+          "value_eur": 4000000,
+          "club": "Luton Town"
+        },
+        {
+          "name": "Calvin Ramsay",
+          "position": "Defender",
+          "value_eur": 4000000,
+          "club": "Liverpool Football Club"
+        }
+      ]
+    },
+    "SEN": {
+      "total_value_eur": 435500000,
+      "player_count": 321,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Iliman Ndiaye",
+          "position": "Attack",
+          "value_eur": 45000000,
+          "club": "Everton Football Club"
+        },
+        {
+          "name": "Nicolas Jackson",
+          "position": "Attack",
+          "value_eur": 45000000,
+          "club": "FC Bayern M\u00fcnchen"
+        },
+        {
+          "name": "Isma\u00efla Sarr",
+          "position": "Attack",
+          "value_eur": 35000000,
+          "club": "Crystal Palace Football Club"
+        },
+        {
+          "name": "Pape Matar Sarr",
+          "position": "Midfield",
+          "value_eur": 35000000,
+          "club": "Tottenham Hotspur Football Club"
+        },
+        {
+          "name": "Habib Diarra",
+          "position": "Midfield",
+          "value_eur": 32000000,
+          "club": "Sunderland Association Football Club"
+        },
+        {
+          "name": "Lamine Camara",
+          "position": "Midfield",
+          "value_eur": 30000000,
+          "club": "Association sportive de Monaco Football Club"
+        },
+        {
+          "name": "Sadio Man\u00e9",
+          "position": "Attack",
+          "value_eur": 25000000,
+          "club": "Al-Nassr Football Club"
+        },
+        {
+          "name": "Mamadou Sarr",
+          "position": "Defender",
+          "value_eur": 25000000,
+          "club": "Chelsea Football Club"
+        },
+        {
+          "name": "Ibrahim Mbaye",
+          "position": "Attack",
+          "value_eur": 25000000,
+          "club": "Paris Saint-Germain Football Club"
+        },
+        {
+          "name": "Moussa Niakhat\u00e9",
+          "position": "Defender",
+          "value_eur": 16000000,
+          "club": "Olympique Lyonnais"
+        },
+        {
+          "name": "Habib Diallo",
+          "position": "Attack",
+          "value_eur": 14000000,
+          "club": "Football Club de Metz"
+        },
+        {
+          "name": "Kalidou Koulibaly",
+          "position": "Defender",
+          "value_eur": 12000000,
+          "club": "Al-Hilal Saudi Football Club"
+        },
+        {
+          "name": "Assane Diao",
+          "position": "Attack",
+          "value_eur": 12000000,
+          "club": "Calcio Como"
+        },
+        {
+          "name": "Edouard Mendy",
+          "position": "Goalkeeper",
+          "value_eur": 10000000,
+          "club": "Al-Ahli Saudi Football Club"
+        },
+        {
+          "name": "Boulaye Dia",
+          "position": "Attack",
+          "value_eur": 10000000,
+          "club": "Societ\u00e0 Sportiva Lazio S.p.A."
+        },
+        {
+          "name": "Dion Lopy",
+          "position": "Midfield",
+          "value_eur": 10000000,
+          "club": "UD Almer\u00eda"
+        },
+        {
+          "name": "Arouna Sangante",
+          "position": "Defender",
+          "value_eur": 10000000,
+          "club": "Le Havre Athletic Club"
+        },
+        {
+          "name": "Abdou Diallo",
+          "position": "Defender",
+          "value_eur": 9000000,
+          "club": "RasenBallsport Leipzig"
+        },
+        {
+          "name": "Yehvann Diouf",
+          "position": "Goalkeeper",
+          "value_eur": 8000000,
+          "club": "Olympique Gymnaste Club Nice C\u00f4te d'Azur"
+        },
+        {
+          "name": "Ousmane Diao",
+          "position": "Defender",
+          "value_eur": 8000000,
+          "club": "Fodbold Club Midtjylland"
+        },
+        {
+          "name": "Ousseynou Niang",
+          "position": "Midfield",
+          "value_eur": 7500000,
+          "club": "Royale Union Saint-Gilloise"
+        },
+        {
+          "name": "Ismail Jakobs",
+          "position": "Defender",
+          "value_eur": 6000000,
+          "club": "Galatasaray Spor Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Pape Gueye",
+          "position": "Midfield",
+          "value_eur": 6000000,
+          "club": "Villarreal Club de F\u00fatbol S.A.D."
+        }
+      ]
+    },
+    "SUI": {
+      "total_value_eur": 321200000,
+      "player_count": 170,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Gregor Kobel",
+          "position": "Goalkeeper",
+          "value_eur": 40000000,
+          "club": "Borussia Dortmund"
+        },
+        {
+          "name": "Dan Ndoye",
+          "position": "Attack",
+          "value_eur": 40000000,
+          "club": "Nottingham Forest Football Club"
+        },
+        {
+          "name": "Ardon Jashari",
+          "position": "Midfield",
+          "value_eur": 32000000,
+          "club": "Associazione Calcio Milan"
+        },
+        {
+          "name": "Johan Manzambi",
+          "position": "Midfield",
+          "value_eur": 30000000,
+          "club": "Sport-Club Freiburg"
+        },
+        {
+          "name": "Denis Zakaria",
+          "position": "Midfield",
+          "value_eur": 25000000,
+          "club": "Association sportive de Monaco Football Club"
+        },
+        {
+          "name": "Manuel Akanji",
+          "position": "Defender",
+          "value_eur": 22000000,
+          "club": "Football Club Internazionale Milano S.p.A."
+        },
+        {
+          "name": "Noah Okafor",
+          "position": "Attack",
+          "value_eur": 18000000,
+          "club": "Leeds United Association Football Club"
+        },
+        {
+          "name": "Breel Embolo",
+          "position": "Attack",
+          "value_eur": 12000000,
+          "club": "Stade Rennais Football Club"
+        },
+        {
+          "name": "Granit Xhaka",
+          "position": "Midfield",
+          "value_eur": 10000000,
+          "club": "Sunderland Association Football Club"
+        },
+        {
+          "name": "Luca Jaquez",
+          "position": "Defender",
+          "value_eur": 10000000,
+          "club": "Verein f\u00fcr Bewegungsspiele Stuttgart 1893"
+        },
+        {
+          "name": "Djibril Sow",
+          "position": "Midfield",
+          "value_eur": 9000000,
+          "club": "Sevilla F\u00fatbol Club S.A.D."
+        },
+        {
+          "name": "Rub\u00e9n Vargas",
+          "position": "Attack",
+          "value_eur": 9000000,
+          "club": "Sevilla F\u00fatbol Club S.A.D."
+        },
+        {
+          "name": "Zeki Amdouni",
+          "position": "Attack",
+          "value_eur": 9000000,
+          "club": "Burnley Football Club"
+        },
+        {
+          "name": "Nico Elvedi",
+          "position": "Defender",
+          "value_eur": 8000000,
+          "club": "Borussia Verein f\u00fcr Leibes\u00fcbungen 1900 M\u00f6nchengladbach"
+        },
+        {
+          "name": "Fabian Rieder",
+          "position": "Midfield",
+          "value_eur": 8000000,
+          "club": "Fu\u00dfball-Club Augsburg 1907"
+        },
+        {
+          "name": "Fabian Sch\u00e4r",
+          "position": "Defender",
+          "value_eur": 6000000,
+          "club": "Newcastle United Football Club"
+        },
+        {
+          "name": "Aur\u00e8le Amenda",
+          "position": "Defender",
+          "value_eur": 6000000,
+          "club": "Eintracht Frankfurt Fu\u00dfball AG"
+        },
+        {
+          "name": "Jordan Lotomba",
+          "position": "Defender",
+          "value_eur": 5000000,
+          "club": "Feyenoord Rotterdam"
+        },
+        {
+          "name": "C\u00e9dric Zesiger",
+          "position": "Defender",
+          "value_eur": 5000000,
+          "club": "Fu\u00dfball-Club Augsburg 1907"
+        },
+        {
+          "name": "Michel Aebischer",
+          "position": "Midfield",
+          "value_eur": 4500000,
+          "club": "Pisa Sporting Club"
+        },
+        {
+          "name": "Cedric Itten",
+          "position": "Attack",
+          "value_eur": 4500000,
+          "club": "Fortuna D\u00fcsseldorf"
+        },
+        {
+          "name": "Darian Males",
+          "position": "Midfield",
+          "value_eur": 4200000,
+          "club": "Berner Sport Club Young Boys"
+        },
+        {
+          "name": "Remo Freuler",
+          "position": "Midfield",
+          "value_eur": 4000000,
+          "club": "Bologna Football Club 1909"
+        }
+      ]
+    },
+    "TUN": {
+      "total_value_eur": 68600000,
+      "player_count": 97,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Hannibal",
+          "position": "Midfield",
+          "value_eur": 9000000,
+          "club": "Burnley Football Club"
+        },
+        {
+          "name": "Montassar Talbi",
+          "position": "Defender",
+          "value_eur": 7000000,
+          "club": "Football Club Lorient-Bretagne Sud"
+        },
+        {
+          "name": "Isma\u00ebl Gharbi",
+          "position": "Attack",
+          "value_eur": 7000000,
+          "club": "Fu\u00dfball-Club Augsburg 1907"
+        },
+        {
+          "name": "A\u00efssa La\u00efdouni",
+          "position": "Midfield",
+          "value_eur": 6000000,
+          "club": "1. Fu\u00dfballclub Union Berlin"
+        },
+        {
+          "name": "Ellyes Skhiri",
+          "position": "Midfield",
+          "value_eur": 6000000,
+          "club": "Eintracht Frankfurt Fu\u00dfball AG"
+        },
+        {
+          "name": "Na\u00efm Sliti",
+          "position": "Attack",
+          "value_eur": 4500000,
+          "club": "Dijon FCO"
+        },
+        {
+          "name": "Elias Achouri",
+          "position": "Attack",
+          "value_eur": 3500000,
+          "club": "Football Club K\u00f8benhavn"
+        },
+        {
+          "name": "Ali Abdi",
+          "position": "Defender",
+          "value_eur": 2500000,
+          "club": "Olympique Gymnaste Club Nice C\u00f4te d'Azur"
+        },
+        {
+          "name": "Anis Slimane",
+          "position": "Midfield",
+          "value_eur": 2500000,
+          "club": "Sheffield United"
+        },
+        {
+          "name": "Rani Khedira",
+          "position": "Midfield",
+          "value_eur": 2000000,
+          "club": "1. Fu\u00dfballclub Union Berlin"
+        },
+        {
+          "name": "Sa\u00eef-Eddine Khaoui",
+          "position": "Midfield",
+          "value_eur": 2000000,
+          "club": "Macarthur South West Sydney (A-League)"
+        },
+        {
+          "name": "Yassine Meriah",
+          "position": "Defender",
+          "value_eur": 2000000,
+          "club": ""
+        },
+        {
+          "name": "Yan Valery",
+          "position": "Defender",
+          "value_eur": 2000000,
+          "club": "Berner Sport Club Young Boys"
+        },
+        {
+          "name": "Hamza Rafia",
+          "position": "Midfield",
+          "value_eur": 1700000,
+          "club": "Unione Sportiva Lecce"
+        },
+        {
+          "name": "Ferjani Sassi",
+          "position": "Midfield",
+          "value_eur": 1500000,
+          "club": "Football Club de Metz"
+        },
+        {
+          "name": "Mortadha Ben Ouanes",
+          "position": "Attack",
+          "value_eur": 1500000,
+          "club": "Kas\u0131mpa\u015fa A.\u015e."
+        },
+        {
+          "name": "Alaa Ghram",
+          "position": "Defender",
+          "value_eur": 1500000,
+          "club": "FC Shakhtar Donetsk"
+        },
+        {
+          "name": "Sayfallah Ltaief",
+          "position": "Midfield",
+          "value_eur": 1300000,
+          "club": "Football Club Twente"
+        },
+        {
+          "name": "Dylan Bronn",
+          "position": "Defender",
+          "value_eur": 1300000,
+          "club": "Servette Football Club 1890 SA"
+        },
+        {
+          "name": "Jamel Saihi",
+          "position": "Midfield",
+          "value_eur": 1000000,
+          "club": "Angers Sporting Club de l'Ouest"
+        },
+        {
+          "name": "Haykeul Chikhaoui",
+          "position": "Midfield",
+          "value_eur": 1000000,
+          "club": "FC Sochaux-Montb\u00e9liard"
+        },
+        {
+          "name": "Youssef Msakni",
+          "position": "Attack",
+          "value_eur": 900000,
+          "club": "KAS Eupen"
+        },
+        {
+          "name": "Nader Ghandri",
+          "position": "Defender",
+          "value_eur": 900000,
+          "club": ""
+        }
+      ]
+    },
+    "TUR": {
+      "total_value_eur": 447500000,
+      "player_count": 1881,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Kenan Y\u0131ld\u0131z",
+          "position": "Attack",
+          "value_eur": 75000000,
+          "club": "Juventus Football Club"
+        },
+        {
+          "name": "Can Uzun",
+          "position": "Midfield",
+          "value_eur": 45000000,
+          "club": "Eintracht Frankfurt Fu\u00dfball AG"
+        },
+        {
+          "name": "Arda G\u00fcler",
+          "position": "Midfield",
+          "value_eur": 45000000,
+          "club": "Real Madrid Club de F\u00fatbol"
+        },
+        {
+          "name": "Ferdi Kad\u0131o\u011flu",
+          "position": "Defender",
+          "value_eur": 28000000,
+          "club": "Brighton and Hove Albion Football Club"
+        },
+        {
+          "name": "Orkun K\u00f6k\u00e7\u00fc",
+          "position": "Midfield",
+          "value_eur": 25000000,
+          "club": "Be\u015fikta\u015f Jimnastik Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Hakan \u00c7alhano\u011flu",
+          "position": "Midfield",
+          "value_eur": 22000000,
+          "club": "Football Club Internazionale Milano S.p.A."
+        },
+        {
+          "name": "Kerem Akt\u00fcrko\u011flu",
+          "position": "Attack",
+          "value_eur": 22000000,
+          "club": "Fenerbah\u00e7e Spor Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Merih Demiral",
+          "position": "Defender",
+          "value_eur": 20000000,
+          "club": "Al-Ahli Saudi Football Club"
+        },
+        {
+          "name": "Bar\u0131\u015f Alper Y\u0131lmaz",
+          "position": "Attack",
+          "value_eur": 20000000,
+          "club": "Galatasaray Spor Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Yusuf Ak\u00e7i\u00e7ek",
+          "position": "Defender",
+          "value_eur": 16000000,
+          "club": "Al-Hilal Saudi Football Club"
+        },
+        {
+          "name": "U\u011furcan \u00c7ak\u0131r",
+          "position": "Goalkeeper",
+          "value_eur": 15000000,
+          "club": "Galatasaray Spor Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Cengiz \u00dcnder",
+          "position": "Attack",
+          "value_eur": 14000000,
+          "club": "Be\u015fikta\u015f Jimnastik Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Zeki \u00c7elik",
+          "position": "Defender",
+          "value_eur": 12000000,
+          "club": "Associazione Sportiva Roma"
+        },
+        {
+          "name": "\u0130smail Y\u00fcksek",
+          "position": "Midfield",
+          "value_eur": 12000000,
+          "club": "Fenerbah\u00e7e Spor Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Berke \u00d6zer",
+          "position": "Goalkeeper",
+          "value_eur": 10000000,
+          "club": "Lille Olympique Sporting Club"
+        },
+        {
+          "name": "Yusuf Yaz\u0131c\u0131",
+          "position": "Midfield",
+          "value_eur": 10000000,
+          "club": "Olympiakos Syndesmos Filathlon Peiraios"
+        },
+        {
+          "name": "O\u011fuz Ayd\u0131n",
+          "position": "Attack",
+          "value_eur": 10000000,
+          "club": "Fenerbah\u00e7e Spor Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Semih K\u0131l\u0131\u00e7soy",
+          "position": "Attack",
+          "value_eur": 10000000,
+          "club": "Cagliari Calcio"
+        },
+        {
+          "name": "Atakan Karazor",
+          "position": "Midfield",
+          "value_eur": 9000000,
+          "club": "Verein f\u00fcr Bewegungsspiele Stuttgart 1893"
+        },
+        {
+          "name": "Enes \u00dcnal",
+          "position": "Attack",
+          "value_eur": 8000000,
+          "club": "Association Football Club Bournemouth"
+        },
+        {
+          "name": "Altay Bay\u0131nd\u0131r",
+          "position": "Goalkeeper",
+          "value_eur": 7000000,
+          "club": "Manchester United Football Club"
+        },
+        {
+          "name": "Abd\u00fclkerim Bardakc\u0131",
+          "position": "Defender",
+          "value_eur": 6500000,
+          "club": "Galatasaray Spor Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "\u00c7a\u011flar S\u00f6y\u00fcnc\u00fc",
+          "position": "Defender",
+          "value_eur": 6000000,
+          "club": "Fenerbah\u00e7e Spor Kul\u00fcb\u00fc"
+        }
+      ]
+    },
+    "UKR": {
+      "total_value_eur": 384500000,
+      "player_count": 1325,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Ilya Zabarnyi",
+          "position": "Defender",
+          "value_eur": 50000000,
+          "club": "Paris Saint-Germain Football Club"
+        },
+        {
+          "name": "Mykhaylo Mudryk",
+          "position": "Attack",
+          "value_eur": 35000000,
+          "club": "Chelsea Football Club"
+        },
+        {
+          "name": "Georgiy Sudakov",
+          "position": "Midfield",
+          "value_eur": 30000000,
+          "club": "Sport Lisboa e Benfica"
+        },
+        {
+          "name": "Anatoliy Trubin",
+          "position": "Goalkeeper",
+          "value_eur": 28000000,
+          "club": "Sport Lisboa e Benfica"
+        },
+        {
+          "name": "Andriy Lunin",
+          "position": "Goalkeeper",
+          "value_eur": 25000000,
+          "club": "Real Madrid Club de F\u00fatbol"
+        },
+        {
+          "name": "Vitaliy Mykolenko",
+          "position": "Defender",
+          "value_eur": 25000000,
+          "club": "Everton Football Club"
+        },
+        {
+          "name": "Yegor Yarmolyuk",
+          "position": "Midfield",
+          "value_eur": 25000000,
+          "club": "Brentford Football Club"
+        },
+        {
+          "name": "Artem Dovbyk",
+          "position": "Attack",
+          "value_eur": 20000000,
+          "club": "Associazione Sportiva Roma"
+        },
+        {
+          "name": "Oleksandr Zinchenko",
+          "position": "Defender",
+          "value_eur": 15000000,
+          "club": "AFC Ajax Amsterdam"
+        },
+        {
+          "name": "Viktor Tsygankov",
+          "position": "Attack",
+          "value_eur": 15000000,
+          "club": "Girona F\u00fatbol Club S. A. D."
+        },
+        {
+          "name": "Mykola Matvienko",
+          "position": "Defender",
+          "value_eur": 15000000,
+          "club": "FC Shakhtar Donetsk"
+        },
+        {
+          "name": "Vladyslav Vanat",
+          "position": "Attack",
+          "value_eur": 15000000,
+          "club": "Girona F\u00fatbol Club S. A. D."
+        },
+        {
+          "name": "Volodymyr Brazhko",
+          "position": "Midfield",
+          "value_eur": 10000000,
+          "club": "Futbolniy Klub Dynamo Kyiv"
+        },
+        {
+          "name": "Artem Bondarenko",
+          "position": "Midfield",
+          "value_eur": 9000000,
+          "club": "FC Shakhtar Donetsk"
+        },
+        {
+          "name": "Arseniy Batagov",
+          "position": "Defender",
+          "value_eur": 9000000,
+          "club": "Trabzonspor Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Ruslan Malinovskyi",
+          "position": "Midfield",
+          "value_eur": 8000000,
+          "club": "Genoa Cricket and Football Club"
+        },
+        {
+          "name": "Mykola Shaparenko",
+          "position": "Midfield",
+          "value_eur": 8000000,
+          "club": "Futbolniy Klub Dynamo Kyiv"
+        },
+        {
+          "name": "Valeriy Bondar",
+          "position": "Defender",
+          "value_eur": 8000000,
+          "club": "FC Shakhtar Donetsk"
+        },
+        {
+          "name": "Taras Mykhavko",
+          "position": "Defender",
+          "value_eur": 8000000,
+          "club": "Futbolniy Klub Dynamo Kyiv"
+        },
+        {
+          "name": "Oleksandr Zubkov",
+          "position": "Attack",
+          "value_eur": 7500000,
+          "club": "Trabzonspor Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Dmytro Riznyk",
+          "position": "Goalkeeper",
+          "value_eur": 7000000,
+          "club": "FC Shakhtar Donetsk"
+        },
+        {
+          "name": "Dmytro Kryskiv",
+          "position": "Midfield",
+          "value_eur": 6000000,
+          "club": "FC Shakhtar Donetsk"
+        },
+        {
+          "name": "Oleg Ocheretko",
+          "position": "Midfield",
+          "value_eur": 6000000,
+          "club": "FC Shakhtar Donetsk"
+        }
+      ]
+    },
+    "URU": {
+      "total_value_eur": 522000000,
+      "player_count": 190,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Federico Valverde",
+          "position": "Midfield",
+          "value_eur": 120000000,
+          "club": "Real Madrid Club de F\u00fatbol"
+        },
+        {
+          "name": "Ronald Araujo",
+          "position": "Defender",
+          "value_eur": 70000000,
+          "club": "Futbol Club Barcelona"
+        },
+        {
+          "name": "Darwin N\u00fa\u00f1ez",
+          "position": "Attack",
+          "value_eur": 70000000,
+          "club": "Al-Hilal Saudi Football Club"
+        },
+        {
+          "name": "Manuel Ugarte",
+          "position": "Midfield",
+          "value_eur": 30000000,
+          "club": "Manchester United Football Club"
+        },
+        {
+          "name": "Rodrigo Bentancur",
+          "position": "Midfield",
+          "value_eur": 27000000,
+          "club": "Tottenham Hotspur Football Club"
+        },
+        {
+          "name": "Jos\u00e9 Mar\u00eda Gim\u00e9nez",
+          "position": "Defender",
+          "value_eur": 22000000,
+          "club": "Club Atl\u00e9tico de Madrid S.A.D."
+        },
+        {
+          "name": "Maxi Ara\u00fajo",
+          "position": "Defender",
+          "value_eur": 22000000,
+          "club": "Sporting Clube de Portugal"
+        },
+        {
+          "name": "Rodrigo Zalazar",
+          "position": "Midfield",
+          "value_eur": 20000000,
+          "club": "Sporting Clube de Braga"
+        },
+        {
+          "name": "Math\u00edas Olivera",
+          "position": "Defender",
+          "value_eur": 18000000,
+          "club": "Societ\u00e0 Sportiva Calcio Napoli"
+        },
+        {
+          "name": "Lucas Torreira",
+          "position": "Midfield",
+          "value_eur": 15000000,
+          "club": "Galatasaray Spor Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Gast\u00f3n \u00c1lvarez",
+          "position": "Defender",
+          "value_eur": 15000000,
+          "club": "Al-Qadsiah Saudi Football Club"
+        },
+        {
+          "name": "Mauro Arambarri",
+          "position": "Midfield",
+          "value_eur": 10000000,
+          "club": "Getafe Club de F\u00fatbol S. A. D. Team Dubai"
+        },
+        {
+          "name": "Santiago Bueno",
+          "position": "Defender",
+          "value_eur": 10000000,
+          "club": "Wolverhampton Wanderers Football Club"
+        },
+        {
+          "name": "Mat\u00edas Vi\u00f1a",
+          "position": "Defender",
+          "value_eur": 10000000,
+          "club": "Club Atl\u00e9tico River Plate"
+        },
+        {
+          "name": "Santiago Mouri\u00f1o",
+          "position": "Defender",
+          "value_eur": 10000000,
+          "club": "Villarreal Club de F\u00fatbol S.A.D."
+        },
+        {
+          "name": "Emiliano Mart\u00ednez",
+          "position": "Midfield",
+          "value_eur": 9000000,
+          "club": "Sociedade Esportiva Palmeiras"
+        },
+        {
+          "name": "Diego Rossi",
+          "position": "Midfield",
+          "value_eur": 7000000,
+          "club": "Columbus Crew"
+        },
+        {
+          "name": "Juan Manuel Sanabria",
+          "position": "Defender",
+          "value_eur": 7000000,
+          "club": "Real Salt Lake"
+        },
+        {
+          "name": "Mat\u00edas Arezo",
+          "position": "Attack",
+          "value_eur": 7000000,
+          "club": "Gr\u00eamio Foot-Ball Porto Alegrense"
+        },
+        {
+          "name": "Facundo Pellistri",
+          "position": "Attack",
+          "value_eur": 7000000,
+          "club": "Panathinaikos Athlitikos Omilos"
+        },
+        {
+          "name": "Mart\u00edn Satriano",
+          "position": "Attack",
+          "value_eur": 6000000,
+          "club": "Getafe Club de F\u00fatbol S. A. D. Team Dubai"
+        },
+        {
+          "name": "Nahitan N\u00e1ndez",
+          "position": "Midfield",
+          "value_eur": 5000000,
+          "club": "Al-Qadsiah Saudi Football Club"
+        },
+        {
+          "name": "Bruno M\u00e9ndez",
+          "position": "Defender",
+          "value_eur": 5000000,
+          "club": "Deportivo Toluca Futbol Club, S. A. de C. V."
+        }
+      ]
+    },
+    "USA": {
+      "total_value_eur": 425000000,
+      "player_count": 170,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Christian Pulisic",
+          "position": "Attack",
+          "value_eur": 60000000,
+          "club": "Associazione Calcio Milan"
+        },
+        {
+          "name": "Malik Tillman",
+          "position": "Midfield",
+          "value_eur": 35000000,
+          "club": "Bayer 04 Leverkusen Fu\u00dfball"
+        },
+        {
+          "name": "Antonee Robinson",
+          "position": "Defender",
+          "value_eur": 30000000,
+          "club": "Fulham Football Club"
+        },
+        {
+          "name": "Tyler Adams",
+          "position": "Midfield",
+          "value_eur": 25000000,
+          "club": "Association Football Club Bournemouth"
+        },
+        {
+          "name": "Chris Richards",
+          "position": "Defender",
+          "value_eur": 25000000,
+          "club": "Crystal Palace Football Club"
+        },
+        {
+          "name": "Johnny Cardoso",
+          "position": "Midfield",
+          "value_eur": 25000000,
+          "club": "Club Atl\u00e9tico de Madrid S.A.D."
+        },
+        {
+          "name": "Weston McKennie",
+          "position": "Midfield",
+          "value_eur": 22000000,
+          "club": "Juventus Football Club"
+        },
+        {
+          "name": "Folarin Balogun",
+          "position": "Attack",
+          "value_eur": 22000000,
+          "club": "Association sportive de Monaco Football Club"
+        },
+        {
+          "name": "Yunus Musah",
+          "position": "Midfield",
+          "value_eur": 22000000,
+          "club": "Atalanta Bergamasca Calcio S.p.a."
+        },
+        {
+          "name": "Timothy Weah",
+          "position": "Midfield",
+          "value_eur": 20000000,
+          "club": "Olympique de Marseille"
+        },
+        {
+          "name": "Sergi\u00f1o Dest",
+          "position": "Defender",
+          "value_eur": 18000000,
+          "club": "Eindhovense Voetbalvereniging Philips Sport Vereniging"
+        },
+        {
+          "name": "Ricardo Pepi",
+          "position": "Attack",
+          "value_eur": 15000000,
+          "club": "Eindhovense Voetbalvereniging Philips Sport Vereniging"
+        },
+        {
+          "name": "Noahkai Banks",
+          "position": "Defender",
+          "value_eur": 15000000,
+          "club": "Fu\u00dfball-Club Augsburg 1907"
+        },
+        {
+          "name": "Cameron Carter-Vickers",
+          "position": "Defender",
+          "value_eur": 13000000,
+          "club": "The Celtic Football Club"
+        },
+        {
+          "name": "Brenden Aaronson",
+          "position": "Midfield",
+          "value_eur": 12000000,
+          "club": "Leeds United Association Football Club"
+        },
+        {
+          "name": "Josh Sargent",
+          "position": "Attack",
+          "value_eur": 12000000,
+          "club": "Toronto FC"
+        },
+        {
+          "name": "Tanner Tessmann",
+          "position": "Midfield",
+          "value_eur": 12000000,
+          "club": "Olympique Lyonnais"
+        },
+        {
+          "name": "Caleb Wiley",
+          "position": "Defender",
+          "value_eur": 8000000,
+          "club": "Chelsea Football Club"
+        },
+        {
+          "name": "Haji Wright",
+          "position": "Attack",
+          "value_eur": 7000000,
+          "club": ""
+        },
+        {
+          "name": "Matt Turner",
+          "position": "Goalkeeper",
+          "value_eur": 7000000,
+          "club": "New England Revolution"
+        },
+        {
+          "name": "Joe Scally",
+          "position": "Defender",
+          "value_eur": 7000000,
+          "club": "Borussia Verein f\u00fcr Leibes\u00fcbungen 1900 M\u00f6nchengladbach"
+        },
+        {
+          "name": "Paxten Aaronson",
+          "position": "Midfield",
+          "value_eur": 7000000,
+          "club": "Colorado Rapids"
+        },
+        {
+          "name": "Mark McKenzie",
+          "position": "Defender",
+          "value_eur": 6000000,
+          "club": "Toulouse Football Club"
+        }
+      ]
+    },
+    "UZB": {
+      "total_value_eur": 61425000,
+      "player_count": 26,
+      "top_n_used": 23,
+      "players": [
+        {
+          "name": "Abdukodir Khusanov",
+          "position": "Defender",
+          "value_eur": 35000000,
+          "club": "Manchester City Football Club"
+        },
+        {
+          "name": "Abbosbek Fayzullaev",
+          "position": "Attack",
+          "value_eur": 7000000,
+          "club": "\u0130stanbul Ba\u015fak\u015fehir Futbol Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Eldor Shomurodov",
+          "position": "Attack",
+          "value_eur": 5000000,
+          "club": "\u0130stanbul Ba\u015fak\u015fehir Futbol Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Jaloliddin Masharipov",
+          "position": "Attack",
+          "value_eur": 1700000,
+          "club": ""
+        },
+        {
+          "name": "Otabek Shukurov",
+          "position": "Midfield",
+          "value_eur": 1600000,
+          "club": ""
+        },
+        {
+          "name": "Khusniddin Alikulov",
+          "position": "Defender",
+          "value_eur": 1500000,
+          "club": "\u00c7aykur Rizespor Kul\u00fcb\u00fc"
+        },
+        {
+          "name": "Oston Urunov",
+          "position": "Attack",
+          "value_eur": 1000000,
+          "club": ""
+        },
+        {
+          "name": "Odil Akhmedov",
+          "position": "Midfield",
+          "value_eur": 900000,
+          "club": "FK Krasnodar"
+        },
+        {
+          "name": "Bobur Abdikholikov",
+          "position": "Attack",
+          "value_eur": 900000,
+          "club": ""
+        },
+        {
+          "name": "Rustam Ashurmatov",
+          "position": "Defender",
+          "value_eur": 800000,
+          "club": ""
+        },
+        {
+          "name": "Ibrokhimkhalil Yuldoshev",
+          "position": "Defender",
+          "value_eur": 800000,
+          "club": ""
+        },
+        {
+          "name": "Dostonbek Khamdamov",
+          "position": "Attack",
+          "value_eur": 750000,
+          "club": ""
+        },
+        {
+          "name": "Azizbek Turgunboev",
+          "position": "Midfield",
+          "value_eur": 700000,
+          "club": ""
+        },
+        {
+          "name": "Jasurbek Jaloliddinov",
+          "position": "Midfield",
+          "value_eur": 700000,
+          "club": "PFK Tambov (-2021)"
+        },
+        {
+          "name": "Alisher Odilov",
+          "position": "Attack",
+          "value_eur": 700000,
+          "club": ""
+        },
+        {
+          "name": "Khozhimat Erkinov",
+          "position": "Attack",
+          "value_eur": 600000,
+          "club": ""
+        },
+        {
+          "name": "Umarali Rakhmonaliev",
+          "position": "Midfield",
+          "value_eur": 600000,
+          "club": "FC Rubin Kazan"
+        },
+        {
+          "name": "Ruslanbek Jiyanov",
+          "position": "Attack",
+          "value_eur": 400000,
+          "club": ""
+        },
+        {
+          "name": "Sardor Rashidov",
+          "position": "Attack",
+          "value_eur": 250000,
+          "club": "Clube Desportivo Nacional"
+        },
+        {
+          "name": "Maksim Shatskikh",
+          "position": "Attack",
+          "value_eur": 200000,
+          "club": "Goverla Uzhgorod (- 2016)"
+        },
+        {
+          "name": "Sanzhar Tursunov",
+          "position": "Attack",
+          "value_eur": 125000,
+          "club": "Vorskla Poltava"
+        },
+        {
+          "name": "Vitaliy Denisov",
+          "position": "Defender",
+          "value_eur": 100000,
+          "club": "FC Rubin Kazan"
+        },
+        {
+          "name": "Vagiz Galiulin",
+          "position": "Midfield",
+          "value_eur": 100000,
+          "club": "FC Tosno (-2018)"
+        }
+      ]
+    }
+  }
+}
