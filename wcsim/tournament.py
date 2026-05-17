@@ -179,22 +179,100 @@ _R16_PAIRS_2018_2022 = [
     (1, 0), (3, 2), (5, 4), (7, 6),  # bottom half (reversed group pairs)
 ]
 
-# WC 2026 R32 bracket: 16 matches. Winners (W) from one group play runners-up
-# (R) from a different group in crosswise fashion. The 8 best third-place teams
-# are matched against the 4 remaining winners whose runner-up slot is taken.
-# (winner_group_idx, runner_up_group_idx) — crosswise pairs for groups A-L.
-_R32_PAIRS_2026: list[tuple[int, int | None]] = [
-    (0, 3), (1, 4), (2, 5),      # 1A vs 2D, 1B vs 2E, 1C vs 2F
-    (3, 0), (4, 1), (5, 2),      # 1D vs 2A, 1E vs 2B, 1F vs 2C
-    (6, 9), (7, 10), (8, 11),    # 1G vs 2J, 1H vs 2K, 1I vs 2L
-    (9, 6), (10, 7), (11, 8),    # 1J vs 2G, 1K vs 2H, 1L vs 2I
+# ---------------------------------------------------------------------------
+# WC 2026 R32 bracket (official FIFA format from Dec 2025 draw)
+# ---------------------------------------------------------------------------
+# The 16 R32 matches ordered by match number (73-88):
+#   - 4 runner-up vs runner-up: (2A vs 2B), (2E vs 2I), (2K vs 2L), (2D vs 2G)
+#   - 4 winner vs runner-up crosswise: (1F vs 2C), (1C vs 2F), (1H vs 2J), (1J vs 2H)
+#   - 8 winner vs 3rd-place: 1E, 1I, 1A, 1L, 1D, 1G, 1B, 1K each face a 3rd
+#
+# Match layout (bracket order for pairing):
+_R32_BRACKET_2026 = [
+    # (type, home_source, away_source)
+    # type: "RR" = runner vs runner, "WR" = winner vs runner, "W3" = winner vs 3rd
+    ("RR", ("R", 0), ("R", 1)),   # M73: 2A vs 2B
+    ("W3", ("W", 4), ("3", 0)),   # M74: 1E vs 3rd (slot 0)
+    ("WR", ("W", 5), ("R", 2)),   # M75: 1F vs 2C
+    ("WR", ("W", 2), ("R", 5)),   # M76: 1C vs 2F
+    ("W3", ("W", 8), ("3", 1)),   # M77: 1I vs 3rd (slot 1)
+    ("RR", ("R", 4), ("R", 8)),   # M78: 2E vs 2I
+    ("W3", ("W", 0), ("3", 2)),   # M79: 1A vs 3rd (slot 2)
+    ("W3", ("W", 11), ("3", 3)),  # M80: 1L vs 3rd (slot 3)
+    ("W3", ("W", 3), ("3", 4)),   # M81: 1D vs 3rd (slot 4)
+    ("W3", ("W", 6), ("3", 5)),   # M82: 1G vs 3rd (slot 5)
+    ("RR", ("R", 10), ("R", 11)), # M83: 2K vs 2L
+    ("WR", ("W", 7), ("R", 9)),   # M84: 1H vs 2J
+    ("W3", ("W", 1), ("3", 6)),   # M85: 1B vs 3rd (slot 6)
+    ("WR", ("W", 9), ("R", 7)),   # M86: 1J vs 2H
+    ("W3", ("W", 10), ("3", 7)),  # M87: 1K vs 3rd (slot 7)
+    ("RR", ("R", 3), ("R", 6)),   # M88: 2D vs 2G
 ]
+
+# Each of the 8 third-place slots can only be filled by thirds from certain
+# groups. Slot index -> set of allowed group indices (0=A ... 11=L).
+# From official FIFA regulations: which groups' 3rd can go to each match.
+_THIRD_SLOT_ALLOWED = [
+    # Slot 0 (M74, vs 1E): 3rd from A/B/C/D/F
+    {0, 1, 2, 3, 5},
+    # Slot 1 (M77, vs 1I): 3rd from C/D/F/G/H
+    {2, 3, 5, 6, 7},
+    # Slot 2 (M79, vs 1A): 3rd from C/E/F/H/I
+    {2, 4, 5, 7, 8},
+    # Slot 3 (M80, vs 1L): 3rd from E/H/I/J/K
+    {4, 7, 8, 9, 10},
+    # Slot 4 (M81, vs 1D): 3rd from B/E/F/I/J
+    {1, 4, 5, 8, 9},
+    # Slot 5 (M82, vs 1G): 3rd from A/E/H/I/J
+    {0, 4, 7, 8, 9},
+    # Slot 6 (M85, vs 1B): 3rd from E/F/G/I/J
+    {4, 5, 6, 8, 9},
+    # Slot 7 (M87, vs 1K): 3rd from D/E/I/J/L
+    {3, 4, 8, 9, 11},
+]
+
+
+def _assign_thirds_to_slots(
+    qualifying_group_indices: list[int],
+) -> list[int]:
+    """Given which 8 group indices produced qualifying thirds, assign each to
+    a bracket slot using greedy constraint satisfaction (most-constrained first).
+    Returns list of length 8: slot_assignments[slot_idx] = group_idx."""
+    available = set(qualifying_group_indices)
+    assignments: list[int | None] = [None] * 8
+
+    slots_by_constraint = sorted(
+        range(8),
+        key=lambda s: len(_THIRD_SLOT_ALLOWED[s] & available),
+    )
+    used: set[int] = set()
+
+    def _backtrack(order_idx: int) -> bool:
+        if order_idx == 8:
+            return True
+        slot = slots_by_constraint[order_idx]
+        candidates = sorted(_THIRD_SLOT_ALLOWED[slot] & available - used)
+        for g in candidates:
+            assignments[slot] = g
+            used.add(g)
+            if _backtrack(order_idx + 1):
+                return True
+            used.discard(g)
+            assignments[slot] = None
+        return False
+
+    if not _backtrack(0):
+        raise ValueError(
+            f"No valid third-place assignment for groups {qualifying_group_indices}"
+        )
+    return assignments  # type: ignore[return-value]
 
 
 def seed_knockout(
     structure: TournamentStructure,
     group_winners: list[str], group_runners_up: list[str],
     best_thirds: list[str],
+    third_place_groups: list[int] | None = None,
 ) -> list[str]:
     """Return iso3 codes in bracket order -- pairs (i, i+1) play in round 1."""
     if structure.name == "WC2018-2022":
@@ -204,17 +282,26 @@ def seed_knockout(
             out.append(group_runners_up[r_idx])
         return out
     elif structure.name == "WC2026":
-        # 12 crosswise winner-vs-runner-up matches + 4 winner-vs-third matches
+        if third_place_groups is None:
+            raise ValueError("WC2026 requires third_place_groups for bracket assignment")
+
+        slot_assignments = _assign_thirds_to_slots(third_place_groups)
+        # Build iso3 lookup: group_idx -> third-place iso3
+        group_to_third = dict(zip(third_place_groups, best_thirds))
+        third_by_slot = [group_to_third[g] for g in slot_assignments]
+
         out: list[str] = []
-        for w_idx, r_idx in _R32_PAIRS_2026:
-            out.append(group_winners[w_idx])
-            out.append(group_runners_up[r_idx])
-        # Remaining 4 matches: pair best thirds with best thirds (seeded)
-        # Actually need 16 total matches. 12 pairs above use all 12 winners
-        # and all 12 runners-up. The 8 best thirds pair among themselves.
-        for i in range(0, len(best_thirds), 2):
-            out.append(best_thirds[i])
-            out.append(best_thirds[i + 1])
+        for match_type, home_src, away_src in _R32_BRACKET_2026:
+            if home_src[0] == "W":
+                out.append(group_winners[home_src[1]])
+            else:
+                out.append(group_runners_up[home_src[1]])
+            if away_src[0] == "R":
+                out.append(group_runners_up[away_src[1]])
+            elif away_src[0] == "W":
+                out.append(group_winners[away_src[1]])
+            else:
+                out.append(third_by_slot[away_src[1]])
         if len(out) != 32:
             raise ValueError(f"WC2026 expected 32 slots, got {len(out)}")
         return out
@@ -399,7 +486,17 @@ def simulate_tournament(
         n=structure.best_thirds,
     )
 
-    seeded = seed_knockout(structure, group_winners, group_runners_up, best_thirds)
+    # For WC 2026 bracket assignment: map each qualifying third to its group index
+    third_place_groups: list[int] | None = None
+    if structure.best_thirds > 0:
+        group_letters = sorted(draw.keys())
+        iso3_to_group_idx = {
+            iso3: idx for idx, iso3 in enumerate(third_place_iso3s)
+        }
+        third_place_groups = [iso3_to_group_idx[iso3] for iso3 in best_thirds]
+
+    seeded = seed_knockout(structure, group_winners, group_runners_up, best_thirds,
+                           third_place_groups=third_place_groups)
     knockout_matches, knockout_placements = simulate_knockout(
         seeded=seeded, teams=teams, structure=structure,
         rating=rating, params=p, rng=rng, hosts=hosts,

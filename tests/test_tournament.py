@@ -297,8 +297,8 @@ def test_wc_2026_tournament_pin(bundled_elo_history, default_params):
     advancers = frozenset(iso for iso, stage in result.placements.items() if stage != "GroupOut")
     assert len(advancers) == 32  # top 2 per group (24) + 8 best thirds
 
-    # LOCKED (re-pinned after crosswise bracket + host-bonus-in-update fixes)
-    assert champion == "URU"
+    # LOCKED (re-pinned after official FIFA 2026 bracket implementation)
+    assert champion == "ENG"
     assert advancers == frozenset({
         "ARG", "AUS", "AUT", "BRA", "CAN", "COL", "CRO",
         "ECU", "EGY", "ENG", "ESP", "FRA", "GER", "IRN", "ITA", "JOR",
