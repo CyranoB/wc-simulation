@@ -1,6 +1,6 @@
 # wcsim — Football Tournament Monte Carlo Simulator
 
-Simulate the FIFA World Cup thousands of times using Elo ratings and a Poisson goal model. Get per-team probabilities for winning the trophy, reaching the final, and advancing through each round.
+Simulate the FIFA World Cup thousands of times using Elo ratings, FIFA rankings, and squad market values. Get per-team probabilities for winning the trophy, reaching the final, and advancing through each round.
 
 ## Quick start
 
@@ -9,27 +9,46 @@ Simulate the FIFA World Cup thousands of times using Elo ratings and a Poisson g
 python3 -m venv .venv
 .venv/bin/pip install -r spikes/01-validation/requirements.txt
 
-# Simulate the 2026 World Cup (50 runs, deterministic)
-.venv/bin/python -m wcsim.cli run -n 50 --seed 42
+# Simulate the 2026 World Cup (100k sims, three-way blend, deterministic)
+.venv/bin/python -m wcsim.cli run -n 100000 --seed 1 --rating blend --blend-player 0.5 --shrinkage 0.85
+
+# Quick 1000-sim run with pure Elo
+.venv/bin/python -m wcsim.cli run -n 1000 --seed 42
 
 # Predict a single match
-.venv/bin/python -m wcsim.cli match Brazil France --neutral
+.venv/bin/python -m wcsim.cli match France England --rating blend --blend-player 0.5 --neutral
 
 # List all teams with ratings
 .venv/bin/python -m wcsim.cli teams
 ```
 
+## Recommended configuration
+
+The three-way blend with shrinkage produces predictions closest to professional forecasts (Opta Supercomputer):
+
+```bash
+.venv/bin/python -m wcsim.cli run \
+  -n 100000 \
+  --seed 1 \
+  --rating blend \
+  --blend-player 0.5 \
+  --shrinkage 0.85
+```
+
+This blends 50% squad market values + 35% Elo + 15% FIFA rankings, with regression-to-mean shrinkage (0.85) to prevent top teams from being overrated by volatile recent results.
+
 ## Sample output
 
 ```
-$ wcsim run -n 1000 --seed 1
-Running 1000 simulations (seed=1, workers=auto)...
-Done in 1.0s.
+$ wcsim run -n 100000 --seed 1 --rating blend --blend-player 0.5
 Team         Win     Final        SF        QF       R16       R32  GroupOut
 ----------------------------------------------------------------------------
-ESP         7.2%      5.7%      9.3%     14.1%     18.6%     28.7%     16.4%
-ARG         6.1%      4.7%      8.9%     13.2%     21.8%     29.5%     15.8%
-ECU         5.7%      3.0%      5.8%     12.4%     20.8%     30.5%     21.8%
+ESP        10.3%     17.8%     29.0%     43.7%     64.5%     97.0%      3.0%
+FRA        10.0%     17.1%     28.3%     45.5%     68.8%     94.1%      5.9%
+ARG         8.1%     14.5%     24.6%     38.9%     58.3%     94.0%      6.0%
+ENG         7.9%     14.0%     23.9%     41.8%     65.9%     92.8%      7.2%
+BRA         5.3%     10.0%     18.9%     31.3%     53.1%     90.1%      9.9%
+POR         5.5%     10.5%     19.6%     35.8%     58.9%     90.8%      9.2%
 ...
 ```
 
@@ -48,7 +67,9 @@ ECU         5.7%      3.0%      5.8%     12.4%     20.8%     30.5%     21.8%
 |---|---|---|
 | `-n, --simulations` | 100000 | Number of tournament simulations |
 | `--seed` | random | RNG seed for reproducibility |
-| `--rating` | elo | Rating mode: `elo`, `fifa`, `blend` |
+| `--rating` | elo | Rating mode: `elo`, `fifa`, `blend`, `player` |
+| `--blend-player` | 0.0 | Player-value weight in three-way blend (0=disabled, 0.5=recommended) |
+| `--shrinkage` | 1.0 | Rating regression to mean (1.0=none, 0.85=moderate) |
 | `--workers` | CPU count | Parallel workers |
 | `--out PATH` | stdout | Write to CSV or JSON file |
 | `--format` | table | Output format: `table`, `csv`, `json` |
@@ -68,10 +89,11 @@ The match model follows PRD §5.5:
 4. **Goals sampled** from the joint distribution on a 9×9 score grid
 5. **Knockout matches** add extra time (λ scaled by 30/90) then penalty shootout (rating-weighted Bernoulli)
 
-Three pluggable rating systems:
-- **Elo** (S=400, c=300) — default, well-calibrated
+Four pluggable rating systems:
+- **Elo** (S=400, c=300) — default, well-calibrated against historical WC results
 - **FIFA** (S=600, c=450) — official FIFA Men's World Ranking points
-- **Blend** (w·Elo + (1-w)·FIFA·E₀/F₀) — combined in Elo space
+- **Player** — squad market values (Transfermarkt), log-normalized to Elo scale
+- **Blend** (three-way Elo + FIFA + Player) — `--blend-player 0.5` gives 50% Player + 35% Elo + 15% FIFA
 
 ## Tournament formats
 
@@ -80,7 +102,7 @@ Three pluggable rating systems:
 | WC 2018/2022 | 32 | 8 × 4 | R16 → QF → SF → Final | Yes |
 | WC 2026 | 48 | 12 × 4 | R32 → R16 → QF → SF → Final | No |
 
-Format auto-detected from team count in the draw.
+Format auto-detected from team count in the draw. The WC 2026 bracket uses the official FIFA R32 structure (Dec 2025 draw): crosswise winner-vs-runner-up pairings, runner-up-vs-runner-up matches, and constraint-based third-place slot assignment matching FIFA's permutation table.
 
 ## Reproducibility
 
@@ -90,9 +112,10 @@ Format auto-detected from team count in the draw.
 
 ## Data sources
 
-Bundled snapshots scraped from canonical sources (no Kaggle account needed):
+Bundled snapshots scraped from canonical sources:
 - **Elo ratings**: [eloratings.net](https://eloratings.net) per-team TSV files
 - **FIFA rankings**: [inside.fifa.com](https://inside.fifa.com/fifa-world-ranking/men) hidden JSON API
+- **Squad market values**: [Kaggle davidcariboo/player-scores](https://www.kaggle.com/datasets/davidcariboo/player-scores) (Transfermarkt mirror)
 - **Match results**: [openfootball/worldcup.json](https://github.com/openfootball/worldcup.json) (WC 2018 + 2022)
 - **WC 2026 draw**: official FIFA draw (2025-12-05)
 
@@ -101,6 +124,7 @@ Re-run the scrapers to refresh:
 .venv/bin/python spikes/01-validation/scrapers/elo.py
 .venv/bin/python spikes/01-validation/scrapers/fifa.py
 .venv/bin/python spikes/01-validation/scrapers/matches.py
+.venv/bin/python spikes/01-validation/scrapers/squads.py  # requires players.csv from Kaggle
 ```
 
 ## Project structure
@@ -112,20 +136,23 @@ wcsim/                    # Library
 │   ├── base.py           # RatingSystem Protocol
 │   ├── elo.py            # EloRating
 │   ├── fifa.py           # FifaRating
-│   └── blend.py          # BlendRating
+│   ├── blend.py          # BlendRating (two-way Elo+FIFA)
+│   ├── player.py         # PlayerRating (squad market values)
+│   └── blend_all.py      # BlendAllRating (three-way Elo+FIFA+Player)
+├── squad_data.py         # Squad value loader (reads squads_2026.json)
 ├── model.py              # predict_match, sample_match (Poisson + Dixon-Coles)
-├── tournament.py         # Group stage + knockout (WC 2018/2022 + WC 2026)
+├── tournament.py         # Group stage + knockout (WC 2018/2022 + WC 2026 FIFA bracket)
 ├── sim.py                # Monte Carlo runner (ProcessPoolExecutor)
 ├── report.py             # Table / CSV / JSON formatters + Wilson CIs
 ├── cache.py              # Last-run persistence (~/.wcsim/)
 ├── data.py               # Teams CSV + draw JSON loaders
 └── cli.py                # Typer CLI entry point
 
-tests/                    # pytest suite (82 tests, 98%+ coverage)
+tests/                    # pytest suite (99 tests, 98%+ coverage)
 spikes/01-validation/     # Spike 1: model validation back-test
 ├── validate.py           # RPS scoring against WC 2018+2022
 ├── scrapers/             # Canonical-source data fetchers
-└── data/raw/             # Bundled snapshots (Elo, FIFA, matches, draw)
+└── data/raw/             # Bundled snapshots (Elo, FIFA, matches, draw, squads)
 ```
 
 ## Development
@@ -153,9 +180,10 @@ Spike 1 validated the model against WC 2018 + 2022 (128 historical matches):
 - [x] **Spike 1**: Model validation back-test (PRD v1.7, Dixon-Coles)
 - [x] **Spike 2**: Library extraction (types + ratings + model + tournament)
 - [x] **Spike 3**: Monte Carlo runner + CLI (`wcsim run`)
-- [ ] **Spike 4**: Performance optimization + `pyproject.toml` packaging
-- [ ] **Spike 5**: `wcsim bracket` + `wcsim update-ratings`
-- [ ] **Spike 6**: Documentation + PyPI release
+- [x] **Spike 4**: Player-value rating + three-way blend + official FIFA 2026 bracket
+- [ ] **Spike 5**: Performance optimization + `pyproject.toml` packaging
+- [ ] **Spike 6**: `wcsim bracket` + `wcsim update-ratings`
+- [ ] **Spike 7**: Documentation + PyPI release
 
 ## License
 
