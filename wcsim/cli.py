@@ -8,10 +8,25 @@ import typer
 app = typer.Typer(name="wcsim", help="Football Tournament Monte Carlo Simulator")
 
 
-def _make_rating(rating_mode: str, params):
+def _make_rating(rating_mode: str, params, squad_data=None):
     from .ratings.elo import EloRating
     from .ratings.fifa import FifaRating
     from .ratings.blend import BlendRating
+    from .ratings.player import PlayerRating
+    from .ratings.blend_all import BlendAllRating
+
+    if rating_mode == "player":
+        if squad_data is None:
+            from .squad_data import load_squads
+            squad_data = load_squads()
+        return PlayerRating(params, squad_data)
+
+    if rating_mode == "blend" and params.blend_player > 0:
+        if squad_data is None:
+            from .squad_data import load_squads
+            squad_data = load_squads()
+        return BlendAllRating(params, squad_data)
+
     return {"elo": EloRating, "fifa": FifaRating, "blend": BlendRating}[rating_mode](params)
 
 
@@ -38,6 +53,7 @@ def run(
     workers: Optional[int] = typer.Option(None, "--workers"),
     ci: bool = typer.Option(True, "--ci/--no-ci"),
     shrinkage: float = typer.Option(1.0, "--shrinkage", help="Rating regression to mean (1.0=none, 0.85=moderate)"),
+    blend_player: float = typer.Option(0.0, "--blend-player", help="Player-value weight in three-way blend (0=disabled)"),
     verbose: bool = typer.Option(False, "-v", "--verbose"),
     quiet: bool = typer.Option(False, "-q", "--quiet"),
 ):
@@ -54,7 +70,7 @@ def run(
     hosts = {"USA", "MEX", "CAN"}
     group_venues = venues.group_venues if venues else None
     knockout_host_iso3 = venues.knockout_venue if venues else None
-    params = Params(shrinkage=shrinkage)
+    params = Params(shrinkage=shrinkage, blend_player=blend_player)
     rating = _make_rating(rating_mode, params)
 
     actual_seed = seed if seed is not None else _random.randint(0, 2**31)
@@ -91,22 +107,19 @@ def match(
     neutral: bool = typer.Option(False, "--neutral"),
     home: Optional[str] = typer.Option(None, "--home"),
     rating_mode: str = typer.Option("elo", "--rating"),
+    blend_player: float = typer.Option(0.0, "--blend-player", help="Player-value weight in three-way blend"),
 ):
     """Print win/draw/loss probabilities for a single match."""
     from .data import load_teams, DEFAULT_TEAMS_PATH
     from .model import predict_match
-    from .ratings.elo import EloRating
-    from .ratings.fifa import FifaRating
-    from .ratings.blend import BlendRating
     from .types import Params
     import sys
     sys.path.insert(0, str(Path(__file__).parent.parent / "spikes" / "01-validation"))
     from name_to_iso3 import to_iso3
 
     teams = load_teams(DEFAULT_TEAMS_PATH)
-    params = Params()
-    rating_cls = {"elo": EloRating, "fifa": FifaRating, "blend": BlendRating}[rating_mode]
-    rating = rating_cls(params)
+    params = Params(blend_player=blend_player)
+    rating = _make_rating(rating_mode, params)
 
     iso_a = to_iso3(team_a)
     iso_b = to_iso3(team_b)

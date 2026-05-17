@@ -9,13 +9,15 @@ from .types import Team, MatchResult, TournamentResult, Params, SimulationResult
 from .ratings.elo import EloRating
 from .ratings.fifa import FifaRating
 from .ratings.blend import BlendRating
+from .ratings.player import PlayerRating
+from .ratings.blend_all import BlendAllRating
 from .model import predict_match, sample_match
 from .tournament import simulate_tournament
 from .sim import run_simulations
 
 __all__ = [
     "Team", "MatchResult", "TournamentResult", "Params", "SimulationResult",
-    "EloRating", "FifaRating", "BlendRating",
+    "EloRating", "FifaRating", "BlendRating", "PlayerRating", "BlendAllRating",
     "predict_match", "sample_match", "simulate_tournament",
     "run_simulations",
 ]
