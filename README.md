@@ -40,15 +40,17 @@ This blends 50% squad market values + 35% Elo + 15% FIFA rankings, with regressi
 ## Sample output
 
 ```
-$ wcsim run -n 100000 --seed 1 --rating blend --blend-player 0.5
+$ wcsim run -n 1000000 --seed 1 --rating blend --blend-player 0.5
 Team         Win     Final        SF        QF       R16       R32  GroupOut
 ----------------------------------------------------------------------------
-ESP        10.3%     17.8%     29.0%     43.7%     64.5%     97.0%      3.0%
-FRA        10.0%     17.1%     28.3%     45.5%     68.8%     94.1%      5.9%
-ARG         8.1%     14.5%     24.6%     38.9%     58.3%     94.0%      6.0%
-ENG         7.9%     14.0%     23.9%     41.8%     65.9%     92.8%      7.2%
-BRA         5.3%     10.0%     18.9%     31.3%     53.1%     90.1%      9.9%
-POR         5.5%     10.5%     19.6%     35.8%     58.9%     90.8%      9.2%
+ESP        10.9%     18.8%     30.3%     45.2%     65.4%     97.4%      2.6%
+FRA        10.3%     17.8%     28.8%     45.5%     68.3%     92.4%      7.6%
+ARG         8.6%     15.4%     26.2%     41.3%     59.0%     94.5%      5.5%
+ENG         8.4%     14.8%     25.1%     43.6%     66.2%     93.1%      6.9%
+BRA         5.8%     10.9%     20.4%     32.2%     54.3%     90.6%      9.4%
+POR         5.8%     11.1%     20.3%     36.0%     58.8%     90.1%      9.9%
+GER         4.9%      9.7%     18.8%     36.3%     58.4%     90.8%      9.2%
+NED         4.9%      9.2%     17.8%     28.8%     50.7%     87.1%     12.9%
 ...
 ```
 
@@ -79,6 +81,36 @@ POR         5.5%     10.5%     19.6%     35.8%     58.9%     90.8%      9.2%
 | `--draw PATH` | bundled | Override draw JSON |
 | `-v, --verbose` | off | Show CIs in table output |
 | `-q, --quiet` | off | Suppress progress messages |
+
+### `wcsim bracket` flags
+
+| Flag | Default | Description |
+|---|---|---|
+| `--seed` | random | RNG seed for the single tournament |
+| `--rating` | elo | Rating mode: `elo`, `fifa`, `blend`, `player` |
+| `--blend-player` | 0.0 | Player-value weight in three-way blend |
+| `--shrinkage` | 1.0 | Rating regression to mean |
+
+### Bracket output example
+
+```
+$ wcsim bracket --seed 682 --rating blend --blend-player 0.5
+
+═══ GROUP STAGE ═══
+  Group A: ●MEX(7pts) ●KOR(4pts) ●CZE(4pts) ○RSA(1pts)
+  Group I: ●FRA(9pts) ●NOR(6pts) ●SEN(3pts) ○IRQ(0pts)
+  ...
+
+═══ KNOCKOUT BRACKET ═══
+  ── SF ──
+    SWE 1-2 FRA  → FRA
+    ESP 0-1 COL  → COL
+
+  ── Final ──
+    FRA 2-1 COL (aet)  → FRA
+
+  ★ CHAMPION: FRA ★
+```
 
 ## Model
 
