@@ -57,6 +57,7 @@ POR         5.5%     10.5%     19.6%     35.8%     58.9%     90.8%      9.2%
 | Command | Description |
 |---|---|
 | `wcsim run` | Run N tournament simulations and output probability table |
+| `wcsim bracket` | Simulate one tournament and display full bracket with scores |
 | `wcsim match A B` | Single-match win/draw/loss probabilities |
 | `wcsim teams` | List loaded teams with Elo ratings |
 | `wcsim version` | Print version |
@@ -175,15 +176,20 @@ Spike 1 validated the model against WC 2018 + 2022 (128 historical matches):
 - **Dixon-Coles structural fix** reduced worst calibration error from 0.21 to 0.058 (73% improvement, within sampling noise at 128 matches)
 - Full sweep results in `spikes/01-validation/results/sweep.json`
 
+## Live report
+
+**https://cyranob.github.io/wc-simulation/** — 1M-simulation probability dashboard + most realistic bracket visualization.
+
 ## Status
 
 - [x] **Spike 1**: Model validation back-test (PRD v1.7, Dixon-Coles)
 - [x] **Spike 2**: Library extraction (types + ratings + model + tournament)
 - [x] **Spike 3**: Monte Carlo runner + CLI (`wcsim run`)
 - [x] **Spike 4**: Player-value rating + three-way blend + official FIFA 2026 bracket
-- [ ] **Spike 5**: Performance optimization + `pyproject.toml` packaging
-- [ ] **Spike 6**: `wcsim bracket` + `wcsim update-ratings`
-- [ ] **Spike 7**: Documentation + PyPI release
+- [x] **Spike 5**: Performance optimization + `pyproject.toml` packaging + `wcsim bracket`
+- [x] **Spike 6**: Correct WC 2026 draw + real Elo ratings + HTML report + GitHub Pages
+- [ ] **Spike 7**: Form/minutes weighting (Player v2) + shrinkage sweep
+- [ ] **Spike 8**: PyPI release
 
 ## License
 
