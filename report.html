@@ -270,6 +270,53 @@ section h2{
 }
 .final-match .w{color:var(--terracotta)}
 
+.difficulty-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:12px;
+}
+.diff-card{
+  background:var(--bg-warm);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:14px 16px;
+  position:relative;
+  overflow:hidden;
+}
+.diff-card .diff-bar{
+  position:absolute;
+  top:0;left:0;height:3px;
+  border-radius:var(--radius) var(--radius) 0 0;
+}
+.diff-card h4{
+  font-family:var(--font-mono);
+  font-size:0.7rem;
+  letter-spacing:0.08em;
+  color:var(--ink-secondary);
+  margin-bottom:6px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.diff-card h4 .tag{
+  font-size:0.6rem;
+  padding:1px 6px;
+  border-radius:3px;
+  background:var(--terracotta-bg);
+  color:var(--terracotta);
+}
+.diff-card .diff-teams{
+  font-size:0.8rem;
+  margin-bottom:8px;
+}
+.diff-card .diff-stats{
+  font-family:var(--font-mono);
+  font-size:0.65rem;
+  color:var(--ink-muted);
+  display:flex;
+  gap:12px;
+}
+
 footer{
   text-align:center;
   padding:48px 24px;
@@ -319,6 +366,12 @@ footer a:hover{text-decoration:underline}
     <table class="stage-table" id="stage-table"></table>
   </div>
   <button class="stage-table-toggle" id="stage-toggle" aria-expanded="false">Show all teams</button>
+</section>
+
+<section id="groups-difficulty-section">
+  <p class="section-label">Which groups are hardest?</p>
+  <h2>Group Difficulty</h2>
+  <div id="groups-difficulty"></div>
 </section>
 
 <section id="bracket-section">
@@ -459,6 +512,36 @@ stageOrder.forEach(stage=>{
   koHTML+='</div></div>';
 });
 koEl.innerHTML=koHTML;
+
+// Group difficulty: ranked by total championship potential (sum of Win%)
+const diffEl=document.getElementById('groups-difficulty');
+const ELO_RATINGS={"MEX":1858,"RSA":1524,"KOR":1752,"CZE":1726,"CAN":1784,"BIH":1594,"QAT":1425,"SUI":1889,"BRA":1984,"MAR":1821,"HAI":1532,"SCO":1767,"USA":1721,"PAR":1833,"AUS":1783,"TUR":1902,"GER":1923,"CUW":1436,"CIV":1676,"ECU":1933,"NED":1961,"JPN":1904,"SWE":1719,"TUN":1636,"BEL":1866,"EGY":1689,"IRN":1760,"NZL":1585,"ESP":2165,"CPV":1549,"SAU":1568,"URU":1892,"FRA":2081,"SEN":1878,"IRQ":1607,"NOR":1912,"ARG":2113,"ALG":1743,"AUT":1827,"JOR":1690,"POR":1984,"COD":1655,"UZB":1727,"COL":1975,"ENG":2020,"CRO":1930,"GHA":1505,"PAN":1737};
+const groupDiff=groupLetters.map(gl=>{
+  const teams=BRACKET.groups[gl].map(t=>t.team);
+  const teamData=teams.map(iso=>{
+    const r=PROBS.rows.find(x=>x.team===iso);
+    return {iso, win:r?r.Win:0, sf:r?r.SF:0, r32:r?r.R32:0, elo:ELO_RATINGS[iso]||1500};
+  });
+  const totalWin=teamData.reduce((s,t)=>s+t.win,0);
+  const totalSF=teamData.reduce((s,t)=>s+t.sf,0);
+  const avgElo=Math.round(teamData.reduce((s,t)=>s+t.elo,0)/4);
+  const sorted=[...teamData].sort((a,b)=>b.win-a.win);
+  return {gl, teams:sorted, totalWin, totalSF, avgElo};
+}).sort((a,b)=>b.totalWin-a.totalWin);
+
+const maxWinG=groupDiff[0].totalWin;
+const tagsList=['Group of Death','Toughest','Very Hard','Hard','','','','','','','Balanced','Easiest'];
+
+let diffHTML='<div class="difficulty-grid">';
+groupDiff.forEach((g,i)=>{
+  const pct=(g.totalWin/maxWinG*100).toFixed(0);
+  const tag=i<4?tagsList[i]:(i>=10?tagsList[i]:'');
+  const tagHtml=tag?'<span class="tag">'+tag+'</span>':'';
+  const teamsHtml=g.teams.map(t=>f(t.iso)+' '+t.iso+' <span style="color:var(--ink-muted)">'+(t.win*100).toFixed(1)+'%</span>').join(' · ');
+  diffHTML+='<div class="diff-card"><div class="diff-bar" style="width:'+pct+'%;background:var(--terracotta)"></div><h4><span>Group '+g.gl+'</span>'+tagHtml+'</h4><div class="diff-teams">'+teamsHtml+'</div><div class="diff-stats"><span>Avg Elo: '+g.avgElo+'</span><span>Total Win%: '+(g.totalWin*100).toFixed(1)+'%</span></div></div>';
+});
+diffHTML+='</div>';
+diffEl.innerHTML=diffHTML;
 </script>
 </body>
 </html>
