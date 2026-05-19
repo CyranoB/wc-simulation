@@ -56,7 +56,7 @@ def main() -> int:
     failures: list[str] = []
     for name in sorted(to_check):
         try:
-            iso3 = to_iso3(name)
+            to_iso3(name)
         except KeyError as e:
             failures.append(f"  {name!r}: {e}")
 

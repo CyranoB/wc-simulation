@@ -1,5 +1,8 @@
 """Tests for tournament structures and the team-count dispatcher."""
 from __future__ import annotations
+import json
+from pathlib import Path
+
 import pytest
 
 
@@ -211,9 +214,6 @@ def test_simulate_tournament_is_deterministic(default_params):
 # WC 2022 / 2026 PIN TESTS (Tasks 19-20)
 # ---------------------------------------------------------------------------
 
-import json
-from pathlib import Path
-
 WC2022_DRAW = {
     "A": ["QAT", "ECU", "SEN", "NED"],
     "B": ["ENG", "IRN", "USA", "WAL"],
@@ -297,11 +297,11 @@ def test_wc_2026_tournament_pin(bundled_elo_history, default_params):
     advancers = frozenset(iso for iso, stage in result.placements.items() if stage != "GroupOut")
     assert len(advancers) == 32  # top 2 per group (24) + 8 best thirds
 
-    # LOCKED (re-pinned after fast Poisson sampling optimization)
-    assert champion == "ENG"
+    # LOCKED (re-pinned after draw correction: BOL/DEN/ITA/JAM/UKR → BIH/COD/CZE/IRQ/SWE)
+    assert champion == "ARG"
     assert advancers == frozenset({
-        "ARG", "AUT", "BEL", "BRA", "CAN", "CIV", "COL", "CRO",
-        "DEN", "ECU", "EGY", "ENG", "ESP", "FRA", "GER", "ITA",
-        "JAM", "KOR", "MAR", "MEX", "NED", "NOR", "NZL", "PAN",
-        "PAR", "SCO", "SEN", "SUI", "UKR", "URU", "USA", "UZB",
+        "ARG", "AUS", "AUT", "BEL", "BIH", "BRA", "CAN", "CIV",
+        "COL", "CPV", "CRO", "EGY", "ENG", "ESP", "FRA", "GER",
+        "HAI", "IRQ", "JPN", "KOR", "MEX", "NED", "NOR", "NZL",
+        "PAN", "PAR", "POR", "SCO", "SUI", "TUN", "TUR", "URU",
     })

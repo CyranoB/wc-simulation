@@ -489,7 +489,6 @@ def simulate_tournament(
     # For WC 2026 bracket assignment: map each qualifying third to its group index
     third_place_groups: list[int] | None = None
     if structure.best_thirds > 0:
-        group_letters = sorted(draw.keys())
         iso3_to_group_idx = {
             iso3: idx for idx, iso3 in enumerate(third_place_iso3s)
         }

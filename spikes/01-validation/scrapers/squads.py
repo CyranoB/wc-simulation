@@ -149,7 +149,7 @@ def main():
 
     low = [(iso3, d) for iso3, d in output["squads"].items() if d["top_n_used"] < 15]
     if low:
-        print(f"\nLow coverage teams (<15 players):")
+        print("\nLow coverage teams (<15 players):")
         for iso3, d in sorted(low):
             print(f"  {iso3}: {d['top_n_used']} players, €{d['total_value_eur']/1e6:.0f}M")
 

@@ -159,7 +159,7 @@ def bracket(
     """Simulate one tournament and display the bracket."""
     from .data import load_teams, load_draw, load_venues, DEFAULT_TEAMS_PATH, DEFAULT_DRAW_PATH
     from .tournament import simulate_tournament
-    from .types import Params, MatchResult
+    from .types import Params
     import random as _random
 
     teams = load_teams(DEFAULT_TEAMS_PATH)
@@ -195,14 +195,18 @@ def bracket(
                 standings[m.away]["gf"] += m.away_goals
                 standings[m.away]["ga"] += m.home_goals
                 if m.home_goals > m.away_goals:
-                    standings[m.home]["w"] += 1; standings[m.home]["pts"] += 3
+                    standings[m.home]["w"] += 1
+                    standings[m.home]["pts"] += 3
                     standings[m.away]["l"] += 1
                 elif m.home_goals < m.away_goals:
-                    standings[m.away]["w"] += 1; standings[m.away]["pts"] += 3
+                    standings[m.away]["w"] += 1
+                    standings[m.away]["pts"] += 3
                     standings[m.home]["l"] += 1
                 else:
-                    standings[m.home]["d"] += 1; standings[m.home]["pts"] += 1
-                    standings[m.away]["d"] += 1; standings[m.away]["pts"] += 1
+                    standings[m.home]["d"] += 1
+                    standings[m.home]["pts"] += 1
+                    standings[m.away]["d"] += 1
+                    standings[m.away]["pts"] += 1
         ranked = sorted(group_teams, key=lambda t: (-standings[t]["pts"], -(standings[t]["gf"]-standings[t]["ga"]), -standings[t]["gf"]))
         typer.echo(f"  Group {gl}: ", nl=False)
         for i, t in enumerate(ranked):
@@ -238,7 +242,7 @@ def bracket(
         m = third_matches[0]
         score = f"{m.home_goals}-{m.away_goals}"
         suffix = " (pens)" if m.went_to_pens else (" (aet)" if m.extra_time else "")
-        typer.echo(f"  ── 3rd Place ──")
+        typer.echo("  ── 3rd Place ──")
         typer.echo(f"    {m.home} {score} {m.away}{suffix}")
         typer.echo("")
 

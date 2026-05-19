@@ -154,7 +154,7 @@ def main() -> int:
                 abs(c["c_elo"] - 300) / 100.0 + abs(c["mu"] - 1.35) + abs(c["rho"]) * 5,
             )
         ranked = sorted(fully, key=closeness)
-        print(f"\nTop 10 fully-passing settings:")
+        print("\nTop 10 fully-passing settings:")
         print(f"  {'c_elo':>5}  {'mu':>5}  {'rho':>6}  {'rps':>7}  {'worst_err':>9}")
         for c in ranked[:10]:
             print(f"  {c['c_elo']:>5}  {c['mu']:>5.2f}  {c['rho']:>+6.3f}  "
@@ -168,13 +168,13 @@ def main() -> int:
         rps_passing = [c for c in grid if c["rps_passes"]]
         print(f"\nNo (c, μ, ρ) setting fully passes. {len(rps_passing)} of {len(grid)} pass the RPS gate.")
         ranked = sorted(rps_passing, key=lambda c: c["worst_decile_err"])
-        print(f"\nTop 5 closest-to-passing (RPS passes; calibration sorted by worst-decile error):")
+        print("\nTop 5 closest-to-passing (RPS passes; calibration sorted by worst-decile error):")
         print(f"  {'c_elo':>5}  {'mu':>5}  {'rho':>6}  {'rps':>7}  {'worst_err':>9}  {'decile':>6}")
         for c in ranked[:5]:
             print(f"  {c['c_elo']:>5}  {c['mu']:>5.2f}  {c['rho']:>+6.3f}  "
                   f"{c['rps_90min']:>7.4f}  {c['worst_decile_err']:>9.4f}  {c['worst_decile_idx']:>6}")
-        print(f"\nCONCLUSION: Dixon-Coles alone is not sufficient. Further structural "
-              f"change required (multiplicative Poisson or larger calibration sample).")
+        print("\nCONCLUSION: Dixon-Coles alone is not sufficient. Further structural "
+              "change required (multiplicative Poisson or larger calibration sample).")
         return 1
 
 

@@ -43,7 +43,7 @@ def test_match_result_required_fields():
 
 
 def test_tournament_result_fields():
-    from wcsim.types import TournamentResult, MatchResult
+    from wcsim.types import TournamentResult
     r = TournamentResult(
         seed=42, rating_mode="elo",
         matches=[],

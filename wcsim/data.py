@@ -17,7 +17,7 @@ DEFAULT_VENUES_PATH = SPIKE_DATA / "wc2026_venues.json"
 _spike_dir = str(Path(__file__).parent.parent / "spikes" / "01-validation")
 if _spike_dir not in sys.path:
     sys.path.insert(0, _spike_dir)
-from name_to_iso3 import to_iso3
+from name_to_iso3 import to_iso3  # noqa: E402
 
 
 def _load_fifa_snapshot(

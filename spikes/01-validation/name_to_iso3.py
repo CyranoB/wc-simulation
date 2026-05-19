@@ -92,7 +92,6 @@ NAME_TO_ISO3: dict[str, str] = {
     "Bosnia and Herzegovina": "BIH",
     "Czech Republic": "CZE",
     "Czechia": "CZE",
-    "Sweden": "SWE",
     "Iraq": "IRQ",
     "DR Congo": "COD",
     "Congo DR": "COD",
