@@ -1,5 +1,4 @@
 """Tests for report formatters and Wilson CI."""
-import math
 
 
 def test_wilson_ci_at_p_half_n_100():

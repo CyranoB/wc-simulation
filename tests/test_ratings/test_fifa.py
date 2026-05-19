@@ -1,7 +1,6 @@
 """Tests for FifaRating. FIFA update: R' = R + I * (W - W_e), no goal-margin multiplier."""
 from __future__ import annotations
 import math
-from datetime import date
 import pytest
 
 

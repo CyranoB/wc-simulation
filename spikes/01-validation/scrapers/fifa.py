@@ -101,7 +101,7 @@ def fetch_ranking(date_id: str) -> dict:
 
 def scrape() -> int:
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    print(f"Fetching FIFA landing page to discover historical date IDs...")
+    print("Fetching FIFA landing page to discover historical date IDs...")
     landing_html = fetch_text(FIFA_LANDING)
     next_data = extract_next_data(landing_html)
     dates = all_ranking_dates(next_data)

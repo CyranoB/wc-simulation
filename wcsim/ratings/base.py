@@ -5,7 +5,7 @@ from __future__ import annotations
 
 from typing import Protocol, runtime_checkable
 
-from ..types import Params, Team
+from ..types import Team
 
 
 @runtime_checkable

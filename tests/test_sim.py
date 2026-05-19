@@ -1,5 +1,4 @@
 """Tests for Monte Carlo simulation engine."""
-import pytest
 
 
 def test_run_simulations_returns_simulation_result(default_params):
