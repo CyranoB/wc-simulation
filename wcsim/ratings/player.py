@@ -51,4 +51,5 @@ class PlayerRating:
         return lam_a, lam_b
 
     def update(self, before: float, expected: float, score_home: int, score_away: int) -> float:
+        del expected, score_home, score_away  # required by RatingSystem Protocol; no-op for player rating
         return before
