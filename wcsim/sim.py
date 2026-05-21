@@ -21,8 +21,8 @@ def _simulate_one(args: tuple) -> tuple[dict[str, str], dict[str, int], dict[str
         rating=rating, params=params, seed=seed_i,
         group_venues=group_venues, knockout_host=knockout_host,
     )
-    gf: dict[str, int] = {iso3: 0 for iso3 in teams}
-    ga: dict[str, int] = {iso3: 0 for iso3 in teams}
+    gf: dict[str, int] = dict.fromkeys(teams, 0)
+    ga: dict[str, int] = dict.fromkeys(teams, 0)
     for m in result.matches:
         gf[m.home] += m.home_goals
         ga[m.home] += m.away_goals

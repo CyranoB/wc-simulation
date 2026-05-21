@@ -268,6 +268,21 @@ def _assign_thirds_to_slots(
     return assignments  # type: ignore[return-value]
 
 
+def _resolve_bracket_source(
+    src: tuple[str, int],
+    group_winners: list[str],
+    group_runners_up: list[str],
+    third_by_slot: list[str],
+) -> str:
+    """Resolve a (source_type, index) bracket slot to an iso3."""
+    source_type, idx = src
+    if source_type == "W":
+        return group_winners[idx]
+    if source_type == "R":
+        return group_runners_up[idx]
+    return third_by_slot[idx]  # "3"
+
+
 def seed_knockout(
     structure: TournamentStructure,
     group_winners: list[str], group_runners_up: list[str],
@@ -291,17 +306,9 @@ def seed_knockout(
         third_by_slot = [group_to_third[g] for g in slot_assignments]
 
         out: list[str] = []
-        for match_type, home_src, away_src in _R32_BRACKET_2026:
-            if home_src[0] == "W":
-                out.append(group_winners[home_src[1]])
-            else:
-                out.append(group_runners_up[home_src[1]])
-            if away_src[0] == "R":
-                out.append(group_runners_up[away_src[1]])
-            elif away_src[0] == "W":
-                out.append(group_winners[away_src[1]])
-            else:
-                out.append(third_by_slot[away_src[1]])
+        for _match_type, home_src, away_src in _R32_BRACKET_2026:
+            out.append(_resolve_bracket_source(home_src, group_winners, group_runners_up, third_by_slot))
+            out.append(_resolve_bracket_source(away_src, group_winners, group_runners_up, third_by_slot))
         if len(out) != 32:
             raise ValueError(f"WC2026 expected 32 slots, got {len(out)}")
         return out
