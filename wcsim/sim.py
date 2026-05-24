@@ -1,6 +1,7 @@
 """Monte Carlo simulation engine. Runs N tournaments in parallel using
 ProcessPoolExecutor with counter-seeded RNG for deterministic output."""
 from __future__ import annotations
+
 import os
 import random as _random
 from collections import defaultdict
@@ -77,7 +78,7 @@ def _compute_probabilities(
         lo: dict[str, float] = {}
         hi: dict[str, float] = {}
         cumulative = 0.0
-        for stage, out_name in zip(stages, output_stages):
+        for stage, out_name in zip(stages, output_stages, strict=True):
             if stage == "GroupOut":
                 p = exclusive[stage]
             else:

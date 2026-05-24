@@ -23,6 +23,7 @@ import sys
 import time
 import urllib.request
 from pathlib import Path
+from urllib.parse import urlparse
 
 # WC participants. Each entry is (eloratings_name, display_name).
 # eloratings_name is the URL slug (underscores for spaces, ASCII only — per
@@ -105,6 +106,7 @@ SNAPSHOTS = [
 ]
 
 ELORATINGS_BASE = "https://www.eloratings.net"
+ELORATINGS_HOST = "www.eloratings.net"
 USER_AGENT = "Mozilla/5.0 (wcsim Spike 1 validation back-test; +eddie@pick.fr)"
 REQUEST_DELAY_S = 0.5  # politeness: one fetch every 0.5s
 HERE = Path(__file__).parent
@@ -123,8 +125,11 @@ def fetch_team_tsv(eloratings_name: str) -> list[list[str]]:
     didn't resolve.
     """
     url = f"{ELORATINGS_BASE}/{eloratings_name}.tsv"
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(req, timeout=30) as resp:
+    parsed = urlparse(url)
+    if parsed.scheme != "https" or parsed.netloc != ELORATINGS_HOST:
+        raise ValueError(f"Unexpected Elo ratings URL: {url}")
+    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})  # noqa: S310
+    with urllib.request.urlopen(req, timeout=30) as resp:  # noqa: S310  # nosemgrep: python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected
         body = resp.read().decode("utf-8", errors="replace")
     return [line.split("\t") for line in body.splitlines() if line]
 
@@ -171,22 +176,18 @@ def infer_team_code(rows: list[list[str]]) -> str:
     return codes.most_common(1)[0][0]
 
 
-def scrape() -> int:
-    """Fetch all required team TSVs, extract pre-WC Elo, write CSV.
-
-    Returns the number of (team, snapshot) rows written. Exit code 0 on
-    success, 1 if any team failed to resolve.
-    """
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    # Dedupe team list — many teams played both WCs; fetch each TSV once.
-    unique_teams: dict[str, str] = {}  # eloratings_name -> display_name
+def unique_snapshot_teams() -> dict[str, str]:
+    """Return eloratings_name -> display_name for every team in all snapshots."""
+    unique_teams: dict[str, str] = {}
     for _, team_list in SNAPSHOTS:
         for elo_name, display in team_list:
             unique_teams[elo_name] = display
-    print(f"Fetching {len(unique_teams)} unique team TSVs from eloratings.net "
-          f"(estimated {len(unique_teams) * REQUEST_DELAY_S:.0f}s with rate-limit)...")
+    return unique_teams
 
-    team_data: dict[str, tuple[list[list[str]], str]] = {}  # elo_name -> (rows, code)
+
+def fetch_all_team_data(unique_teams: dict[str, str]) -> tuple[dict[str, tuple[list[list[str]], str]], list[str]]:
+    """Fetch and infer team codes for all unique Elo team names."""
+    team_data: dict[str, tuple[list[list[str]], str]] = {}
     errors: list[str] = []
     for i, (elo_name, _display) in enumerate(unique_teams.items(), 1):
         try:
@@ -198,13 +199,11 @@ def scrape() -> int:
             errors.append(f"{elo_name}: {e}")
             print(f"  [{i}/{len(unique_teams)}] {elo_name}: FAILED ({e})", file=sys.stderr)
         time.sleep(REQUEST_DELAY_S)
+    return team_data, errors
 
-    if errors:
-        print(f"\n{len(errors)} team(s) failed to fetch:", file=sys.stderr)
-        for e in errors:
-            print(f"  {e}", file=sys.stderr)
-        return 1
 
+def write_elo_history(team_data: dict[str, tuple[list[list[str]], str]]) -> int:
+    """Write the snapshot Elo history CSV and return rows written."""
     rows_written = 0
     with OUTPUT.open("w", newline="") as f:
         w = csv.writer(f)
@@ -222,7 +221,28 @@ def scrape() -> int:
             if missing:
                 print(f"WARNING: no pre-{snapshot_date} match found for: {missing}",
                       file=sys.stderr)
+    return rows_written
 
+
+def scrape() -> int:
+    """Fetch all required team TSVs, extract pre-WC Elo, write CSV.
+
+    Returns the number of (team, snapshot) rows written. Exit code 0 on
+    success, 1 if any team failed to resolve.
+    """
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    unique_teams = unique_snapshot_teams()
+    print(f"Fetching {len(unique_teams)} unique team TSVs from eloratings.net "
+          f"(estimated {len(unique_teams) * REQUEST_DELAY_S:.0f}s with rate-limit)...")
+
+    team_data, errors = fetch_all_team_data(unique_teams)
+    if errors:
+        print(f"\n{len(errors)} team(s) failed to fetch:", file=sys.stderr)
+        for e in errors:
+            print(f"  {e}", file=sys.stderr)
+        return 1
+
+    rows_written = write_elo_history(team_data)
     print(f"\nWrote {rows_written} rows to {OUTPUT}")
     return 0
 

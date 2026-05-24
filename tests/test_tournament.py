@@ -1,5 +1,6 @@
 """Tests for tournament structures and the team-count dispatcher."""
 from __future__ import annotations
+
 import json
 from pathlib import Path
 
@@ -29,12 +30,12 @@ def test_structure_2026_dimensions():
 
 
 def test_structure_for_32_teams():
-    from wcsim.tournament import _structure_for, STRUCTURE_2018_2022
+    from wcsim.tournament import STRUCTURE_2018_2022, _structure_for
     assert _structure_for(32) is STRUCTURE_2018_2022
 
 
 def test_structure_for_48_teams():
-    from wcsim.tournament import _structure_for, STRUCTURE_2026
+    from wcsim.tournament import STRUCTURE_2026, _structure_for
     assert _structure_for(48) is STRUCTURE_2026
 
 
@@ -46,10 +47,11 @@ def test_structure_for_unsupported_raises():
 
 def test_simulate_group_stage_returns_correct_counts(default_params):
     """8 groups × C(4,2) = 48 matches; each team gets position 1-4."""
-    from wcsim.tournament import simulate_group_stage
-    from wcsim.ratings.elo import EloRating
-    from wcsim.types import Team
     import numpy as np
+
+    from wcsim.ratings.elo import EloRating
+    from wcsim.tournament import simulate_group_stage
+    from wcsim.types import Team
 
     teams = {f"T{i:02d}": Team(name=f"T{i:02d}", iso3=f"T{i:02d}",
                                confederation="UNK", elo=1500.0 + i * 10)
@@ -65,7 +67,7 @@ def test_simulate_group_stage_returns_correct_counts(default_params):
     )
     assert len(matches) == 48
     assert len(positions) == 32
-    for iso3, pos in positions.items():
+    for _iso3, pos in positions.items():
         assert pos in {1, 2, 3, 4}
     for g in range(8):
         group_teams = [f"T{g*4+j:02d}" for j in range(4)]
@@ -74,10 +76,11 @@ def test_simulate_group_stage_returns_correct_counts(default_params):
 
 
 def test_simulate_group_stage_is_deterministic(default_params):
-    from wcsim.tournament import simulate_group_stage
-    from wcsim.ratings.elo import EloRating
-    from wcsim.types import Team
     import numpy as np
+
+    from wcsim.ratings.elo import EloRating
+    from wcsim.tournament import simulate_group_stage
+    from wcsim.types import Team
 
     teams = {f"T{i:02d}": Team(name=f"T{i:02d}", iso3=f"T{i:02d}",
                                confederation="UNK", elo=1500.0 + i * 10)
@@ -100,8 +103,9 @@ def test_simulate_group_stage_is_deterministic(default_params):
 
 
 def test_rank_group_sorts_by_points_gd_gf():
-    from wcsim.tournament import _rank_group
     import numpy as np
+
+    from wcsim.tournament import _rank_group
     standings = [
         {"team": "A", "points": 9, "gd": 0, "gf": 5},
         {"team": "B", "points": 4, "gd": 3, "gf": 7},
@@ -114,8 +118,9 @@ def test_rank_group_sorts_by_points_gd_gf():
 
 
 def test_rank_group_gd_breaks_tie():
-    from wcsim.tournament import _rank_group
     import numpy as np
+
+    from wcsim.tournament import _rank_group
     standings = [
         {"team": "A", "points": 6, "gd": 2, "gf": 4},
         {"team": "B", "points": 6, "gd": 5, "gf": 8},
@@ -146,8 +151,8 @@ def test_best_third_place_teams_ranks_correctly():
 
 def test_simulate_tournament_32_teams_end_to_end(default_params):
     """32-team tournament runs and produces 64 matches + 1 champion."""
-    from wcsim.tournament import simulate_tournament
     from wcsim.ratings.elo import EloRating
+    from wcsim.tournament import simulate_tournament
     from wcsim.types import Team
 
     teams = {f"T{i:02d}": Team(name=f"T{i:02d}", iso3=f"T{i:02d}",
@@ -171,8 +176,8 @@ def test_simulate_tournament_32_teams_end_to_end(default_params):
 
 def test_simulate_tournament_48_teams_end_to_end(default_params):
     """48-team tournament runs and produces 103 matches + 1 champion."""
-    from wcsim.tournament import simulate_tournament
     from wcsim.ratings.elo import EloRating
+    from wcsim.tournament import simulate_tournament
     from wcsim.types import Team
 
     teams = {f"T{i:02d}": Team(name=f"T{i:02d}", iso3=f"T{i:02d}",
@@ -194,8 +199,8 @@ def test_simulate_tournament_48_teams_end_to_end(default_params):
 
 
 def test_simulate_tournament_is_deterministic(default_params):
-    from wcsim.tournament import simulate_tournament
     from wcsim.ratings.elo import EloRating
+    from wcsim.tournament import simulate_tournament
     from wcsim.types import Team
 
     teams = {f"T{i:02d}": Team(name=f"T{i:02d}", iso3=f"T{i:02d}",
@@ -228,8 +233,9 @@ WC2022_DRAW = {
 
 def _load_teams_from_elo(bundled_elo_history, snapshot_date: str, iso3_set: set[str]):
     """Build a dict of {iso3: Team} from the bundled Elo CSV for teams in iso3_set."""
-    from wcsim.types import Team
     from name_to_iso3 import to_iso3
+
+    from wcsim.types import Team
 
     df = bundled_elo_history[bundled_elo_history["date"] == snapshot_date]
     teams = {}
@@ -245,8 +251,8 @@ def _load_teams_from_elo(bundled_elo_history, snapshot_date: str, iso3_set: set[
 
 def test_wc_2022_tournament_pin(bundled_elo_history, default_params):
     """Pin the WC 2022 simulation at seed=42."""
-    from wcsim.tournament import simulate_tournament
     from wcsim.ratings.elo import EloRating
+    from wcsim.tournament import simulate_tournament
 
     all_iso3s = {iso3 for group in WC2022_DRAW.values() for iso3 in group}
     teams = _load_teams_from_elo(bundled_elo_history, "2022-11-19", all_iso3s)
@@ -274,8 +280,8 @@ def test_wc_2022_tournament_pin(bundled_elo_history, default_params):
 
 def test_wc_2026_tournament_pin(bundled_elo_history, default_params):
     """Pin the WC 2026 simulation at seed=42."""
-    from wcsim.tournament import simulate_tournament
     from wcsim.ratings.elo import EloRating
+    from wcsim.tournament import simulate_tournament
 
     draw_path = Path(__file__).parent.parent / "spikes" / "01-validation" / "data" / "raw" / "wc2026_draw.json"
     with draw_path.open() as f:

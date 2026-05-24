@@ -1,0 +1,17 @@
+{
+  "include": ["wcsim", "tests"],
+  "exclude": [
+    "**/__pycache__",
+    ".venv",
+    "spikes/01-validation/validate.py"
+  ],
+  "venvPath": ".",
+  "venv": ".venv",
+  "pythonVersion": "3.11",
+  "executionEnvironments": [
+    {
+      "root": ".",
+      "extraPaths": ["spikes/01-validation"]
+    }
+  ]
+}

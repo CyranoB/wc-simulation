@@ -1,6 +1,7 @@
 """Tests for wcsim.types dataclasses."""
 from __future__ import annotations
 
+from dataclasses import FrozenInstanceError
 from datetime import date
 
 import pytest
@@ -9,8 +10,8 @@ import pytest
 def test_team_is_frozen_dataclass():
     from wcsim.types import Team
     t = Team(name="Brazil", iso3="BRA", confederation="CONMEBOL", elo=2141.0)
-    with pytest.raises(Exception):
-        t.elo = 1.0
+    with pytest.raises(FrozenInstanceError):
+        t.elo = 1.0  # pyright: ignore[reportAttributeAccessIssue]
 
 
 def test_team_fifa_fields_default_to_none():
@@ -72,11 +73,12 @@ def test_params_defaults_match_prd_v17():
 
 
 def test_params_is_frozen():
-    from wcsim.types import Params
     import pytest
+
+    from wcsim.types import Params
     p = Params()
-    with pytest.raises(Exception):
-        p.mu = 2.0
+    with pytest.raises(FrozenInstanceError):
+        p.mu = 2.0  # pyright: ignore[reportAttributeAccessIssue]
 
 
 def test_public_api_reexports():

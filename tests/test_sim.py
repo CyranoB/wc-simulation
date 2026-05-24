@@ -2,8 +2,8 @@
 
 
 def test_run_simulations_returns_simulation_result(default_params):
-    from wcsim.sim import run_simulations
     from wcsim.ratings.elo import EloRating
+    from wcsim.sim import run_simulations
     from wcsim.types import Team
     teams = {f"T{i:02d}": Team(name=f"T{i:02d}", iso3=f"T{i:02d}",
                                confederation="UNK", elo=1500.0 + i * 10)
@@ -21,8 +21,8 @@ def test_run_simulations_returns_simulation_result(default_params):
 
 
 def test_run_simulations_deterministic_across_workers(default_params):
-    from wcsim.sim import run_simulations
     from wcsim.ratings.elo import EloRating
+    from wcsim.sim import run_simulations
     from wcsim.types import Team
     teams = {f"T{i:02d}": Team(name=f"T{i:02d}", iso3=f"T{i:02d}",
                                confederation="UNK", elo=1500.0 + i * 10)
@@ -38,8 +38,8 @@ def test_run_simulations_deterministic_across_workers(default_params):
 
 
 def test_run_simulations_probabilities_sum_to_one(default_params):
-    from wcsim.sim import run_simulations
     from wcsim.ratings.elo import EloRating
+    from wcsim.sim import run_simulations
     from wcsim.types import Team
     teams = {f"T{i:02d}": Team(name=f"T{i:02d}", iso3=f"T{i:02d}",
                                confederation="UNK", elo=1500.0 + i * 10)

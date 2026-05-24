@@ -3,8 +3,8 @@ from __future__ import annotations
 
 import pytest
 
-from wcsim.ratings.blend_all import BlendAllRating
 from wcsim.ratings.blend import BlendRating
+from wcsim.ratings.blend_all import BlendAllRating
 from wcsim.ratings.player import PlayerRating
 from wcsim.types import Params, Team
 

@@ -32,8 +32,10 @@ import sys
 import time
 import urllib.request
 from pathlib import Path
+from urllib.parse import urlparse
 
 FIFA_BASE = "https://inside.fifa.com"
+FIFA_HOST = "inside.fifa.com"
 FIFA_LANDING = f"{FIFA_BASE}/fifa-world-ranking/men"
 USER_AGENT = "Mozilla/5.0 (wcsim Spike 1 validation back-test; +eddie@pick.fr)"
 HERE = Path(__file__).parent
@@ -49,8 +51,11 @@ TARGETS = [
 
 
 def fetch_text(url: str) -> str:
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(req, timeout=30) as resp:
+    parsed = urlparse(url)
+    if parsed.scheme != "https" or parsed.netloc != FIFA_HOST:
+        raise ValueError(f"Unexpected FIFA URL: {url}")
+    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})  # noqa: S310
+    with urllib.request.urlopen(req, timeout=30) as resp:  # noqa: S310  # nosemgrep: python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected
         return resp.read().decode("utf-8", errors="replace")
 
 

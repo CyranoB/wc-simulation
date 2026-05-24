@@ -1,10 +1,10 @@
 """Tests for cache.py."""
-from pathlib import Path
 import tempfile
+from pathlib import Path
 
 
 def test_write_and_read_cache():
-    from wcsim.cache import write_cache, read_cache_meta
+    from wcsim.cache import read_cache_meta, write_cache
     from wcsim.types import SimulationResult
     result = SimulationResult(
         n=10, seed=42,

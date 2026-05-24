@@ -1,8 +1,11 @@
 """Cache: persists last-run results for wcsim bracket (future)."""
 from __future__ import annotations
+
 import json
 from pathlib import Path
+
 import pandas as pd
+
 from .types import SimulationResult
 
 DEFAULT_CACHE_DIR = Path.home() / ".wcsim"

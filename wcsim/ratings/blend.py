@@ -4,6 +4,7 @@ Elo-style update to the blended value directly (simplified; the PRD says
 both components update independently, but the single-value Protocol interface
 requires a single before/after value)."""
 from __future__ import annotations
+
 from ..types import Params, Team
 from .elo import EloRating
 

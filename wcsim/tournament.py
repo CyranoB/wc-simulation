@@ -302,7 +302,7 @@ def seed_knockout(
 
         slot_assignments = _assign_thirds_to_slots(third_place_groups)
         # Build iso3 lookup: group_idx -> third-place iso3
-        group_to_third = dict(zip(third_place_groups, best_thirds))
+        group_to_third = dict(zip(third_place_groups, best_thirds, strict=True))
         third_by_slot = [group_to_third[g] for g in slot_assignments]
 
         out: list[str] = []
@@ -323,6 +323,8 @@ def seed_knockout(
 def _match_winner(m: MatchResult) -> str:
     """Determine the winner of a knockout match."""
     if m.went_to_pens:
+        if m.pen_winner is None:
+            raise ValueError("Penalty winner is required when a match goes to penalties")
         return m.pen_winner
     return m.home if m.home_goals > m.away_goals else m.away
 

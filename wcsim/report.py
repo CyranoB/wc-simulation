@@ -1,9 +1,11 @@
 """Report formatters: table, CSV, JSON. Plus Wilson CI computation."""
 from __future__ import annotations
+
 import csv
 import io
 import json
 import math
+
 from .types import SimulationResult
 
 
@@ -60,7 +62,7 @@ def format_csv(result: SimulationResult, include_ci: bool = True) -> str:
     w = csv.DictWriter(buf, fieldnames=fieldnames)
     w.writeheader()
     for iso3 in sorted(result.probabilities.keys()):
-        row_dict: dict = {"team": iso3}
+        row_dict: dict[str, int | str | None] = {"team": iso3}
         for s in stages:
             row_dict[s] = f"{result.probabilities[iso3].get(s, 0):.6f}"
             if include_ci:
@@ -76,10 +78,10 @@ def format_csv(result: SimulationResult, include_ci: bool = True) -> str:
 
 def format_json(result: SimulationResult, meta_det: dict, meta_env: dict, include_ci: bool = True) -> str:
     """JSON with meta blocks + rows."""
-    rows = []
+    rows: list[dict[str, float | str]] = []
     stages = list(next(iter(result.probabilities.values())).keys()) if result.probabilities else []
     for iso3 in sorted(result.probabilities.keys()):
-        row = {"team": iso3}
+        row: dict[str, float | str] = {"team": iso3}
         for s in stages:
             row[s] = result.probabilities[iso3].get(s, 0)
             if include_ci:

@@ -1,19 +1,20 @@
 """CLI entry point using Typer. Run via `python -m wcsim.cli`."""
 from __future__ import annotations
+
 import time
 from pathlib import Path
-from typing import Optional
+
 import typer
 
 app = typer.Typer(name="wcsim", help="Football Tournament Monte Carlo Simulator")
 
 
 def _make_rating(rating_mode: str, params, squad_data=None):
+    from .ratings.blend import BlendRating
+    from .ratings.blend_all import BlendAllRating
     from .ratings.elo import EloRating
     from .ratings.fifa import FifaRating
-    from .ratings.blend import BlendRating
     from .ratings.player import PlayerRating
-    from .ratings.blend_all import BlendAllRating
 
     if rating_mode == "player":
         if squad_data is None:
@@ -31,7 +32,7 @@ def _make_rating(rating_mode: str, params, squad_data=None):
 
 
 def _format_output(result, fmt, out, ci, verbose, actual_seed, n, rating_mode, elapsed):
-    from .report import format_table, format_csv, format_json
+    from .report import format_csv, format_json, format_table
     if fmt == "csv" or (out and str(out).endswith(".csv")):
         return format_csv(result, include_ci=ci)
     if fmt == "json" or (out and str(out).endswith(".json")):
@@ -44,25 +45,30 @@ def _format_output(result, fmt, out, ci, verbose, actual_seed, n, rating_mode, e
 @app.command()
 def run(
     n: int = typer.Option(100_000, "-n", "--simulations"),
-    seed: Optional[int] = typer.Option(None, "--seed"),
-    teams_path: Optional[Path] = typer.Option(None, "--teams"),
-    draw_path: Optional[Path] = typer.Option(None, "--draw"),
+    seed: int | None = typer.Option(None, "--seed"),
+    teams_path: Path | None = typer.Option(None, "--teams"),
+    draw_path: Path | None = typer.Option(None, "--draw"),
     rating_mode: str = typer.Option("elo", "--rating"),
-    out: Optional[Path] = typer.Option(None, "--out"),
+    out: Path | None = typer.Option(None, "--out"),
     fmt: str = typer.Option("table", "--format"),
-    workers: Optional[int] = typer.Option(None, "--workers"),
+    workers: int | None = typer.Option(None, "--workers"),
     ci: bool = typer.Option(True, "--ci/--no-ci"),
     shrinkage: float = typer.Option(1.0, "--shrinkage", help="Rating regression to mean (1.0=none, 0.85=moderate)"),
-    blend_player: float = typer.Option(0.0, "--blend-player", help="Player-value weight in three-way blend (0=disabled)"),
+    blend_player: float = typer.Option(
+        0.0,
+        "--blend-player",
+        help="Player-value weight in three-way blend (0=disabled)",
+    ),
     verbose: bool = typer.Option(False, "-v", "--verbose"),
     quiet: bool = typer.Option(False, "-q", "--quiet"),
 ):
     """Run Monte Carlo tournament simulation."""
-    from .data import load_teams, load_draw, load_venues, DEFAULT_TEAMS_PATH, DEFAULT_DRAW_PATH
-    from .sim import run_simulations
-    from .cache import write_cache
-    from .types import Params
     import random as _random
+
+    from .cache import write_cache
+    from .data import DEFAULT_DRAW_PATH, DEFAULT_TEAMS_PATH, load_draw, load_teams, load_venues
+    from .sim import run_simulations
+    from .types import Params
 
     teams = load_teams(teams_path or DEFAULT_TEAMS_PATH)
     draw = load_draw(draw_path or DEFAULT_DRAW_PATH)
@@ -105,15 +111,16 @@ def match(
     team_a: str = typer.Argument(...),
     team_b: str = typer.Argument(...),
     neutral: bool = typer.Option(False, "--neutral"),
-    home: Optional[str] = typer.Option(None, "--home"),
+    home: str | None = typer.Option(None, "--home"),
     rating_mode: str = typer.Option("elo", "--rating"),
     blend_player: float = typer.Option(0.0, "--blend-player", help="Player-value weight in three-way blend"),
 ):
     """Print win/draw/loss probabilities for a single match."""
-    from .data import load_teams, DEFAULT_TEAMS_PATH
+    import sys
+
+    from .data import DEFAULT_TEAMS_PATH, load_teams
     from .model import predict_match
     from .types import Params
-    import sys
     sys.path.insert(0, str(Path(__file__).parent.parent / "spikes" / "01-validation"))
     from name_to_iso3 import to_iso3
 
@@ -139,9 +146,9 @@ def match(
 
 
 @app.command()
-def teams(teams_path: Optional[Path] = typer.Option(None, "--teams")):
+def teams(teams_path: Path | None = typer.Option(None, "--teams")):
     """List loaded teams with Elo rating."""
-    from .data import load_teams, DEFAULT_TEAMS_PATH
+    from .data import DEFAULT_TEAMS_PATH, load_teams
     all_teams = load_teams(teams_path or DEFAULT_TEAMS_PATH)
     typer.echo(f"{'ISO3':<6}{'Name':<25}{'Elo':>8}")
     typer.echo("-" * 39)
@@ -245,16 +252,17 @@ def _print_third_place(result):
 
 @app.command()
 def bracket(
-    seed: Optional[int] = typer.Option(None, "--seed"),
+    seed: int | None = typer.Option(None, "--seed"),
     rating_mode: str = typer.Option("elo", "--rating"),
     blend_player: float = typer.Option(0.0, "--blend-player"),
     shrinkage: float = typer.Option(1.0, "--shrinkage"),
 ):
     """Simulate one tournament and display the bracket."""
-    from .data import load_teams, load_draw, load_venues, DEFAULT_TEAMS_PATH, DEFAULT_DRAW_PATH
+    import random as _random
+
+    from .data import DEFAULT_DRAW_PATH, DEFAULT_TEAMS_PATH, load_draw, load_teams, load_venues
     from .tournament import simulate_tournament
     from .types import Params
-    import random as _random
 
     teams = load_teams(DEFAULT_TEAMS_PATH)
     draw = load_draw(DEFAULT_DRAW_PATH)

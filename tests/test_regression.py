@@ -49,10 +49,10 @@ def _team_from_dicts(iso3, elo_d, fifa_d):
 @pytest.mark.parametrize("mode", ["elo", "fifa", "blend"])
 def test_predict_match_matches_validate_py(loaded_data, validate_module, mode):
     from wcsim.model import predict_match
-    from wcsim.types import Params
+    from wcsim.ratings.blend import BlendRating
     from wcsim.ratings.elo import EloRating
     from wcsim.ratings.fifa import FifaRating
-    from wcsim.ratings.blend import BlendRating
+    from wcsim.types import Params
 
     rating_cls = {"elo": EloRating, "fifa": FifaRating, "blend": BlendRating}[mode]
 

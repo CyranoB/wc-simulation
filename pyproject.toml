@@ -31,5 +31,39 @@ wcsim = "wcsim.cli:app"
 testpaths = ["tests"]
 addopts = "-q"
 
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "C90", "I", "N", "UP", "B", "S", "SIM", "T20"]
+
+[tool.ruff.lint.per-file-ignores]
+"spikes/**/*.py" = [
+    "S101",  # validation scripts use assert as executable invariants
+    "T201",  # spike scripts are command-line data/validation tools
+]
+"spikes/01-validation/validate.py" = [
+    "N806",  # formulas use uppercase names for model terms
+]
+"spikes/01-validation/tools/sweep.py" = [
+    "N806",  # formulas use uppercase names for model terms
+]
+"tests/**/*.py" = [
+    "S101",  # pytest tests use plain assert
+    "S603",  # subprocess calls execute fixed project commands
+]
+"tests/test_ratings/test_fifa.py" = [
+    "N802",  # FIFA uses uppercase I in the documented rating formula
+]
+"wcsim/cli.py" = [
+    "B008",  # Typer's public API uses Option/Argument in defaults
+    "S311",  # simulation seeds are reproducibility inputs, not secrets
+]
+"wcsim/sim.py" = [
+    "B008",  # default Params is an immutable frozen dataclass
+    "S311",  # simulation seeds are reproducibility inputs, not secrets
+]
+
 [tool.hatch.build.targets.wheel]
 packages = ["wcsim"]
