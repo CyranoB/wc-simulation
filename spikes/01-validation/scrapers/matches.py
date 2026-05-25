@@ -28,19 +28,24 @@ import json
 import sys
 import urllib.request
 from pathlib import Path
+from urllib.parse import urlparse
 
 SOURCES = {
     2018: "https://raw.githubusercontent.com/openfootball/worldcup.json/master/2018/worldcup.json",
     2022: "https://raw.githubusercontent.com/openfootball/worldcup.json/master/2022/worldcup.json",
 }
 USER_AGENT = "Mozilla/5.0 (wcsim Spike 1 validation back-test; +eddie@pick.fr)"
+SOURCE_HOST = "raw.githubusercontent.com"
 HERE = Path(__file__).parent
 OUTPUT = HERE.parent / "data" / "raw" / "matches_history.csv"
 
 
 def fetch_json(url: str) -> dict:
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(req, timeout=30) as resp:
+    parsed = urlparse(url)
+    if parsed.scheme != "https" or parsed.netloc != SOURCE_HOST:
+        raise ValueError(f"Unexpected match data URL: {url}")
+    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})  # noqa: S310
+    with urllib.request.urlopen(req, timeout=30) as resp:  # noqa: S310  # nosemgrep: python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected
         return json.loads(resp.read().decode("utf-8", errors="replace"))
 
 
@@ -68,15 +73,16 @@ def scrape() -> int:
                 ft = score.get("ft") or [None, None]
                 et = score.get("et")  # may be None for non-ET matches
                 final = et if et else ft  # post-ET if it went to ET, else FT
-                if final[0] is None or final[1] is None:
+                home_score, away_score = final
+                if home_score is None or away_score is None:
                     # Future / cancelled match — shouldn't happen for finished WCs.
                     continue
                 w.writerow([
                     m["date"],
                     team_name(m.get("team1")),
                     team_name(m.get("team2")),
-                    int(final[0]),
-                    int(final[1]),
+                    int(home_score),
+                    int(away_score),
                     "FIFA World Cup",
                     (m.get("ground") or {}).get("city", "") if isinstance(m.get("ground"), dict) else "",
                     (m.get("ground") or {}).get("country", "") if isinstance(m.get("ground"), dict) else "",

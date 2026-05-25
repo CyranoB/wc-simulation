@@ -1,6 +1,8 @@
 """Tests for the match model: Poisson PMF, Dixon-Coles τ, predict_match."""
 from __future__ import annotations
+
 import math
+
 import numpy as np
 
 
@@ -57,7 +59,12 @@ def test_predict_match_with_rho_changes_outputs(sample_team_brazil, sample_team_
     from wcsim.ratings.elo import EloRating
     from wcsim.types import Params
     base = predict_match(sample_team_brazil, sample_team_france, rating=EloRating(Params(rho=0.0)))
-    with_rho = predict_match(sample_team_brazil, sample_team_france, rating=EloRating(Params(rho=0.2)), params=Params(rho=0.2))
+    with_rho = predict_match(
+        sample_team_brazil,
+        sample_team_france,
+        rating=EloRating(Params(rho=0.2)),
+        params=Params(rho=0.2),
+    )
     assert not math.isclose(base[1], with_rho[1], abs_tol=1e-6)
 
 
@@ -71,10 +78,11 @@ def test_predict_match_host_bonus_helps_home(sample_team_brazil, sample_team_fra
 
 
 def test_sample_match_returns_match_result(sample_team_brazil, sample_team_france):
+    import numpy as np
+
     from wcsim.model import sample_match
     from wcsim.ratings.elo import EloRating
-    from wcsim.types import Params, MatchResult
-    import numpy as np
+    from wcsim.types import MatchResult, Params
     rng = np.random.default_rng(42)
     m = sample_match(sample_team_brazil, sample_team_france, rating=EloRating(Params()), rng=rng, stage="group")
     assert isinstance(m, MatchResult)
@@ -91,10 +99,11 @@ def test_sample_match_returns_match_result(sample_team_brazil, sample_team_franc
 
 
 def test_sample_match_is_deterministic_with_seed(sample_team_brazil, sample_team_france):
+    import numpy as np
+
     from wcsim.model import sample_match
     from wcsim.ratings.elo import EloRating
     from wcsim.types import Params
-    import numpy as np
     def run(seed):
         rng = np.random.default_rng(seed)
         return sample_match(sample_team_brazil, sample_team_france, rating=EloRating(Params()), rng=rng, stage="group")
@@ -103,10 +112,11 @@ def test_sample_match_is_deterministic_with_seed(sample_team_brazil, sample_team
 
 
 def test_sample_match_knockout_handles_extra_time_when_tied(sample_team_brazil, sample_team_france):
+    import numpy as np
+
     from wcsim.model import sample_match
     from wcsim.ratings.elo import EloRating
     from wcsim.types import Params
-    import numpy as np
     saw_et = False
     for seed in range(100):
         rng = np.random.default_rng(seed)
@@ -119,10 +129,11 @@ def test_sample_match_knockout_handles_extra_time_when_tied(sample_team_brazil, 
 
 
 def test_sample_match_pen_winner_is_one_of_teams(sample_team_brazil, sample_team_france):
+    import numpy as np
+
     from wcsim.model import sample_match
     from wcsim.ratings.elo import EloRating
     from wcsim.types import Params
-    import numpy as np
     for seed in range(300):
         rng = np.random.default_rng(seed)
         m = sample_match(sample_team_brazil, sample_team_france, rating=EloRating(Params()), rng=rng, stage="Final")

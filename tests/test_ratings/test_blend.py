@@ -1,5 +1,6 @@
 """Tests for BlendRating. Blended rating = w*Elo + (1-w)*FIFA*E0/F0, in Elo space."""
 from __future__ import annotations
+
 import math
 
 

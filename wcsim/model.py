@@ -1,6 +1,8 @@
 """Match model: Poisson + Dixon-Coles τ. predict_match + sample_match."""
 from __future__ import annotations
+
 import numpy as np
+
 from .ratings.base import RatingSystem
 from .types import MatchResult, Params, Team
 

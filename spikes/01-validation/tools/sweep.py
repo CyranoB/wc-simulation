@@ -30,9 +30,15 @@ sys.path.insert(0, str(SPIKE_ROOT))
 # Import the data-loading + math helpers from validate.py. validate.py only
 # runs main() when invoked as __main__, so importing is side-effect-free.
 from validate import (  # noqa: E402
-    WC2018, WC2022, HOST_BY_YEAR,
-    load_elo, load_matches,
-    one_hot_90min, rps, calibration_buckets, _outcome_probs,
+    HOST_BY_YEAR,
+    WC2018,
+    WC2022,
+    _outcome_probs,
+    calibration_buckets,
+    load_elo,
+    load_matches,
+    one_hot_90min,
+    rps,
 )
 
 RESULTS = SPIKE_ROOT / "results"
@@ -72,7 +78,7 @@ def evaluate(preds: np.ndarray, y_90: np.ndarray) -> dict:
     mean_p, mean_y, sizes = calibration_buckets(preds, y_90)
     worst_err = 0.0
     worst_dec = -1
-    for i, (p, y, n) in enumerate(zip(mean_p, mean_y, sizes)):
+    for i, (p, y, n) in enumerate(zip(mean_p, mean_y, sizes, strict=True)):
         if n < GATE_CAL_MIN_N or np.isnan(p) or np.isnan(y):
             continue
         err = abs(p - y)
@@ -132,8 +138,11 @@ def main() -> int:
         json.dump({"grid": grid, "gate": {"rps": GATE_RPS, "cal_tolerance": GATE_CAL_TOLERANCE}}, f, indent=2)
 
     fully = [c for c in grid if c["fully_passes"]]
-    print(f"\n{len(fully)} of {len(grid)} cells fully pass "
-          f"(rps_90min < {GATE_RPS} AND every decile with n≥{GATE_CAL_MIN_N} within ±{GATE_CAL_TOLERANCE} of diagonal).")
+    print(
+        f"\n{len(fully)} of {len(grid)} cells fully pass "
+        f"(rps_90min < {GATE_RPS} AND every decile with n≥{GATE_CAL_MIN_N} "
+        f"within ±{GATE_CAL_TOLERANCE} of diagonal).",
+    )
 
     # Current baseline (rho=0 reproduces the v1.6 independent-Poisson result).
     baseline = next(

@@ -1,6 +1,7 @@
 """FIFA Men's World Ranking system per PRD §5.5. Scale S=600, c=450,
 home bonus 150. Update: R' = R + I * (W - W_e) with I = k_fifa (60)."""
 from __future__ import annotations
+
 from ..types import Params, Team
 
 

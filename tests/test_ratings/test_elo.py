@@ -1,5 +1,6 @@
 """Tests for EloRating. Math cross-checked against PRD §5.5."""
 from __future__ import annotations
+
 import math
 
 

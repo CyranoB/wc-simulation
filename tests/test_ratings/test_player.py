@@ -92,8 +92,8 @@ def test_player_lambdas_positive(player_rating):
 
 def test_simulate_tournament_with_player_rating():
     """End-to-end smoke test: player rating produces a champion."""
-    from wcsim.tournament import simulate_tournament
     from wcsim.ratings.player import PlayerRating
+    from wcsim.tournament import simulate_tournament
 
     squad_data = {f"T{i:02d}": {"total_value_eur": (50 - i) * 10_000_000}
                   for i in range(32)}
@@ -115,8 +115,8 @@ def test_simulate_tournament_with_player_rating():
 
 def test_player_final_ratings_unchanged_after_tournament():
     """PlayerRating.update() is a no-op, so final_ratings == initial ratings."""
-    from wcsim.tournament import simulate_tournament
     from wcsim.ratings.player import PlayerRating
+    from wcsim.tournament import simulate_tournament
 
     squad_data = {f"T{i:02d}": {"total_value_eur": (50 - i) * 10_000_000}
                   for i in range(32)}

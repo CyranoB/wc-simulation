@@ -1,5 +1,6 @@
 """Tests for data loaders."""
 from pathlib import Path
+
 import pytest
 
 SPIKE_DATA = Path(__file__).parent.parent / "spikes" / "01-validation" / "data" / "raw"

@@ -12,12 +12,10 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-
 from name_to_iso3 import to_iso3
-
 
 HERE = Path(__file__).parent
 DATA = HERE / "data" / "raw"
@@ -322,7 +320,7 @@ def by_bucket_rps(
     fav_is_home = np.array(fav_is_home)
 
     labels = []
-    for i, m in enumerate(matches):
+    for i, _m in enumerate(matches):
         outcome = int(np.argmax(y_90[i]))   # 0=home, 1=draw, 2=away
         if outcome == 1:
             labels.append("draw")
@@ -423,7 +421,7 @@ def decide(results: dict) -> tuple[str, list[str]]:
 
     # Calibration check: every decile with >= 8 matches within +/- 0.05 of diagonal.
     cal_ok = True
-    for p, y, n in zip(cal["mean_predicted"], cal["mean_observed"], cal["bucket_sizes"]):
+    for p, y, n in zip(cal["mean_predicted"], cal["mean_observed"], cal["bucket_sizes"], strict=True):
         if n is None or n < 8 or p is None or y is None:
             continue
         if abs(p - y) > 0.05:

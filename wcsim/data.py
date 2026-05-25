@@ -1,10 +1,14 @@
 """Data loaders for the CLI. Reads bundled CSVs/JSON into wcsim types."""
 from __future__ import annotations
+
 import json
 import sys
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any, cast
+
 import pandas as pd
+
 from .types import Team
 
 SPIKE_DATA = Path(__file__).parent.parent / "spikes" / "01-validation" / "data" / "raw"
@@ -29,7 +33,7 @@ def _load_fifa_snapshot(
     fifa_ranks: dict[str, int] = {}
     if not fifa_path.exists():
         return fifa_points, fifa_ranks
-    fdf = pd.read_csv(fifa_path)
+    fdf = cast(Any, pd.read_csv(fifa_path))
     fdf["rank_date"] = pd.to_datetime(fdf["rank_date"])
     eligible = fdf[fdf["rank_date"] <= target]
     if eligible.empty:
@@ -61,7 +65,7 @@ def load_teams(
     """Load teams from elo_history.csv + merge FIFA points from fifa_ranking.csv."""
     if not csv_path.exists():
         raise FileNotFoundError(f"Teams file not found: {csv_path}")
-    df = pd.read_csv(csv_path)
+    df = cast(Any, pd.read_csv(csv_path))
     df["date"] = pd.to_datetime(df["date"])
     target = pd.to_datetime(snapshot_date)
     snapshot = df[df["date"] == target]
